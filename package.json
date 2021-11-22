@@ -1,0 +1,27 @@
+{
+  "name": "ear-trainer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "init": "snowpack init"
+  },
+  "author": "Caleb Curtis",
+  "license": "ISC",
+  "devDependencies": {
+    "@snowpack/plugin-postcss": "^1.4.3",
+    "postcss": "^8.3.11",
+    "snowpack": "^3.8.8",
+    "tailwindcss": "^2.2.19"
+  },
+  "dependencies": {
+    "@snowpack/plugin-webpack": "^3.0.0",
+    "@tailwindcss/forms": "^0.3.4",
+    "js-confetti": "^0.9.1",
+    "piano-keys-webcomponent-v0": "^1.0.3",
+    "scribbletune": "^5.0.0-alpha.2",
+    "tone": "^14.7.77"
+  }
+}

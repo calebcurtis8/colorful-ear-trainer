@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, html {
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.input {
+    @apply border rounded-sm border-black pl-2;
+}
+.btn {
+    @apply rounded-lg text-black border-2 border-black px-5 py-3 text-lg active:text-white bg-white active:bg-black;
+}
+
+#background {
+    z-index: -1;
+}
