@@ -8,12 +8,14 @@ class GameArea extends HTMLElement {
         this.streak = 0
         this.correct = 0
         this.total = 0
+        this.late = 0
         this.fire = 10
 
         this.elements = {
             streak: this.querySelector('[data-streak]'),
             correct: this.querySelector('[data-correct]'),
             total: this.querySelector('[data-total]'),
+            late: this.querySelector('[data-late]'),
             gradient: this.querySelector('[data-gradient'),
             background: document.getElementById('background')
         }

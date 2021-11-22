@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@jesperdj/pianokeys": "^1.0.4",
+    "@slime/stopwatch": "^1.0.5",
     "@snowpack/plugin-webpack": "^3.0.0",
     "@tailwindcss/forms": "^0.3.4",
     "js-confetti": "^0.9.1",

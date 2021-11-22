@@ -27,6 +27,9 @@ class DefineUser extends HTMLElement {
     number(input){
         return parseInt(input)
     }
+    float(input){
+        return parseFloat(input)
+    }
     array(input){
         return JSON.parse(input)
     }

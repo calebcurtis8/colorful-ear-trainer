@@ -1,9 +1,3 @@
-
-import "../_snowpack/pkg/piano-keys-webcomponent-v0.js";
-
-import './piano.js'
-import './background.js'
-
 import { Transposer } from './transpose.js'
 import cadence from './cadence.js'
 import random from "./random.js";
@@ -13,6 +7,7 @@ import { removeClassStartsWith } from "./remove-class-starts-with.js"
 import User from './user.js'
 import Gameify from './gameify.js'
 
+const Stopwatch = document.getElementById('Stopwatch')
 export class Game {
     constructor(){
         this.handleAnswer = this.registerAnswer.bind(this)
@@ -37,22 +32,22 @@ export class Game {
         User.selected_notes = this.setOctaves(JSON.parse(JSON.stringify(User.notes)))
         User.notes = this.setOctave(User.notes)
 
-        this.setButtonState('PLAYING', ['from-yellow-400','to-yellow-300'])
+        this.setButtonState('PLAYING', 'bg-yellow-gradient')
         this.playNotes()
+        setTimeout(() => {
+            this.setButtonState('Enter Notes', 'bg-yellow-gradient')
+            document.dispatchEvent(new CustomEvent('gameify:afternotes'))
+        },this.offset * 1000)
     }
     playCadence(){
         this.offset = cadence()
     }
     playNotes(offset = this.offset){
         User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], offset) : null;
-        setTimeout(() => {
-            this.setButtonState('Play Your Answer(s)', ['from-yellow-400','to-yellow-300'])
-        },offset * 1000)
     }
     setButtonState(state, colorClass){
-        removeClassStartsWith(this.playBtn, 'from-')
-        removeClassStartsWith(this.playBtn, 'to-')
-        this.playBtn.classList.add(...colorClass)
+        removeClassStartsWith(this.playBtn, 'bg-')
+        this.playBtn.classList.add(colorClass)
         this.playBtn.innerText = state
     }
     setOctave(arr){
@@ -68,8 +63,14 @@ export class Game {
             this.dispatchUpdateEvent()
             return 
         }
-        Gameify.streak += 1
-        Gameify.correct += 1
+        if(Stopwatch.status == 'success'){
+            Gameify.streak += 1
+            Gameify.correct += 1
+        }
+        if(Stopwatch.status == 'fail'){
+            Gameify.streak = 0
+            Gameify.late += 1
+        }
         Gameify.total += 1
         this.dispatchUpdateEvent()
 
@@ -77,6 +78,7 @@ export class Game {
         
         if(User.notes.length == 0){
             document.removeEventListener('answer', this.handleAnswer)
+            document.dispatchEvent(new CustomEvent('gameify:afteranswer'))
             setTimeout(this.play.bind(this), 350)
         }
     }

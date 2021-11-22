@@ -18,6 +18,7 @@ class PianoPlayer {
     this.piano.addEventListener("click", this.handleListen);
     document.addEventListener("question:start", this.clear.bind(this));
     this.setKeyNames();
+    this.synth = new Tone.Synth().toDestination();
     document.addEventListener("transpose", this.setKeyNames.bind(this));
   }
   setKeyNames() {
@@ -31,9 +32,8 @@ class PianoPlayer {
       return;
     await Tone.start();
     let key = e.target.getAttribute("data-note").split(",")[0];
-    const synth = new Tone.Synth().toDestination();
     let note = this.formatNote(key);
-    synth.triggerAttackRelease(note, "8n");
+    this.synth.triggerAttackRelease(note, "8n");
   }
   listen(e) {
     let key = e.target.getAttribute("data-note").split(",");

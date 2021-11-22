@@ -4,8 +4,10 @@ import User from './user'
 
 let Speed = () => User.get('bpm', 'tempo')
 
-export function play_sequence(seq, offset) {
-    const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+const synth = new Tone.PolySynth(Tone.Synth).toDestination();
+
+export async function play_sequence(seq, offset) {
+    await Tone.start()
     const now = offset ? offset + Tone.now() : Tone.now();
 
     let time = 0

@@ -8,7 +8,7 @@ body, html {
 }
 
 .input {
-    @apply border rounded-lg border-black pl-2 rounded-lg;
+    @apply border rounded-lg border-black pl-2 w-full text-lg;
     min-width: 100px;
 }
 .btn {
@@ -28,4 +28,19 @@ svg rect[data-note]{
 }
 svg rect[data-note][fill="white"]{
     fill: transparent;
+}
+
+.bg-success{
+    @apply bg-gradient-to-b from-green-500 to-green-600;
+}
+.bg-fail{
+    @apply bg-gradient-to-b from-red-500 to-red-600;
+}
+
+.bg-yellow-gradient{
+    @apply bg-gradient-to-r from-yellow-400 to-yellow-300;
+}
+
+.bg-green-gradient {
+    @apply bg-gradient-to-r from-green-300 to-green-200;
 }
