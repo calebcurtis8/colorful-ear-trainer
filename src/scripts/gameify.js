@@ -1,7 +1,7 @@
 import JSConfetti from 'js-confetti'
+import { removeClassStartsWith } from './remove-class-starts-with'
 
 const jsConfetti = new JSConfetti()
-
 class GameArea extends HTMLElement {
     constructor() {
         super()
@@ -18,7 +18,8 @@ class GameArea extends HTMLElement {
             background: document.getElementById('background')
         }
         document.addEventListener('gameify:update', this.update.bind(this))
-        // document.addEventListener('answer', this.timer.bind(this))
+        document.addEventListener('gameify:reward', this.reward.bind(this))
+        document.addEventListener('gameify:punish', this.punish.bind(this))
     }
     update() {
         this.elements.streak.innerText = this.streak
@@ -27,15 +28,38 @@ class GameArea extends HTMLElement {
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
         let ratio = this.streak / this.fire
         this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
-        if (ratio >= 1 && ratio == parseInt(ratio)) {
-            if (ratio == 1) {
-                jsConfetti.addConfetti()
-            } else {
-                jsConfetti.addConfetti({
-                    emojis: ['🔥', '💥']
-                })
-            }
+        if (ratio == 0) {
+            document.dispatchEvent(new CustomEvent('gameify:punish'))
+        } else if (ratio >= 1) {
+            document.dispatchEvent(new CustomEvent('gameify:reward', {
+                detail: {
+                    ratio: ratio,
+                    is_threshold: function () {
+                        return ratio >= 1 && ratio == parseInt(ratio)
+                    }
+                }
+            }))
         }
+    }
+    reward(e) {
+        let ratio = e.detail.ratio
+        let is_threshold = e.detail.is_threshold()
+        if (!is_threshold) return
+        if (ratio == 1) {
+            jsConfetti.addConfetti()
+        } else {
+            jsConfetti.addConfetti({
+                emojis: ['🔥', '💥']
+            })
+        }
+
+    }
+    punish(e) {
+        removeClassStartsWith(this.elements.background, 'duration-')
+        setTimeout( () => {
+            //re-add duration class
+            this.elements.background.classList.add('duration-1000')
+        }, 1000)
     }
 }
 

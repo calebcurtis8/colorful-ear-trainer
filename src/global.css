@@ -8,11 +8,11 @@ body, html {
 }
 
 .input {
-    @apply border rounded-sm border-black pl-2;
+    @apply border rounded-lg border-black pl-2 rounded-lg;
     min-width: 100px;
 }
 .btn {
-    @apply rounded-lg text-black border-2 border-black px-5 py-3 active:text-white active:bg-black font-bold;
+    @apply rounded-lg text-black px-5 py-3 active:text-white active:bg-black font-bold;
 }
 
 #background {
@@ -25,4 +25,7 @@ label {
 
 svg rect[data-note]{
     @apply cursor-pointer;
+}
+svg rect[data-note][fill="white"]{
+    fill: transparent;
 }

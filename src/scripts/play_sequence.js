@@ -10,12 +10,10 @@ export function play_sequence(seq, offset) {
 
     let time = 0
     seq.forEach( chord => {
-        chord.sequence.forEach( note => {
-            synth.triggerAttack(note, now + time);
-        })
         let duration = chord.duration * Speed()
-        synth.triggerRelease(chord.sequence, now + duration + time )
-
+        chord.sequence.forEach( note => {
+            synth.triggerAttackRelease(note, duration, now + time);
+        })
         time += duration
     })
 }

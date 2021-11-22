@@ -13,8 +13,9 @@ class PianoPlayer {
     this.notesDown = [];
     this.handlePlay = this.play.bind(this);
     this.handleListen = this.listen.bind(this);
-    this.piano.addEventListener("click", this.handlePlay);
-    this.piano.addEventListener("click", this.handleListen);
+    this.playback = true;
+    this.piano.addEventListener("mousedown", this.handlePlay);
+    this.piano.addEventListener("mousedown", this.handleListen);
     document.addEventListener("question:start", this.clear.bind(this));
     this.setKeyNames();
     document.addEventListener("transpose", this.setKeyNames.bind(this));
@@ -25,7 +26,10 @@ class PianoPlayer {
       key.setAttribute("data-note", Transposer.noteNames(noteIndex));
     });
   }
-  play(e) {
+  async play(e) {
+    if (!this.playback)
+      return;
+    await Tone.start();
     let key = e.target.getAttribute("data-note").split(",")[0];
     const synth = new Tone.Synth().toDestination();
     let note = this.formatNote(key);
@@ -35,7 +39,7 @@ class PianoPlayer {
     let key = e.target.getAttribute("data-note").split(",");
     let matchKey = false;
     let notes = User.selected_notes || [];
-    let matching = notes.filter((n) => {
+    notes.filter((n) => {
       if (key.indexOf(n[0]) > -1) {
         matchKey = n[0];
         return true;
@@ -43,16 +47,18 @@ class PianoPlayer {
       return false;
     });
     let note = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
+    this.playback = true;
     if (matchKey) {
+      this.playback = false;
       this.piano.removeEventListener("click", this.handlePlay);
       keyboard.fillKey(note);
       this.notesDown.push(note);
       this.piano.addEventListener("click", this.handlePlay);
     } else if (notes.length > 0) {
-      keyboard.fillKey(note, "red");
+      keyboard.fillKey(note, "rgba(185, 28, 28, 1)");
       this.notesDown.push(note);
     } else {
-      keyboard.fillKey(note, "yellow");
+      keyboard.fillKey(note, "#fbbf24");
       setTimeout(function() {
         keyboard.clearKey(note);
       }, 300);

@@ -5,5 +5,12 @@ module.exports = {
         require('@tailwindcss/forms'),
         // ...
     ],
+    theme: {
+        extend: {
+          transitionDuration: {
+           '0': '0ms',
+          }
+        }
+      }
     // specify other options here
   };
