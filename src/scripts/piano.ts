@@ -44,8 +44,9 @@ class PianoPlayer {
         let key = e.target.getAttribute('data-note')
         let notes = User.selected_notes || []
         let note = this.formatNote(key)
-
-        if(notes.indexOf(note) > -1) {
+        let matching = notes.filter( note => note[0] == key)
+        //if octave independent note is a match, highlight it
+        if(matching.length > 0) {
             this.piano.removeEventListener('click', this.handlePlay)
             keyboard.fillKey(note)
             this.notesDown.push(note)
