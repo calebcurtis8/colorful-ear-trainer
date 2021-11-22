@@ -11,7 +11,20 @@
 
 <body class="grid grid-cols-1 sm:grid-cols-4 p-4 gap-4 min-h-screen">
   <div id="background" style="opacity: 0" class="fixed top-0 bottom-0 left-0 right-0 transition-all duration-1000 pointer-events-none opacity-0 bg-gradient-to-r from-green-400 via-pink-500 to-blue-500"></div>
-  <div>
+  <div class="sm:order-1 border-2 border-black p-4">
+    <div class="text-2xl font-bold mb-4">Instructions:</div>
+    <ol class="list-decimal ml-4 space-y-2">
+      <li>On iPhone Deactivate the mute switch</li>
+      <li>When you press play, a I IV V I cadence will play in the selected Key Center</li>
+      <li>Then 1 or more notes will play</li>
+      <li>Play the notes you hear into the keyboard using your finger or mouse</li>
+      <li>Go as fast as possible</li>
+      <li>When you can get many notes correct in a row, increase the difficulty by increasing the number of notes or by increasing the note set. Find a balance.</li>
+      <li>Mess with the options to see what they do!</li>
+      <li>Email me with suggestions: caleb@calebcurtis.com</li>
+    </ol>
+  </div>
+  <div class="border-2 border-black p-4">
     <define-user id="User">
       <form class="space-y-4">
         <key-selector class="space-y-4">
@@ -49,27 +62,29 @@
         </key-selector>
         <div>
           <label for="NoteCount">Number of Notes:</label>
-          <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input">
-        </div>
-        <div>
-          <label for="Octave">Octave:</label>
-          <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input">
+          <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input" inputmode="decimal">
         </div>
         <div>
           <label for="Spread">Octave Spread:</label>
-          <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input">
+          <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input" inputmode="decimal">
         </div>
         <div>
-          <label for="Bpm">Tempo:</label>
-          <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input">
+          <label for="Bpm">Tempo (BPM):</label>
+          <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
+        </div>
+        <div>
+          <label for="Octave">Octave:</label>
+          <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input" inputmode="decimal">
         </div>
       </form>
     </define-user>
 
     <div class="my-4 flex flex-col space-y-4">
-      <button id="Play" class="btn">PLAY</button>
-      <button id="PlayCadence" class="btn">PLAY Cadence</button>
-      <button id="PlayNotes" class="btn">PLAY Notes</button>
+      <button id="Play" class="btn bg-green-400 text-lg">PLAY</button>
+      <div class="grid grid-cols-2 gap-4">
+        <button id="PlayCadence" class="btn bg-white">Play Cadence</button>
+        <button id="PlayNotes" class="btn bg-white">Play Notes</button>
+      </div>
     </div>
   </div>
   <div class="sm:col-span-2">
