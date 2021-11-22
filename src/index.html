@@ -14,24 +14,39 @@
   <div>
     <define-user id="User">
       <form class="space-y-4">
+        <key-selector class="space-y-4">
         <div>
-          <label for="UserName">Name:</label>
-          <input type="text" name="name" id="UserName" class="border rounded-sm border-black p-2" autocomplete="off">
+          <label for="KeyCenter">Key Center:</label>
+          <select name="keycenter" id="KeyCenter" class="input">
+            <option value='0' selected>C</option>
+            <option value='1'>Db</option>
+            <option value='2'>D</option>
+            <option value='3'>Eb</option>
+            <option value='4'>E</option>
+            <option value='5'>F</option>
+            <option value='6'>Gb</option>
+            <option value='7'>G</option>
+            <option value='8'>Ab</option>
+            <option value='9'>A</option>
+            <option value='10'>Bb</option>
+            <option value='11'>B</option>
+          </select>
         </div>
         <div>
           <label for="NoteSet">Note Set:</label>
-          <select name="set" id="NoteSet" class="input">
-            <option value='["C","G"]'>C | G</option>
-            <option value='["C","E","G"]'>C | E | G</option>
-            <option value='["C","E","G","B"]'>C | E | G | B</option>
-            <option value='["C","D","E","F","G","A","B"]' selected>Diatonic</option>
-            <option value='["C","D","E","F","G","A","Bb","B"]'>Diatonic + Bb</option>
-            <option value='["C","D","Eb","E","F","G","A","Bb","B"]'>Diatonic + Bb + Eb</option>
-            <option value='["C","D","Eb","E","F","G","Ab","A","Bb","B"]'>Diatonic + Bb + Eb + Ab</option>
-            <option value='["C","Db","D","Eb","E","F","G","Ab","A","Bb","B"]'>Diatonic + Bb + Eb + Ab + Db</option>
-            <option value='["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"]'>Chromatic</option>
-          </select>
-        </div>
+            <select name="set" id="NoteSet" class="input">
+              <option value='[0,7]' data-template="{0} | {4}">C | G</option>
+              <option value='[0,4,7]' data-template="{0} | {4} | {7}">C | E | G</option>
+              <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}">C | E | G | B</option>
+              <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic">Diatonic</option>
+              <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}">Diatonic + Bb</option>
+              <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}">Diatonic + Bb + Eb</option>
+              <option value='[0,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8}">Diatonic + Bb + Eb + Ab</option>
+              <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}">Diatonic + Bb + Eb + Ab + Db</option>
+              <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic">Chromatic</option>
+            </select>
+          </div>
+        </key-selector>
         <div>
           <label for="NoteCount">Number of Notes:</label>
           <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input">

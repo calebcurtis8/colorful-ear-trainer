@@ -787,9 +787,6 @@ select {
 	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
-.rounded-sm {
-	border-radius: 0.125rem;
-}
 .border {
 	border-width: 1px;
 }
@@ -820,9 +817,6 @@ select {
 }
 .p-4 {
 	padding: 1rem;
-}
-.p-2 {
-	padding: 0.5rem;
 }
 .py-4 {
 	padding-top: 1rem;

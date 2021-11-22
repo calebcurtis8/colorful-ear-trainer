@@ -2,31 +2,27 @@ import { play_sequence } from './play_sequence'
 
 import User from './user'
 
-let octave = User.get('octave','number')
+import { Transposer } from './transpose'
+
+function formatChord(chord){
+    return Transposer.transpose(chord).map( note => `${note}${User.get('octave','number')}` )
+}
 
 let Cadence = () => [
     {
-        sequence: [
-            `C${octave}`,`E${octave}`,`G${octave}`
-        ],
+        sequence: formatChord([ 0,4,7 ]),
         duration: 2,
     },
     {
-        sequence: [
-            `C${octave}`,`F${octave}`,`A${octave}`
-        ],
+        sequence: formatChord([ 0,5,9 ]),
         duration: 1,
     },
     {
-        sequence: [
-            `D${octave}`,`G${octave}`,`B${octave}`
-        ],
+        sequence: formatChord([ 2,7,11 ]),
         duration: 1,
     },
     {
-        sequence: [
-            `C${octave}`,`E${octave}`,`G${octave}`
-        ],
+        sequence: formatChord([ 0,4,7 ]),
         duration: 2,
     }
 ]

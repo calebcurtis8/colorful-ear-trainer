@@ -6,7 +6,7 @@ import User from './user'
 
 const piano = document.getElementById("piano");
 
-const notes = ["C","Db","D","Eb","E","F","Gb","G","Ab", "A","Bb","B"]
+import { Transposer } from './transpose';
 
 const keyboard = new PianoKeys.Keyboard(piano, {
     lowest: `C${ User.get('octave', 'number') }`,
@@ -26,13 +26,18 @@ class PianoPlayer {
         this.piano.addEventListener('click', this.handleListen)
         document.addEventListener('question:start', this.clear.bind(this))
 
+        this.setKeyNames()
+
+        document.addEventListener('transpose', this.setKeyNames.bind(this))
+    }
+    setKeyNames(){
         keyboard._keys.forEach( (key, i) => {
             let noteIndex = i - (User.get('octave', 'number') * 12)
-            key.setAttribute('data-note', notes[noteIndex])
+            key.setAttribute('data-note', Transposer.noteNames(noteIndex))
         })
     }
     play(e) {
-        let key = e.target.getAttribute('data-note')
+        let key = e.target.getAttribute('data-note').split(',')[0]
         const synth = new Tone.Synth().toDestination();
 
         //play the note for the duration of an 8th note
@@ -41,12 +46,19 @@ class PianoPlayer {
         synth.triggerAttackRelease(note, "8n");        
     }
     listen(e){
-        let key = e.target.getAttribute('data-note')
+        let key = e.target.getAttribute('data-note').split(',')
+        let matchKey = false
         let notes = User.selected_notes || []
-        let note = this.formatNote(key)
-        let matching = notes.filter( note => note[0] == key)
+        let matching = notes.filter( n => {
+            if(key.indexOf(n[0]) > -1){
+                matchKey = n[0]
+                return true
+            }
+            return false
+        })
+        let note = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
         //if octave independent note is a match, highlight it
-        if(matching.length > 0) {
+        if(matchKey) {
             this.piano.removeEventListener('click', this.handlePlay)
             keyboard.fillKey(note)
             this.notesDown.push(note)

@@ -9,6 +9,7 @@ class DefineUser extends HTMLElement {
             let name = input.getAttribute('name')
             let value = this.storage[name]
             if(value) input.value = value
+            input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
             this.set(name, input.value)
         })
     }

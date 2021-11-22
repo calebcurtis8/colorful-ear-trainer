@@ -3,6 +3,7 @@ import "piano-keys-webcomponent-v0";
 
 import './piano'
 
+import { Transposer } from './transpose'
 import cadence from './cadence'
 import random from "./random";
 import { play_sequence } from './play_sequence'
@@ -25,7 +26,8 @@ export class Game {
         //clears the piano
         document.dispatchEvent(new CustomEvent('question:start'))
         //notes which the user must answer
-        User.notes = random(User.get('note_count','number'), User.get('set', 'array'))
+        let noteSet = Transposer.transpose(User.get('set', 'array'))
+        User.notes = random(User.get('note_count','number'), noteSet)
         //duplicate to remember which were selected
         User.selected_notes = this.setOctaves(JSON.parse(JSON.stringify(User.notes)))
         User.notes = this.setOctave(User.notes)
