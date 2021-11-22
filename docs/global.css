@@ -739,6 +739,9 @@ select {
 	margin-top: 1rem;
 	margin-bottom: 1rem;
 }
+.mb-4 {
+	margin-bottom: 1rem;
+}
 .flex {
 	display: flex;
 }
@@ -870,6 +873,7 @@ body, html {
 	padding-bottom: 0.75rem;
 	font-size: 1.125rem;
 	line-height: 1.75rem;
+	font-weight: 700;
 	--tw-text-opacity: 1;
 	color: rgba(0, 0, 0, var(--tw-text-opacity));
 }
@@ -882,6 +886,10 @@ body, html {
 
 #background {
     z-index: -1;
+}
+
+svg rect[data-note] {
+	cursor: pointer;
 }
 
 @media (min-width: 640px) {

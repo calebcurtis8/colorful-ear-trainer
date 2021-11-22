@@ -11,9 +11,13 @@ body, html {
     @apply border rounded-sm border-black pl-2;
 }
 .btn {
-    @apply rounded-lg text-black border-2 border-black px-5 py-3 text-lg active:text-white bg-white active:bg-black;
+    @apply rounded-lg text-black border-2 border-black px-5 py-3 text-lg active:text-white bg-white active:bg-black font-bold;
 }
 
 #background {
     z-index: -1;
+}
+
+svg rect[data-note]{
+    @apply cursor-pointer;
 }

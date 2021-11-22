@@ -47,13 +47,13 @@ export class Game {
     registerAnswer(e){
         if(User.notes.indexOf(e.detail) == -1){
             Gameify.streak = 0
-            Gameify.total += User.get('note_count','number')
+            Gameify.total += 1
             this.dispatchUpdateEvent()
             return 
         }
         Gameify.streak += 1
         Gameify.correct += 1
-        Gameify.total += User.get('note_count','number')
+        Gameify.total += 1
         this.dispatchUpdateEvent()
 
         User.notes.splice(User.notes.indexOf(e.detail), 1)

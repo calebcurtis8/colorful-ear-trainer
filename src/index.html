@@ -7,11 +7,6 @@
   <meta name="description" content="Ear Training WD# Game" />
   <title>Ear Trainer Timer</title>
   <link rel="stylesheet" href="global.css">
-  <style>
-    #piano::shadow svg [data-note="C"]{
-        fill: blue;
-    }
-  </style>
 </head>
 
 <body class="grid grid-cols-1 sm:grid-cols-4 p-4 gap-4 min-h-screen">
@@ -30,11 +25,11 @@
             <option value='["C","E","G"]'>C | E | G</option>
             <option value='["C","E","G","B"]'>C | E | G</option>
             <option value='["C","D","E","F","G","A","B"]' selected>Diatonic</option>
-            <option value='["C","D","E","F","G","A","A#","B"]'>Diatonic + Bb</option>
-            <option value='["C","D","D#","E","F","G","A","A#","B"]'>Diatonic + Bb + Eb</option>
-            <option value='["C","D","D#","E","F","G","G#", "A","A#","B"]'>Diatonic + Bb + Eb + Ab</option>
-            <option value='["C","C#","D","D#","E","F","G","G#", "A","A#","B"]'>Diatonic + Bb + Eb + Ab + Db</option>
-            <option value='["C","C#","D","D#","E","F","F#","G","G#", "A","A#","B"]'>Chromatic</option>
+            <option value='["C","D","E","F","G","A","Bb","B"]'>Diatonic + Bb</option>
+            <option value='["C","D","Eb","E","F","G","A","Bb","B"]'>Diatonic + Bb + Eb</option>
+            <option value='["C","D","Eb","E","F","G","Ab","A","Bb","B"]'>Diatonic + Bb + Eb + Ab</option>
+            <option value='["C","Db","D","Eb","E","F","G","Ab","A","Bb","B"]'>Diatonic + Bb + Eb + Ab + Db</option>
+            <option value='["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"]'>Chromatic</option>
           </select>
         </div>
         <div>
@@ -63,7 +58,7 @@
     </div>
   </div>
   <div class="sm:col-span-2">
-    <piano-keys id="piano" keyboard-layout="C" key-count=12></piano-keys>
+    <div id="piano" class="mb-4"></div>
     <game-area id="Gameify" class="grid grid-cols-2 text-center text-white border border-black gap-4 py-4 relative">
       <div class="z-10">
         <div class="text-xl">Streak</div>
