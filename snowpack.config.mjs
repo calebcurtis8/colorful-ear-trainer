@@ -8,7 +8,7 @@ export default {
   },
  
   buildOptions: {
-    baseUrl: '/colorful-ear-trainer',
+    baseUrl: './',
     out: './docs',
   },
   devOptions: {
