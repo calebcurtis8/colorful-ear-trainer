@@ -3,7 +3,7 @@ import JSConfetti from 'js-confetti'
 const jsConfetti = new JSConfetti()
 
 class GameArea extends HTMLElement {
-    constructor(){
+    constructor() {
         super()
         this.streak = 0
         this.correct = 0
@@ -20,14 +20,21 @@ class GameArea extends HTMLElement {
         document.addEventListener('gameify:update', this.update.bind(this))
         // document.addEventListener('answer', this.timer.bind(this))
     }
-    update(){
+    update() {
         this.elements.streak.innerText = this.streak
         this.elements.correct.innerText = this.correct
         this.elements.total.innerText = this.total
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
-        this.elements.background.style.opacity = this.streak / this.fire
-        if(this.streak >= this.fire){
-            jsConfetti.addConfetti()
+        let ratio = this.streak / this.fire
+        this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
+        if (ratio >= 1 && ratio == parseInt(ratio)) {
+            if (ratio == 1) {
+                jsConfetti.addConfetti()
+            } else {
+                jsConfetti.addConfetti({
+                    emojis: ['🔥', '💥']
+                })
+            }
         }
     }
 }

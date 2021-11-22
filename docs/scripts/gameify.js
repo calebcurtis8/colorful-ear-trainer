@@ -25,9 +25,16 @@ class GameArea extends HTMLElement {
         this.elements.correct.innerText = this.correct
         this.elements.total.innerText = this.total
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
-        this.elements.background.style.opacity = this.streak / this.fire
-        if(this.streak >= this.fire){
-            jsConfetti.addConfetti()
+        let ratio = this.streak / this.fire
+        this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
+        if(ratio >= 1 && ratio == parseInt(ratio)){
+            if(ratio == 1){
+                jsConfetti.addConfetti()
+            } else {
+                jsConfetti.addConfetti({
+                    emojis: ['🔥','💥']
+                 })
+            }
         }
     }
 }
