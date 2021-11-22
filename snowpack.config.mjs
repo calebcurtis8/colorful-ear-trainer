@@ -4,8 +4,12 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
   mount: {
-    public: { url: '/', static: true },
-    src: { url: '/dist' },
+    src: '/',
+  },
+ 
+  buildOptions: {
+    baseUrl: '/colorful-ear-trainer',
+    out: './docs',
   },
   devOptions: {
     tailwindConfig: './tailwind.config.js',
