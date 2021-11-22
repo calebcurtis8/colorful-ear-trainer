@@ -58,6 +58,7 @@ class GameArea extends HTMLElement {
     }
     punish(e) {
         removeClassStartsWith(this.elements.background, 'duration-')
+        this.elements.background.style.opacity = 0
         setTimeout( () => {
             //re-add duration class
             this.elements.background.classList.add('duration-1000')
