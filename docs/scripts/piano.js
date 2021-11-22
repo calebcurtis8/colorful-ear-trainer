@@ -31,7 +31,8 @@ class PianoPlayer {
     let key = e.target.getAttribute("data-note");
     let notes2 = User.selected_notes || [];
     let note = this.formatNote(key);
-    if (notes2.indexOf(note) > -1) {
+    let matching = notes2.filter((note2) => note2[0] == key);
+    if (matching.length > 0) {
       this.piano.removeEventListener("click", this.handlePlay);
       keyboard.fillKey(note);
       this.notesDown.push(note);

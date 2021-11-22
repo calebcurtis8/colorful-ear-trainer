@@ -1,10 +1,8 @@
 export default function random( count = 1, set = ["C","D","E","F","G","A","B"]){
     let selected_notes = []
-    for (let index = 0; index < count; index++) {
-        let random = Math.floor(Math.random() * set.length)
-        selected_notes.push(set[random])
-        //remove from our set so our next random note is not the same
-        set.splice(random, 1)
+    while(selected_notes.length < count){
+        var r = Math.floor(Math.random() * set.length);
+        if(selected_notes.indexOf(set[r]) === -1) selected_notes.push(set[r]);
     }
     return selected_notes
 }

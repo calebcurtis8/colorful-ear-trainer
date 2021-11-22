@@ -36,13 +36,13 @@ export class Game {
         this.offset = cadence()
     }
     playNotes(offset = this.offset){
-        User.selected_notes ? play_sequence([{ sequence: User.selected_notes, duration: 1 }], offset) : null;
+        User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], offset) : null;
     }
     setOctave(arr){
         return arr.map( note => `${note}${User.get('octave', 'number')}` )
     }
     setOctaves(arr){
-        return arr.map( note => `${note}${User.get('octave', 'number') + Math.floor(Math.random() * User.get('spread','number'))}`)
+        return arr.map( note => [note,`${User.get('octave', 'number') + Math.floor(Math.random() * User.get('spread','number'))}`])
     }
     registerAnswer(e){
         if(User.notes.indexOf(e.detail) == -1){
