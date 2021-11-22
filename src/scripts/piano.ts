@@ -23,8 +23,8 @@ class PianoPlayer {
         this.handleListen = this.listen.bind(this)
         this.playback = true
         
-        this.piano.addEventListener('mousedown', this.handlePlay)
-        this.piano.addEventListener('mousedown', this.handleListen)
+        this.piano.addEventListener('click', this.handlePlay)
+        this.piano.addEventListener('click', this.handleListen)
         document.addEventListener('question:start', this.clear.bind(this))
 
         this.setKeyNames()
@@ -60,10 +60,8 @@ class PianoPlayer {
             return false
         })
         let note = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
-        this.playback = true
         //if octave independent note is a match, highlight it
         if(matchKey) {
-            this.playback = false
             this.piano.removeEventListener('click', this.handlePlay)
             keyboard.fillKey(note)
             this.notesDown.push(note)
