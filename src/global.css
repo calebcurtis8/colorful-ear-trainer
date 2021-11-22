@@ -9,6 +9,7 @@ body, html {
 
 .input {
     @apply border rounded-sm border-black pl-2;
+    min-width: 100px;
 }
 .btn {
     @apply rounded-lg text-black border-2 border-black px-5 py-3 active:text-white active:bg-black font-bold;

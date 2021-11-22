@@ -752,6 +752,9 @@ select {
 .mb-4 {
 	margin-bottom: 1rem;
 }
+.ml-4 {
+	margin-left: 1rem;
+}
 .flex {
 	display: flex;
 }
@@ -763,6 +766,12 @@ select {
 }
 .min-h-screen {
 	min-height: 100vh;
+}
+.w-full {
+	width: 100%;
+}
+.list-decimal {
+	list-style-type: decimal;
 }
 .grid-cols-1 {
 	grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -782,17 +791,36 @@ select {
 .gap-4 {
 	gap: 1rem;
 }
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
+.border-2 {
+	border-width: 2px;
+}
 .border {
 	border-width: 1px;
+}
+.border-b-2 {
+	border-bottom-width: 2px;
 }
 .border-black {
 	--tw-border-opacity: 1;
 	border-color: rgba(0, 0, 0, var(--tw-border-opacity));
+}
+.bg-green-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+}
+.bg-white {
+	--tw-bg-opacity: 1;
+	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 }
 .bg-red-600 {
 	--tw-bg-opacity: 1;
@@ -822,16 +850,19 @@ select {
 	padding-top: 1rem;
 	padding-bottom: 1rem;
 }
+.pb-4 {
+	padding-bottom: 1rem;
+}
 .text-center {
 	text-align: center;
-}
-.text-xl {
-	font-size: 1.25rem;
-	line-height: 1.75rem;
 }
 .text-2xl {
 	font-size: 1.5rem;
 	line-height: 2rem;
+}
+.text-xl {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
 }
 .font-bold {
 	font-weight: 700;
@@ -866,20 +897,17 @@ body, html {
 	--tw-border-opacity: 1;
 	border-color: rgba(0, 0, 0, var(--tw-border-opacity));
 	padding-left: 0.5rem;
+    min-width: 100px;
 }
 .btn {
 	border-radius: 0.5rem;
 	border-width: 2px;
 	--tw-border-opacity: 1;
 	border-color: rgba(0, 0, 0, var(--tw-border-opacity));
-	--tw-bg-opacity: 1;
-	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 	padding-left: 1.25rem;
 	padding-right: 1.25rem;
 	padding-top: 0.75rem;
 	padding-bottom: 0.75rem;
-	font-size: 1.125rem;
-	line-height: 1.75rem;
 	font-weight: 700;
 	--tw-text-opacity: 1;
 	color: rgba(0, 0, 0, var(--tw-text-opacity));
@@ -895,11 +923,21 @@ body, html {
     z-index: -1;
 }
 
+label {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+}
+
 svg rect[data-note] {
 	cursor: pointer;
 }
 
 @media (min-width: 640px) {
+
+	.sm\:order-1 {
+		order: 1;
+	}
 
 	.sm\:col-span-2 {
 		grid-column: span 2 / span 2;

@@ -12,19 +12,20 @@
 <body class="grid grid-cols-1 sm:grid-cols-4 p-4 gap-4 min-h-screen">
   <div id="background" style="opacity: 0" class="fixed top-0 bottom-0 left-0 right-0 transition-all duration-1000 pointer-events-none opacity-0 bg-gradient-to-r from-green-400 via-pink-500 to-blue-500"></div>
   <div class="sm:order-1 border-2 border-black p-4">
-    <div class="text-2xl font-bold mb-4">Instructions:</div>
+    <div class="text-2xl font-bold mb-4 pb-4 border-b-2 border-black">Instructions:</div>
     <ol class="list-decimal ml-4 space-y-2">
-      <li>On iPhone Deactivate the mute switch</li>
-      <li>When you press play, a I IV V I cadence will play in the selected Key Center</li>
-      <li>Then 1 or more notes will play</li>
+      <li>On iPhone deactivate the mute switch</li>
+      <li>Press PLAY, a I IV V I cadence will sound in the selected Key Center</li>
+      <li>1 or more notes will play</li>
       <li>Play the notes you hear into the keyboard using your finger or mouse</li>
       <li>Go as fast as possible</li>
-      <li>When you can get many notes correct in a row, increase the difficulty by increasing the number of notes or by increasing the note set. Find a balance.</li>
+      <li>When it becomes easy, increase the difficulty by increasing the number of notes or by increasing the note set. Find a balance.</li>
       <li>Mess with the options to see what they do!</li>
-      <li>Email me with suggestions: caleb@calebcurtis.com</li>
+      <li>Email me with suggestions: <a href="mailto:caleb@calebcurtis.com">caleb@calebcurtis.com</a></li>
     </ol>
   </div>
   <div class="border-2 border-black p-4">
+    <div class="font-bold text-2xl mb-4 pb-4 border-b-2 border-black">Options:</div>
     <define-user id="User">
       <form class="space-y-4">
         <key-selector class="space-y-4">
@@ -47,7 +48,7 @@
         </div>
         <div>
           <label for="NoteSet">Note Set:</label>
-            <select name="set" id="NoteSet" class="input">
+            <select name="set" id="NoteSet" class="input w-full">
               <option value='[0,7]' data-template="{0} | {4}">C | G</option>
               <option value='[0,4,7]' data-template="{0} | {4} | {7}">C | E | G</option>
               <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}">C | E | G | B</option>
@@ -60,30 +61,32 @@
             </select>
           </div>
         </key-selector>
-        <div>
-          <label for="NoteCount">Number of Notes:</label>
-          <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input" inputmode="decimal">
-        </div>
-        <div>
-          <label for="Spread">Octave Spread:</label>
-          <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input" inputmode="decimal">
-        </div>
-        <div>
-          <label for="Bpm">Tempo (BPM):</label>
-          <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
-        </div>
-        <div>
-          <label for="Octave">Octave:</label>
-          <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input" inputmode="decimal">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="NoteCount">Number of Notes:</label>
+            <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input" inputmode="decimal">
+          </div>
+          <div>
+            <label for="Spread">Octave Spread:</label>
+            <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input" inputmode="decimal">
+          </div>
+          <div>
+            <label for="Bpm">Tempo (BPM):</label>
+            <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
+          </div>
+          <div>
+            <label for="Octave">Octave:</label>
+            <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input" inputmode="decimal">
+          </div>
         </div>
       </form>
     </define-user>
 
     <div class="my-4 flex flex-col space-y-4">
-      <button id="Play" class="btn bg-green-400 text-lg">PLAY</button>
+      <button id="Play" class="btn bg-green-400 text-xl">PLAY</button>
       <div class="grid grid-cols-2 gap-4">
-        <button id="PlayCadence" class="btn bg-white">Play Cadence</button>
-        <button id="PlayNotes" class="btn bg-white">Play Notes</button>
+        <button id="PlayCadence" class="btn bg-white">Replay Cadence</button>
+        <button id="PlayNotes" class="btn bg-white">Replay Notes</button>
       </div>
     </div>
   </div>
