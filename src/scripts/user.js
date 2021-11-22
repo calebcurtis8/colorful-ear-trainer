@@ -5,6 +5,7 @@ class DefineUser extends HTMLElement {
         this.addListeners()
         this.storage = JSON.parse(localStorage.getItem(STORAGE)) || {}
         this.inputs = this.querySelectorAll('input,select')
+        this.previous_notes = []
         this.inputs.forEach( input => {
             let name = input.getAttribute('name')
             let value = this.storage[name]
@@ -18,8 +19,8 @@ class DefineUser extends HTMLElement {
         localStorage.setItem(STORAGE, JSON.stringify(this.storage))
     }
     get(attr, as = 'normal'){
-        this.storage = JSON.parse(localStorage.getItem(STORAGE))
-        return this[as](this.storage[attr])
+        let value = this.querySelector(`[name="${attr}"]`).value
+        return this[as](value)
     }
     tempo(input){
         return (60 / parseInt(input))

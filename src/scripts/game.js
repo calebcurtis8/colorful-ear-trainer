@@ -34,6 +34,9 @@ export class Game {
         User.notes = random(User.get('note_count','number'), noteSet)
         //duplicate to remember which were selected
         User.selected_notes = this.setOctaves(JSON.parse(JSON.stringify(User.notes)))
+        //assign to previous note array
+        User.previous_notes = User.selected_notes
+
         User.notes = this.setOctave(User.notes)
 
         this.setButtonState('PAUSE', 'bg-yellow-gradient', true)
