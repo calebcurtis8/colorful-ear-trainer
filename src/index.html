@@ -13,8 +13,8 @@
   <fancy-background id="background" style="opacity: 0"
     class="fixed top-0 bottom-0 left-0 right-0 transition-all duration-1000 pointer-events-none opacity-0 bg-gradient-to-r from-green-200 via-pink-500 to-blue-500">
   </fancy-background>
-  <main class="grid grid-cols-1 sm:grid-cols-4 p-4 gap-4">
-    <div class="rounded-lg sm:order-1 border-4 border-black p-4 flex flex-col">
+  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
+    <div class="rounded-lg md:order-1 lg:order-4 border-4 border-black p-4 flex flex-col">
       <div class="text-2xl font-bold mb-4 pb-4 border-b-2 border-black">Instructions:</div>
       <ul class="list-disc ml-4 space-y-2 flex-grow">
         <li>On iPhone deactivate the mute switch</li>
@@ -35,7 +35,7 @@
           </form>    
         </div>        
     </div>
-    <div class="rounded-lg border-4 border-solid border-black p-4">
+    <div class="md:order-2 rounded-lg border-4 border-solid border-black p-4">
       <div class="font-bold text-2xl mb-4 pb-4 border-b-2 border-black">Options:</div>
       <define-user id="User">
         <form class="space-y-4">
@@ -115,24 +115,24 @@
         </div>
       </div>
     </div>
-    <div class="sm:col-span-2 flex flex-col">
+    <div class="md:col-span-2 md:order-3 flex flex-col">
       <div id="piano" class="mb-4"></div>
       <game-area id="Gameify"
-        class="rounded-lg flex-grow justify-center items-center grid grid-cols-3 text-center text-white gap-4 py-4 relative">
+        class="rounded-lg flex-grow justify-center items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
         <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">
           <div data-face
-            class="mx-auto z-10 border-4 border-white rounded-full w-32 h-32 flex flex-col justify-center items-center">
-            <div data-time class="text-4xl">0.00s</div>
-            <div data-limit class="text-2xl border-t border-white">1s</div>
+            class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center">
+            <div data-time class="text-2xl md:text-4xl">0.00s</div>
+            <div data-limit class="text-lg md:text-2xl border-t border-white">1s</div>
           </div>
         </stopwatch-timer>
         <div class="z-10 flex flex-col items-center justify-center">
-          <div class="text-xl">Streak</div>
-          <div data-streak class="font-bold text-4xl">0</div>
+          <div class="text-lg md:text-xl">Streak</div>
+          <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
         </div>
         <div class="z-10 flex flex-col items-center justify-center">
-          <div class="text-xl">Score</div>
-          <div class="flex flex-row justify-center font-bold text-4xl">
+          <div class="text-lg md:text-xl">Score</div>
+          <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
             <span data-correct>0</span>/<span data-total>0</span>
           </div>
         </div>

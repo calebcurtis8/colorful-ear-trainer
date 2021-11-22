@@ -774,14 +774,14 @@ select {
 .h-full {
 	height: 100%;
 }
-.h-32 {
-	height: 8rem;
+.h-24 {
+	height: 6rem;
 }
 .w-full {
 	width: 100%;
 }
-.w-32 {
-	width: 8rem;
+.w-24 {
+	width: 6rem;
 }
 .flex-grow {
 	flex-grow: 1;
@@ -941,10 +941,6 @@ select {
 .p-4 {
 	padding: 1rem;
 }
-.py-4 {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-}
 .pb-4 {
 	padding-bottom: 1rem;
 }
@@ -966,9 +962,9 @@ select {
 	font-size: 1.25rem;
 	line-height: 1.75rem;
 }
-.text-4xl {
-	font-size: 2.25rem;
-	line-height: 2.5rem;
+.text-lg {
+	font-size: 1.125rem;
+	line-height: 1.75rem;
 }
 .font-bold {
 	font-weight: 700;
@@ -1077,17 +1073,59 @@ svg rect[data-note][fill="white"]{
 	--tw-gradient-to: #a7f3d0;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
 
-	.sm\:order-1 {
+	.md\:order-1 {
 		order: 1;
 	}
 
-	.sm\:col-span-2 {
+	.md\:order-2 {
+		order: 2;
+	}
+
+	.md\:order-3 {
+		order: 3;
+	}
+
+	.md\:col-span-2 {
 		grid-column: span 2 / span 2;
 	}
 
-	.sm\:grid-cols-4 {
+	.md\:h-32 {
+		height: 8rem;
+	}
+
+	.md\:w-32 {
+		width: 8rem;
+	}
+
+	.md\:grid-cols-2 {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.md\:text-4xl {
+		font-size: 2.25rem;
+		line-height: 2.5rem;
+	}
+
+	.md\:text-2xl {
+		font-size: 1.5rem;
+		line-height: 2rem;
+	}
+
+	.md\:text-xl {
+		font-size: 1.25rem;
+		line-height: 1.75rem;
+	}
+}
+
+@media (min-width: 1024px) {
+
+	.lg\:order-4 {
+		order: 4;
+	}
+
+	.lg\:grid-cols-4 {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 	}
 }
