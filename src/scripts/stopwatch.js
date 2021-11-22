@@ -17,6 +17,7 @@ class StopwatchTimer extends HTMLElement{
 
         document.addEventListener('gameify:afternotes', this.start.bind(this))
         document.addEventListener('gameify:afteranswer', this.stop.bind(this))
+        document.addEventListener('gameify:pause', this.stop.bind(this))
         document.addEventListener('userupdate', this.update.bind(this))
 
         window.addEventListener('blur', this.stop.bind(this))
@@ -33,6 +34,7 @@ class StopwatchTimer extends HTMLElement{
         this.status = 'success'
     }
     stop(){
+        this.isPaused = true
         this.stopwatch.stopTimer()
         clearInterval( this.refreshRate )
     }

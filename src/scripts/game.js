@@ -21,6 +21,10 @@ export class Game {
         }.bind(this))
     }
     play(){
+        if(this.playBtn.isPlaying){ 
+            this.pause()
+            return
+        }
         this.playCadence()
         document.addEventListener('answer', this.handleAnswer)
         //clears the piano
@@ -32,23 +36,32 @@ export class Game {
         User.selected_notes = this.setOctaves(JSON.parse(JSON.stringify(User.notes)))
         User.notes = this.setOctave(User.notes)
 
-        this.setButtonState('PLAYING', 'bg-yellow-gradient')
+        this.setButtonState('PAUSE', 'bg-yellow-gradient', true)
         this.playNotes()
         setTimeout(() => {
-            this.setButtonState('Enter Notes', 'bg-yellow-gradient')
-            document.dispatchEvent(new CustomEvent('gameify:afternotes'))
+            if(this.playBtn.isPlaying) document.dispatchEvent(new CustomEvent('gameify:afternotes'))
         },this.offset * 1000)
     }
     playCadence(){
+        if(this.playingCadence) return
+        this.playingCadence = true
         this.offset = cadence()
+        setTimeout( function(){
+            this.playingCadence = false
+        }.bind(this), this.offset * 1000)
     }
     playNotes(offset = this.offset){
         User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], offset) : null;
     }
-    setButtonState(state, colorClass){
+    pause(){
+        this.setButtonState('PLAY', 'bg-green-gradient', false)
+        document.dispatchEvent(new CustomEvent('gameify:pause'))
+    }
+    setButtonState(state, colorClass, playing){
         removeClassStartsWith(this.playBtn, 'bg-')
         this.playBtn.classList.add(colorClass)
         this.playBtn.innerText = state
+        this.playBtn.isPlaying = playing
     }
     setOctave(arr){
         return arr.map( note => `${note}${User.get('octave', 'number')}` )
@@ -79,6 +92,7 @@ export class Game {
         if(User.notes.length == 0){
             document.removeEventListener('answer', this.handleAnswer)
             document.dispatchEvent(new CustomEvent('gameify:afteranswer'))
+            this.setButtonState('PLAY', 'bg-green-gradient', false)
             setTimeout(this.play.bind(this), 350)
         }
     }

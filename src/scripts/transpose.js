@@ -1,5 +1,7 @@
+import User from './user'
+
 const keyCenterElm = document.getElementById('KeyCenter')
-keyCenterElm.addEventListener('change', function(){
+document.addEventListener('userupdate', function(){
     document.dispatchEvent(new CustomEvent('transpose'))
 })
 
@@ -45,13 +47,19 @@ export const Transposer = {
 class KeySelector extends HTMLElement {
     constructor(){
         super()
+        this.set = this.querySelector('#NoteSet')
         this.setSelector = this.querySelectorAll('#NoteSet option')
 
         document.dispatchEvent(new CustomEvent('transpose'))
         document.addEventListener('transpose', this.transposeSetSelector.bind(this))
+        this.transposeSetSelector()
     }
     transposeSetSelector() {
-        this.setSelector.forEach( set => {
+        let tonality = User.get('tonality')
+        let visible = []
+        let hidden = []
+        let selected
+        this.setSelector.forEach( (set,i) => {
             const regex = /\{(.*?)}/gm;
             let str = set.getAttribute('data-template');
             let m;
@@ -63,7 +71,20 @@ class KeySelector extends HTMLElement {
                 str = str.replaceAll(m[0], Transposer.transpose([m[1]], keyCenterElm.value))
             }
             set.innerText = str
+            if(this.set.value == set.value) selected = set
+            //apply major / minor filter
+            if(set.getAttribute('data-tonality').indexOf(tonality) == -1){
+                hidden.push(set)
+                set.classList.add('hidden')
+            } else {
+                visible.push(set)
+                set.classList.remove('hidden')
+            }
         })
+        if(hidden.indexOf(selected) > -1){
+            this.set.value = visible[hidden.indexOf(selected)].value
+            visible[hidden.indexOf(selected)].dispatchEvent(new CustomEvent('change', { bubbles: true }))
+        }
     }
 }
 

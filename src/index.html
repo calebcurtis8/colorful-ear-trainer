@@ -58,7 +58,7 @@
       <define-user id="User">
         <form class="space-y-4">
           <key-selector>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label for="KeyCenter">Key Center:</label>
                 <select name="keycenter" id="KeyCenter" class="input">
@@ -77,26 +77,34 @@
                 </select>
               </div>
               <div>
-                <label for="Timelimit">Time Limit:</label>
-                <input type="number" name="timelimit" id="Timelimit" min="0" value="5" step="0.5" class="input"
-                  inputmode="decimal">
-                <div class="text-xs text-gray-500">seconds per note</div>
+                <label for="Tonality">Tonality:</label>
+                <select name="tonality" id="Tonality" class="input">
+                  <option value='major' selected>Major</option>
+                  <option value='minor'>Minor</option>
+                </select>
               </div>
             </div>
             <div>
               <label for="NoteSet">Note Set:</label>
               <select name="set" id="NoteSet" class="input w-full">
-                <option value='[0,7]' data-template="{0} | {4}">C | G</option>
-                <option value='[0,4,7]' data-template="{0} | {4} | {7}">C | E | G</option>
-                <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}">C | E | G | B</option>
-                <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic">Diatonic</option>
-                <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}">Diatonic + Bb</option>
-                <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}">Diatonic + Bb + Eb</option>
-                <option value='[0,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8}">Diatonic + Bb + Eb +
-                  Ab</option>
-                <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}">Diatonic +
-                  Bb + Eb + Ab + Db</option>
-                <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic">Chromatic</option>
+                <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
+                <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
+                <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
+                <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
+                <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G | B</option>
+                <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G | Bb</option>
+                <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic</option>
+                <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">Diatonic (Aeolian)</option>
+                <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic + Bb</option>
+                <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">Diatonic + B</option>
+                <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}" data-tonality="major">Diatonic + Bb + Eb</option>
+                <option value='[0,2,3,45,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">Diatonic + B + E</option>
+                <option value='[0,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8}" data-tonality="major">Diatonic + Bb + Eb + Ab</option>
+                <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9}" data-tonality="minor">Diatonic + B + E + A</option>
+                <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}" data-tonality="major">Diatonic + Bb + Eb + Ab + Db</option>
+                <option value='[0,2,3,4,5,6,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9} + {6}" data-tonality="minor">Diatonic + B + E + A + Gb</option>
+                <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">Chromatic</option>
+                <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">Chromatic</option>
               </select>
             </div>
           </key-selector>
@@ -105,6 +113,12 @@
               <label for="NoteCount">Number of Notes:</label>
               <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
                 inputmode="decimal">
+            </div>
+            <div>
+              <label for="Timelimit">Time Limit:</label>
+              <input type="number" name="timelimit" id="Timelimit" min="0" value="5" step="0.5" class="input"
+                inputmode="decimal">
+              <div class="text-xs text-gray-500">seconds per note</div>
             </div>
             <div>
               <label for="Spread">Octave Spread:</label>
