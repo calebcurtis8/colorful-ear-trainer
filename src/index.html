@@ -29,9 +29,9 @@
     <div class="md:order-1 lg:order-4 flex flex-col card">
       <div class="text-2xl font-bold mb-4 pb-4 border-b-2 border-black">Instructions:</div>
       <ul class="list-disc ml-4 space-y-2 flex-grow">
-        <li>On iPhone flip the Ring/Silent switch on the left side of your phone to the On (up) position or use headphones</li>
-        <li>Press PLAY, a I IV V I cadence will sound in the selected Key Center</li>
-        <li>1 or more notes will play after the cadence</li>
+        <li>On iPhone flip the Ring/Silent switch on the left side of your phone to the On (up) position or use headphones.</li>
+        <li>Press PLAY, a I IV V I cadence will sound in the selected Key Center.</li>
+        <li>1 or more notes will play after the cadence.</li>
         <li>Play back the notes you hear after the cadence with the keyboard.</li>
         <li>If you don't answer within the time limit, your answer is marked as wrong and your streak ends.</li>
         <li>You can play with the computer keyboard. Type the note name and use Right Shift Key for '#' or Left Shift Key for 'b'.</li>
@@ -145,8 +145,8 @@
                 <div class="text-xs text-gray-500">seconds per note</div>
               </div>
               <div>
-                <label for="Spread">Octave Spread:</label>
-                <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input"
+                <label for="Octave">Cadence Octave:</label>
+                <input type="number" name="cadenceoctave" id="Octave" min="1" max="7" value="4" class="input"
                   inputmode="decimal">
               </div>
               <div>
@@ -154,10 +154,9 @@
                 <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
                 <div class="text-xs text-gray-500">beats per minute</div>
               </div>
-              <div>
-                <label for="Octave">Octave:</label>
-                <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input"
-                  inputmode="decimal">
+              <div class="col-span-2">
+                <label for="NoteRange">Note Range (Octaves):</label>
+                <div id="NoteRange"></div>
               </div>
             </div>
           </form>

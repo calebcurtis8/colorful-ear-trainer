@@ -751,6 +751,9 @@ select {
 .order-1 {
 	order: 1;
 }
+.col-span-2 {
+	grid-column: span 2 / span 2;
+}
 .mx-auto {
 	margin-left: auto;
 	margin-right: auto;
@@ -1002,7 +1005,8 @@ select {
 	transition-duration: 1000ms;
 }
 
-body, html {
+body,
+html {
     font-size: 16px;
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
 }
@@ -1018,6 +1022,7 @@ body, html {
 	line-height: 1.75rem;
     min-width: 100px;
 }
+
 .btn {
 	border-radius: 0.5rem;
 	padding-left: 1.25rem;
@@ -1028,6 +1033,7 @@ body, html {
 	--tw-text-opacity: 1;
 	color: rgba(0, 0, 0, var(--tw-text-opacity));
 }
+
 .btn:active {
 	--tw-bg-opacity: 1;
 	background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
@@ -1058,7 +1064,8 @@ svg rect[data-note] {
 	cursor: pointer;
 	user-select: none;
 }
-svg rect[data-note][fill="white"]{
+
+svg rect[data-note][fill="white"] {
     fill: transparent;
 }
 
@@ -1068,6 +1075,7 @@ svg rect[data-note][fill="white"]{
 	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(16, 185, 129, 0));
 	--tw-gradient-to: #059669;
 }
+
 .bg-fail {
 	background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 	--tw-gradient-from: #ef4444;
@@ -1089,13 +1097,45 @@ svg rect[data-note][fill="white"]{
 	--tw-gradient-to: #a7f3d0;
 }
 
+#NoteRange {
+    padding: 0 16px;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    min-height: 18px;
+}
+
+.noUi-connect {
+	background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+	--tw-gradient-from: #3b82f6 !important;
+	--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(59, 130, 246, 0)) !important;
+	--tw-gradient-to: #60a5fa !important;
+}
+
+.noUi-handle {
+	cursor: move !important;
+	--tw-bg-opacity: 1 !important;
+	background-color: rgba(0, 0, 0, var(--tw-bg-opacity)) !important;
+}
+.noUi-handle, .noUi-tooltip, .noUi-target {
+	--tw-border-opacity: 1 !important;
+	border-color: rgba(0, 0, 0, var(--tw-border-opacity)) !important;
+}
+.noUi-handle, .noUi-target {
+    box-shadow: none !important;
+}
+.noUi-tooltip {
+    bottom: -160%!important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+}
 @media (min-width: 640px) {
 
 	.sm\:h-auto {
 		height: auto;
 	}
 }
-
 @media (min-width: 768px) {
 
 	.md\:order-1 {
@@ -1141,7 +1181,6 @@ svg rect[data-note][fill="white"]{
 		line-height: 1.75rem;
 	}
 }
-
 @media (min-width: 1024px) {
 
 	.lg\:order-4 {

@@ -5,7 +5,7 @@ import User from './user.js'
 import { Transposer } from './transpose.js'
 
 function formatChord(chord){
-    return Transposer.transpose(chord).map( note => `${note}${User.get('octave','number')}` )
+    return Transposer.transpose(chord).map( note => `${note}${User.get('cadenceoctave','number')}` )
 }
 
 const Major = [

@@ -121,7 +121,7 @@ class PianoPlayer {
     });
   }
   formatNote(note) {
-    return `${note}${User.get("octave", "number")}`;
+    return `${note}${User.get("cadenceoctave", "number")}`;
   }
 }
 new PianoPlayer(piano);

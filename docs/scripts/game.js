@@ -8,6 +8,7 @@ import User from './user.js'
 import Gameify from './gameify.js'
 
 const Stopwatch = document.getElementById('Stopwatch')
+
 export class Game {
     constructor(){
         this.handleAnswer = this.registerAnswer.bind(this)
@@ -67,12 +68,15 @@ export class Game {
         this.playBtn.isPlaying = playing
     }
     setOctave(arr){
-        return arr.map( note => `${note}${User.get('octave', 'number')}` )
+        return arr.map( note => `${note}${User.get('cadenceoctave', 'number')}` )
     }
     setOctaves(arr){
-        return arr.map( note => [note,`${User.get('octave', 'number') + Math.floor(Math.random() * User.get('spread','number'))}`])
+        let range = User.getOctaveRange()
+        return arr.map( note => [note,`${User.getOctaveRange()[0] + Math.floor(Math.random() * (range[1] - range[0]))}`])
     }
     registerAnswer(e){
+        console.log(User.notes, e.detail)
+
         if(User.notes.indexOf(e.detail) == -1){
             Gameify.streak = 0
             Gameify.total += 1

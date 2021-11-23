@@ -21,6 +21,7 @@
     "@snowpack/plugin-webpack": "^3.0.0",
     "@tailwindcss/forms": "^0.3.4",
     "js-confetti": "^0.9.1",
+    "nouislider": "^15.5.0",
     "tone": "^14.7.77"
   }
 }
