@@ -15,6 +15,10 @@ body, html {
     @apply rounded-lg text-black px-5 py-3 active:text-white active:bg-black font-bold;
 }
 
+.card {
+    @apply rounded-lg border-4 border-solid border-black p-4;
+}
+
 #background {
     z-index: -1;
 }
@@ -24,7 +28,7 @@ label {
 }
 
 svg rect[data-note]{
-    @apply cursor-pointer;
+    @apply cursor-pointer select-none;
 }
 svg rect[data-note][fill="white"]{
     fill: transparent;

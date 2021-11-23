@@ -21,12 +21,12 @@
   </script>
 </head>
 
-<body class="h-full">
+<body class="flex items-center justify-center">
   <fancy-background id="background" style="opacity: 0"
     class="fixed top-0 bottom-0 left-0 right-0 transition-all duration-1000 pointer-events-none opacity-0 bg-gradient-to-r from-green-200 via-pink-500 to-blue-500">
   </fancy-background>
-  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
-    <div class="rounded-lg md:order-1 lg:order-4 border-4 border-black p-4 flex flex-col">
+  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4 max-w-screen-2xl mx-auto">
+    <div class="md:order-1 lg:order-4 flex flex-col card">
       <div class="text-2xl font-bold mb-4 pb-4 border-b-2 border-black">Instructions:</div>
       <ul class="list-disc ml-4 space-y-2 flex-grow">
         <li>On iPhone flip the Ring/Silent switch on the left side of your phone to the On (up) position</li>
@@ -37,6 +37,7 @@
           still answer correctly to move on to the next question.</li>
         <li>When it's easy, increase the number of notes or increase the difficult of the note
           set.</li>
+        <li>You can respond to notes with a computer keyboard. Just type the note name, use Right Shift Key for '#' and Left Shift Key for 'b'</li>
       </ul>
       <div class="pt-4 mt-4 border-t-2 border-black">
         Suggestions/comments: <a href="mailto:caleb@calebcurtis.com">caleb@calebcurtis.com</a>
@@ -53,127 +54,150 @@
         </form>
       </div>
     </div>
-    <div class="md:order-2 rounded-lg border-4 border-solid border-black p-4">
-      <div class="font-bold text-2xl mb-4 pb-4 border-b-2 border-black">Options:</div>
-      <define-user id="User">
-        <form class="space-y-4">
-          <key-selector>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label for="KeyCenter">Key Center:</label>
-                <select name="keycenter" id="KeyCenter" class="input">
-                  <option value='0' selected>C</option>
-                  <option value='1'>Db</option>
-                  <option value='2'>D</option>
-                  <option value='3'>Eb</option>
-                  <option value='4'>E</option>
-                  <option value='5'>F</option>
-                  <option value='6'>Gb</option>
-                  <option value='7'>G</option>
-                  <option value='8'>Ab</option>
-                  <option value='9'>A</option>
-                  <option value='10'>Bb</option>
-                  <option value='11'>B</option>
-                </select>
-              </div>
-              <div>
-                <label for="Tonality">Tonality:</label>
-                <select name="tonality" id="Tonality" class="input">
-                  <option value='major' selected>Major</option>
-                  <option value='minor'>Minor</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label for="NoteSet">Note Set:</label>
-              <select name="set" id="NoteSet" class="input w-full">
-                <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
-                <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
-                <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
-                <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
-                <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G | B</option>
-                <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G | Bb</option>
-                <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic</option>
-                <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">Diatonic (Aeolian)</option>
-                <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic + Bb</option>
-                <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">Diatonic + B</option>
-                <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}" data-tonality="major">Diatonic + Bb + Eb</option>
-                <option value='[0,2,3,45,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">Diatonic + B + E</option>
-                <option value='[0,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8}" data-tonality="major">Diatonic + Bb + Eb + Ab</option>
-                <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9}" data-tonality="minor">Diatonic + B + E + A</option>
-                <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}" data-tonality="major">Diatonic + Bb + Eb + Ab + Db</option>
-                <option value='[0,2,3,4,5,6,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9} + {6}" data-tonality="minor">Diatonic + B + E + A + Gb</option>
-                <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">Chromatic</option>
-                <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">Chromatic</option>
-              </select>
-            </div>
-          </key-selector>
-          <div class="grid grid-cols-2 gap-4">
-            <div>
-              <label for="NoteCount">Number of Notes:</label>
-              <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
-                inputmode="decimal">
-            </div>
-            <div>
-              <label for="Timelimit">Time Limit:</label>
-              <input type="number" name="timelimit" id="Timelimit" min="0" value="5" step="0.5" class="input"
-                inputmode="decimal">
-              <div class="text-xs text-gray-500">seconds per note</div>
-            </div>
-            <div>
-              <label for="Spread">Octave Spread:</label>
-              <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input"
-                inputmode="decimal">
-            </div>
-            <div>
-              <label for="Bpm">Tempo:</label>
-              <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
-              <div class="text-xs text-gray-500">beats per minute</div>
-            </div>
-            <div>
-              <label for="Octave">Octave:</label>
-              <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input"
-                inputmode="decimal">
-            </div>
-          </div>
-        </form>
-      </define-user>
-
-      <div class="my-4 flex flex-col space-y-4">
+    <div class="grid grid-cols-1 gap-4">
+      <div class="flex flex-col card h-screen-1/4 sm:h-auto order-2 md:order-1">
         <button id="Play" class="btn bg-gradient-to-r bg-green-gradient text-xl">PLAY</button>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4 mt-4">
           <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200">Replay Cadence</button>
           <button id="PlayNotes" class="btn bg-gradient-to-r from-blue-300 to-blue-200">Replay Notes</button>
         </div>
       </div>
+      <div class="card order-1 md:order-2">
+        <div class="font-bold text-2xl mb-4 pb-4 border-b-2 border-black">Options:</div>
+        <define-user id="User">
+          <form class="space-y-4">
+            <key-selector>
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label for="KeyCenter">Key Center:</label>
+                  <select name="keycenter" id="KeyCenter" class="input">
+                    <option value='0' selected>C</option>
+                    <option value='1'>Db</option>
+                    <option value='2'>D</option>
+                    <option value='3'>Eb</option>
+                    <option value='4'>E</option>
+                    <option value='5'>F</option>
+                    <option value='6'>Gb</option>
+                    <option value='7'>G</option>
+                    <option value='8'>Ab</option>
+                    <option value='9'>A</option>
+                    <option value='10'>Bb</option>
+                    <option value='11'>B</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="Tonality">Tonality:</label>
+                  <select name="tonality" id="Tonality" class="input">
+                    <option value='major' selected>Major</option>
+                    <option value='minor'>Minor</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="NoteSet">Note Set:</label>
+                <select name="set" id="NoteSet" class="input w-full note-sets">
+                  <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
+                  <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
+                  <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G | B
+                  </option>
+                  <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic
+                  </option>
+                  <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic +
+                    Bb
+                  </option>
+                  <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}" data-tonality="major">
+                    Diatonic + Bb + Eb</option>
+                  <option value='[0,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8}"
+                    data-tonality="major">Diatonic + Bb + Eb + Ab</option>
+                  <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}"
+                    data-tonality="major">Diatonic + Bb + Eb + Ab + Db</option>
+                  <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">Chromatic
+                  </option>
+                </select>
+                <select class="note-sets hidden" id="InactiveSet">
+                  <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
+                  <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
+                  <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G |
+                    Bb
+                  </option>
+                  <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">
+                    Diatonic (Aeolian)</option>
+                  <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">
+                    Diatonic + B</option>
+                  <option value='[0,2,3,45,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">
+                    Diatonic + B + E</option>
+                  <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9}"
+                    data-tonality="minor">Diatonic + B + E + A</option>
+                  <option value='[0,2,3,4,5,6,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9} + {6}"
+                    data-tonality="minor">Diatonic + B + E + A + Gb</option>
+                  <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">Chromatic
+                  </option>
+                </select>
+              </div>
+            </key-selector>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="NoteCount">Number of Notes:</label>
+                <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
+                  inputmode="decimal">
+              </div>
+              <div>
+                <label for="Timelimit">Time Limit:</label>
+                <input type="number" name="timelimit" id="Timelimit" min="0" value="5" step="0.5" class="input"
+                  inputmode="decimal">
+                <div class="text-xs text-gray-500">seconds per note</div>
+              </div>
+              <div>
+                <label for="Spread">Octave Spread:</label>
+                <input type="number" name="spread" id="spread" min="1" max="4" value="1" class="input"
+                  inputmode="decimal">
+              </div>
+              <div>
+                <label for="Bpm">Tempo:</label>
+                <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
+                <div class="text-xs text-gray-500">beats per minute</div>
+              </div>
+              <div>
+                <label for="Octave">Octave:</label>
+                <input type="number" name="octave" id="Octave" min="1" max="8" value="4" class="input"
+                  inputmode="decimal">
+              </div>
+            </div>
+          </form>
+        </define-user>
+      </div>
     </div>
-    <div class="md:col-span-2 md:order-3 flex flex-col">
-      <div id="piano" class="mb-4"></div>
-      <game-area id="Gameify"
-        class="rounded-lg flex-grow justify-center items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
-        <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">
-          <div data-face
-            class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center">
-            <div data-time class="text-2xl md:text-4xl">0.00s</div>
-            <div data-limit class="text-lg md:text-2xl border-t border-white">1s</div>
-          </div>
-        </stopwatch-timer>
-        <div class="z-10 flex flex-col items-center justify-center">
-          <div class="text-lg md:text-xl">Streak</div>
-          <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
+    <div class="md:col-span-2 md:order-3 flex flex-col gap-4">
+      <div class="h-screen-3/4 sm:h-auto">
+        <div id="piano" class="mb-4">
+          <svg viewBox="0 0 170 142"><rect x="1" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="C"></rect><rect x="25" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="D"></rect><rect x="49" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="E"></rect><rect x="73" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="F"></rect><rect x="97" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="G"></rect><rect x="121" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="A"></rect><rect x="145" y="1" width="24" height="140" rx="2" ry="2" stroke="black" stroke-width="2" fill="white" data-note="B"></rect><rect x="18" y="1" width="14" height="90" rx="2" ry="2" stroke="black" stroke-width="2" fill="black" data-note="C#,Db"></rect><rect x="42" y="1" width="14" height="90" rx="2" ry="2" stroke="black" stroke-width="2" fill="black" data-note="D#,Eb"></rect><rect x="90" y="1" width="14" height="90" rx="2" ry="2" stroke="black" stroke-width="2" fill="black" data-note="F#,Gb"></rect><rect x="114" y="1" width="14" height="90" rx="2" ry="2" stroke="black" stroke-width="2" fill="black" data-note="G#,Ab"></rect><rect x="138" y="1" width="14" height="90" rx="2" ry="2" stroke="black" stroke-width="2" fill="black" data-note="A#,Bb"></rect></svg>
         </div>
-        <div class="z-10 flex flex-col items-center justify-center">
-          <div class="text-lg md:text-xl">Score</div>
-          <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
-            <span data-correct>0</span>/<span data-total>0</span>
+        <game-area id="Gameify"
+          class="rounded-lg flex-grow justify-center items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
+          <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">
+            <div data-face
+              class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center">
+              <div data-time class="text-2xl md:text-4xl">0.00s</div>
+              <div data-limit class="text-lg md:text-2xl border-t border-white">1s</div>
+            </div>
+          </stopwatch-timer>
+          <div class="z-10 flex flex-col items-center justify-center">
+            <div class="text-lg md:text-xl">Streak</div>
+            <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
           </div>
-        </div>
-        <div
-          class="rounded-lg overflow-hidden absolute progress top-0 left-0 right-0 h-full bg-gradient-to-r from-red-700 to-red-900 z-0">
-          <div data-gradient class="h-full bg-gradient-to-r from-blue-800 to-blue-500 transition-all duration-400">
+          <div class="z-10 flex flex-col items-center justify-center">
+            <div class="text-lg md:text-xl">Score</div>
+            <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
+              <span data-correct>0</span>/<span data-total>0</span>
+            </div>
           </div>
-        </div>
-      </game-area>
+          <div
+            class="rounded-lg overflow-hidden absolute progress top-0 left-0 right-0 h-full bg-gradient-to-r from-red-700 to-red-900 z-0">
+            <div data-gradient class="h-full bg-gradient-to-r from-blue-800 to-blue-500 transition-all duration-400">
+            </div>
+          </div>
+        </game-area>
+      </div>
     </div>
   </main>
   <script type="module" src="index.js"></script>

@@ -48,7 +48,8 @@ class KeySelector extends HTMLElement {
     constructor(){
         super()
         this.set = this.querySelector('#NoteSet')
-        this.setSelector = this.querySelectorAll('#NoteSet option')
+        this.inactiveSet = this.querySelector('#InactiveSet')
+        this.setSelector = this.querySelectorAll('.note-sets option')
 
         document.dispatchEvent(new CustomEvent('transpose'))
         document.addEventListener('transpose', this.transposeSetSelector.bind(this))
@@ -56,9 +57,7 @@ class KeySelector extends HTMLElement {
     }
     transposeSetSelector() {
         let tonality = User.get('tonality')
-        let visible = []
-        let hidden = []
-        let selected
+        let selectedIndex = this.set.selectedIndex
         this.setSelector.forEach( (set,i) => {
             const regex = /\{(.*?)}/gm;
             let str = set.getAttribute('data-template');
@@ -71,20 +70,15 @@ class KeySelector extends HTMLElement {
                 str = str.replaceAll(m[0], Transposer.transpose([m[1]], keyCenterElm.value))
             }
             set.innerText = str
-            if(this.set.value == set.value) selected = set
             //apply major / minor filter
             if(set.getAttribute('data-tonality').indexOf(tonality) == -1){
-                hidden.push(set)
-                set.classList.add('hidden')
+                this.inactiveSet.appendChild(set)
             } else {
-                visible.push(set)
-                set.classList.remove('hidden')
+                this.set.appendChild(set)
             }
         })
-        if(hidden.indexOf(selected) > -1){
-            this.set.value = visible[hidden.indexOf(selected)].value
-            visible[hidden.indexOf(selected)].dispatchEvent(new CustomEvent('change', { bubbles: true }))
-        }
+        if(this.set[selectedIndex]) this.set.value = this.set[selectedIndex].value
+        
     }
 }
 

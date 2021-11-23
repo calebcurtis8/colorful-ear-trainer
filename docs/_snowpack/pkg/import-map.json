@@ -1,9 +1,7 @@
 {
   "imports": {
-    "@jesperdj/pianokeys": "./@jesperdj/pianokeys.js",
     "@slime/stopwatch": "./@slime/stopwatch.js",
     "js-confetti": "./js-confetti.js",
-    "piano-keys-webcomponent-v0": "./piano-keys-webcomponent-v0.js",
     "tone": "./tone.js"
   }
 }

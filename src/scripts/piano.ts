@@ -1,55 +1,97 @@
 import * as Tone from 'tone'
 
-import PianoKeys from '@jesperdj/pianokeys';
-
 import User from './user'
 
 const piano = document.getElementById("piano");
 
-import { Transposer } from './transpose';
+const POSSIBLE_KEY_VALUES = ["C", ["C#","Db"], "D", ["D#","Eb"], "E", "F", ["F#","Gb"], "G", ["G#","Ab"], "A", ["A#","Bb"], "B"]
 
-const keyboard = new PianoKeys.Keyboard(piano, {
-    lowest: `C${ User.get('octave', 'number') }`,
-    highest: `B${ User.get('octave', 'number') }`
-});
+piano.fillKey = function(note, color){
+    let key = this.getNote(note)
+    if(key) key.style.fill = color
+}
 
+piano.getNote = function( note ){
+    return this.querySelector(`[data-note="${ note }"]`)
+}
+
+piano.clearKey = function(note){
+    let key = this.getNote(note)
+    if(key) key.style.fill = null
+}
 class PianoPlayer {
     piano: {};
     notesDown: [];
     constructor(pno) {
         this.piano = pno
         this.notesDown = []
-        this.handlePlay = this.play.bind(this)
-        this.handleListen = this.listen.bind(this)
+        this.handlePlayClick = this.playClick.bind(this)
+        this.handleListenClick = this.listenClick.bind(this)
+        this.handleListenKeys = this.listenKeys.bind(this)
+        this.handleListenShifts = this.listenShifts.bind(this)
         this.playback = true
         
-        this.piano.addEventListener('click', this.handlePlay)
-        this.piano.addEventListener('click', this.handleListen)
+        this.piano.addEventListener('click', this.handlePlayClick)
+        this.piano.addEventListener('click', this.handleListenClick)
+        document.addEventListener('keyup', this.handleListenKeys)
+        document.addEventListener('keydown', this.handleListenShifts)
+        document.addEventListener('keyup', this.handleListenShifts)
+
         document.addEventListener('question:start', this.clear.bind(this))
 
-        this.setKeyNames()
         this.synth = new Tone.Synth().toDestination();
-
-        document.addEventListener('transpose', this.setKeyNames.bind(this))
     }
-    setKeyNames(){
-        keyboard._keys.forEach( (key, i) => {
-            let noteIndex = i - (User.get('octave', 'number') * 12)
-            key.setAttribute('data-note', Transposer.noteNames(noteIndex))
-        })
-    }
-    async play(e) {
+    async play(key) {
         if(!this.playback) return
         await Tone.start()
-        let key = e.target.getAttribute('data-note').split(',')[0]
 
         //play the note for the duration of an 8th note
         let note = this.formatNote(key)
     
         this.synth.triggerAttackRelease(note, "8n");        
     }
-    listen(e){
-        let key = e.target.getAttribute('data-note').split(',')
+    playClick(e){
+        let key = e.target.getAttribute('data-note').split(',')[0]
+        this.play(key)
+    }
+    listenClick(e){
+        this.listen(e.target.getAttribute('data-note'))
+    } 
+    listenShifts(e){
+        if(!(e.code == 'ShiftLeft' || e.code == 'ShiftRight')) return
+        if(e.type == 'keyup'){
+            if(e.code == 'ShiftLeft') this.shiftLeftActive = false
+            if(e.code == 'ShiftRight') this.shiftRightActive = false
+        }
+        if(e.type == 'keydown'){
+            if(e.code == 'ShiftLeft') this.shiftLeftActive = true
+            if(e.code == 'ShiftRight') this.shiftRightActive = true
+        }
+    }
+    listenKeys(e){
+        let key = e.key.toUpperCase()
+        if(POSSIBLE_KEY_VALUES.indexOf(key) == -1) return
+        let sharp = this.shiftRightActive
+        let flat = this.shiftLeftActive
+        if(sharp && flat) return
+        let note = `${ key }${ sharp ? '#' : '' }${ flat ? 'b' : '' }`;
+        let matches = POSSIBLE_KEY_VALUES.filter( k => {
+            if(Array.isArray(k)){
+                return k.indexOf(note) > -1
+            }
+            return k === note
+        })
+        let match = matches.map( k => {
+            if(Array.isArray(k)) return k.join(',')
+            return k
+        })
+        match = match.join('')
+        this.listen(match)
+
+        this.play(match.split(',')[0])
+    }
+    listen(fullKey){
+        let key = fullKey.split(',')
         let matchKey = false
         let notes = User.selected_notes || []
         notes.filter( n => {
@@ -59,27 +101,28 @@ class PianoPlayer {
             }
             return false
         })
-        let note = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
+        let note = fullKey;
         //if octave independent note is a match, highlight it
         if(matchKey) {
             this.piano.removeEventListener('click', this.handlePlay)
-            keyboard.fillKey(note)
+            piano.fillKey(note, 'rgba(80, 240, 80, 1)')
             this.notesDown.push(note)
             this.piano.addEventListener('click', this.handlePlay)
         } else if (notes.length > 0){
-            keyboard.fillKey(note, 'rgba(185, 28, 28, 1)')
+            piano.fillKey(note, 'rgba(185, 28, 28, 1)')
             this.notesDown.push(note)
         } else {
-            keyboard.fillKey(note, '#fbbf24')
+            piano.fillKey(note, '#fbbf24')
             setTimeout( function(){
-                keyboard.clearKey(note)
+                piano.clearKey(note)
             }, 300)
         }
-        document.dispatchEvent(new CustomEvent('answer', { detail: note }))
+        let reportNote = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
+        document.dispatchEvent(new CustomEvent('answer', { detail: reportNote }))
     }
     clear(){
         this.notesDown.forEach( note => {
-            keyboard.clearKey(note)
+            piano.clearKey(note)
         })
     }
     formatNote(note){
