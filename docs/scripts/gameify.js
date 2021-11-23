@@ -47,12 +47,23 @@ class GameArea extends HTMLElement {
         let ratio = e.detail.ratio
         let is_threshold = e.detail.is_threshold()
         if (!is_threshold) return
-        if (ratio == 1) {
-            jsConfetti.addConfetti()
-        } else {
-            jsConfetti.addConfetti({
-                emojis: ['🔥', '💥']
-            })
+        switch (ratio) {
+            case 1:
+                jsConfetti.addConfetti()
+                break;
+            case 2:
+                jsConfetti.addConfetti({
+                    emojis: ['🔥', '💥']
+                })
+                break;
+            case 3:
+                jsConfetti.addConfetti({
+                    emojis: ['💀']
+                })
+                break;
+            default:
+
+                break;
         }
 
     }
