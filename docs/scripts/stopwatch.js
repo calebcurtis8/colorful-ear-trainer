@@ -15,10 +15,10 @@ class StopwatchTimer extends HTMLElement{
         this.timelimit = function(){ return User.get('timelimit','float') * User.get('note_count', 'number')}
         this.timelimitInMs = function(){ return this.timelimit() * 1000 * User.get('note_count', 'number')}
 
-        document.addEventListener('gameify:afternotes', this.start.bind(this))
-        document.addEventListener('gameify:afteranswer', this.stop.bind(this))
-        document.addEventListener('gameify:pause', this.stop.bind(this))
-        document.addEventListener('userupdate', this.update.bind(this))
+        document.addEventListener('game:afterask', this.start.bind(this))
+        document.addEventListener('game:answercomplete', this.stop.bind(this))
+        document.addEventListener('game:pause', this.stop.bind(this))
+        document.addEventListener('user:update', this.update.bind(this))
 
         window.addEventListener('blur', this.stop.bind(this))
 
@@ -48,7 +48,7 @@ class StopwatchTimer extends HTMLElement{
             removeClassStartsWith(this.face, 'bg-')
             this.face.classList.add('bg-fail')
             this.status = 'fail'
-            document.dispatchEvent(new CustomEvent('gameify:punish'))
+            document.dispatchEvent(new CustomEvent('gameify:update', { detail: { note: null, msg: 'timeFail' }}))
         }
     }
     update(){

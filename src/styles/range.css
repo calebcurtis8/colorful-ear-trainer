@@ -1,0 +1,33 @@
+
+#NoteRange {
+    padding: 0 16px;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    min-height: 18px;
+}
+
+.noUi-connect {
+    @apply bg-gradient-to-r from-blue-500 to-blue-400 !important;
+}
+
+.noUi-handle {
+    @apply bg-theme-text cursor-move !important;
+}
+
+.noUi-handle,
+.noUi-tooltip,
+.noUi-target {
+    border-color: var(--text-color) !important;
+}
+
+.noUi-handle,
+.noUi-target {
+    box-shadow: none !important;
+}
+.noUi-target, .noUi-touch-area{
+    background: var(--bkg-color)!important;
+}
+.noUi-tooltip {
+    bottom: -160% !important;
+    @apply px-2 py-1 !important;
+}

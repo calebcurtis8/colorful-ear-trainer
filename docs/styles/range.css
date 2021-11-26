@@ -1,0 +1,42 @@
+
+#NoteRange {
+    padding: 0 16px;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    min-height: 18px;
+}
+
+.noUi-connect {
+    background-image: linear-gradient(to right, var(--tw-gradient-stops)) !important;
+    --tw-gradient-from: #3b82f6 !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(59, 130, 246, 0)) !important;
+    --tw-gradient-to: #60a5fa !important;
+}
+
+.noUi-handle {
+    cursor: move !important;
+    background-color: var(--text-color) !important;
+}
+
+.noUi-handle,
+.noUi-tooltip,
+.noUi-target {
+    border-color: var(--text-color) !important;
+}
+
+.noUi-handle,
+.noUi-target {
+    box-shadow: none !important;
+}
+
+.noUi-target, .noUi-touch-area{
+    background: var(--bkg-color)!important;
+}
+
+.noUi-tooltip {
+    bottom: -160% !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+}

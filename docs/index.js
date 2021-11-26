@@ -1,3 +1,4 @@
+import './scripts/theme.js'
 import './scripts/piano.js'
 import './scripts/background.js'
 import './scripts/transpose.js'

@@ -20,16 +20,25 @@ export class Game {
         this.notesBtn?.addEventListener('click', function(){
             this.playNotes(0)
         }.bind(this))
+
+        this.playCount = 0
     }
     play(){
+        this.playCount += 1
         if(this.playBtn.isPlaying){ 
             this.pause()
             return
         }
-        this.playCadence()
+        let playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
+        if(playCadence){
+            this.playCadence()
+        } else {
+            this.offset = .25 // in seconds
+        }
+
         document.addEventListener('answer', this.handleAnswer)
         //clears the piano
-        document.dispatchEvent(new CustomEvent('question:start'))
+        document.dispatchEvent(new CustomEvent('game:ask'))
         //notes which the user must answer
         let noteSet = Transposer.transpose(User.get('set', 'array'))
         User.notes = random(User.get('note_count','number'), noteSet)
@@ -43,7 +52,7 @@ export class Game {
         this.setButtonState('PAUSE', 'bg-yellow-gradient', true)
         this.playNotes()
         setTimeout(() => {
-            if(this.playBtn.isPlaying) document.dispatchEvent(new CustomEvent('gameify:afternotes'))
+            if(this.playBtn.isPlaying) document.dispatchEvent(new CustomEvent('game:afterask'))
         },this.offset * 1000)
     }
     playCadence(){
@@ -59,7 +68,7 @@ export class Game {
     }
     pause(){
         this.setButtonState('PLAY', 'bg-green-gradient', false)
-        document.dispatchEvent(new CustomEvent('gameify:pause'))
+        document.dispatchEvent(new CustomEvent('game:pause'))
     }
     setButtonState(state, colorClass, playing){
         removeClassStartsWith(this.playBtn, 'bg-')
@@ -75,35 +84,35 @@ export class Game {
         return arr.map( note => [note,`${User.getOctaveRange()[0] + Math.floor(Math.random() * (range[1] - range[0]))}`])
     }
     registerAnswer(e){
-        console.log(User.notes, e.detail)
-
-        if(User.notes.indexOf(e.detail) == -1){
+        let note_with_octave = e.detail.note_with_octave
+        Gameify.total += 1
+        let updateEvent = new CustomEvent('gameify:update', { detail: e.detail })
+        if(User.notes.indexOf(note_with_octave) == -1){
             Gameify.streak = 0
-            Gameify.total += 1
-            this.dispatchUpdateEvent()
+            e.detail.msg = 'wrongNote'
+            document.dispatchEvent(updateEvent)
             return 
         }
         if(Stopwatch.status == 'success'){
             Gameify.streak += 1
             Gameify.correct += 1
+            e.detail.msg = 'rightNote'
+            document.dispatchEvent(updateEvent)
         }
         if(Stopwatch.status == 'fail'){
             Gameify.streak = 0
             Gameify.late += 1
+            e.detail.msg = 'lateAnswer'
+            document.dispatchEvent(updateEvent)
         }
-        Gameify.total += 1
-        this.dispatchUpdateEvent()
 
-        User.notes.splice(User.notes.indexOf(e.detail), 1)
+        User.notes.splice(User.notes.indexOf(note_with_octave), 1)
         
         if(User.notes.length == 0){
             document.removeEventListener('answer', this.handleAnswer)
-            document.dispatchEvent(new CustomEvent('gameify:afteranswer'))
+            document.dispatchEvent(new CustomEvent('game:answercomplete'))
             this.setButtonState('PLAY', 'bg-green-gradient', false)
             setTimeout(this.play.bind(this), 350)
         }
-    }
-    dispatchUpdateEvent(){
-        document.dispatchEvent(new CustomEvent('gameify:update'))
     }
 }

@@ -12,7 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "@snowpack/plugin-postcss": "^1.4.3",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.1",
+    "postcss-nested": "^5.0.6",
     "snowpack": "^3.8.8",
     "tailwindcss": "^2.2.19"
   },
@@ -20,8 +21,10 @@
     "@slime/stopwatch": "^1.0.5",
     "@snowpack/plugin-webpack": "^3.0.0",
     "@tailwindcss/forms": "^0.3.4",
+    "autoprefixer": "^10.4.0",
     "js-confetti": "^0.9.1",
     "nouislider": "^15.5.0",
+    "postcss-import": "^14.0.2",
     "tone": "^14.7.77"
   }
 }

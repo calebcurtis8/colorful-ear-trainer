@@ -1,3 +1,8 @@
+@import './styles/theme';
+@import './styles/toggle';
+@import './styles/range';
+@import './styles/gameify';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,20 +14,23 @@ html {
 }
 
 .input {
-    @apply border rounded-lg border-black pl-2 w-full text-lg;
+    @apply border rounded-lg pl-2 w-full text-lg;
+    background: var(--bkg-color);
+    color: var(--text-color);
     min-width: 100px;
 }
 
 .btn {
-    @apply rounded-lg text-black px-5 py-3 active:text-white active:bg-black font-bold;
+    @apply rounded-lg px-5 py-3  font-bold text-black;
+    &:active{
+        color: var(--bkg-color);
+        background: var(--text-color);
+    }
 }
 
 .card {
-    @apply rounded-lg border-4 border-solid border-black p-4;
-}
-
-#background {
-    z-index: -1;
+    @apply rounded-lg border-4 border-solid p-4;
+    border-color: var(--text-color);
 }
 
 label {
@@ -31,49 +39,4 @@ label {
 
 svg rect[data-note] {
     @apply cursor-pointer select-none;
-}
-
-svg rect[data-note][fill="white"] {
-    fill: transparent;
-}
-
-.bg-success {
-    @apply bg-gradient-to-b from-green-500 to-green-600;
-}
-
-.bg-fail {
-    @apply bg-gradient-to-b from-red-500 to-red-600;
-}
-
-.bg-yellow-gradient {
-    @apply bg-gradient-to-r from-yellow-400 to-yellow-300;
-}
-
-.bg-green-gradient {
-    @apply bg-gradient-to-r from-green-300 to-green-200;
-}
-
-#NoteRange {
-    padding: 0 16px;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    min-height: 18px;
-}
-
-.noUi-connect {
-    @apply bg-gradient-to-r from-blue-500 to-blue-400 !important;
-}
-
-.noUi-handle {
-    @apply bg-black cursor-move !important;
-}
-.noUi-handle, .noUi-tooltip, .noUi-target {
-    @apply border-black !important;
-}
-.noUi-handle, .noUi-target {
-    box-shadow: none !important;
-}
-.noUi-tooltip {
-    bottom: -160%!important;
-    @apply px-2 py-1 !important;
 }

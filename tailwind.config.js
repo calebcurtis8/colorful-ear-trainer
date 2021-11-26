@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'theme-text': 'var(--text-color)',
+        'theme-secondary': 'var(--text-secondary)',
+        'theme-bg': 'var(--bkg-color)',
+      },
       transitionDuration: {
         '0': '0ms',
       },

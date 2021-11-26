@@ -2,7 +2,7 @@ import * as Tone from 'tone'
 
 import User from './user'
 
-const piano = document.getElementById("piano");
+const piano = document.getElementById("Piano");
 
 const POSSIBLE_KEY_VALUES = ["C", ["C#","Db"], "D", ["D#","Eb"], "E", "F", ["F#","Gb"], "G", ["G#","Ab"], "A", ["A#","Bb"], "B"]
 
@@ -37,7 +37,7 @@ class PianoPlayer {
         document.addEventListener('keydown', this.handleListenShifts)
         document.addEventListener('keyup', this.handleListenShifts)
 
-        document.addEventListener('question:start', this.clear.bind(this))
+        document.addEventListener('game:ask', this.clear.bind(this))
 
         this.synth = new Tone.Synth().toDestination();
     }
@@ -118,7 +118,7 @@ class PianoPlayer {
             }, 300)
         }
         let reportNote = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
-        document.dispatchEvent(new CustomEvent('answer', { detail: reportNote }))
+        document.dispatchEvent(new CustomEvent('answer', { detail: { note_with_octave: reportNote, note: note, elm: piano.querySelector(`[data-note="${ note }"]`) } }))
     }
     clear(){
         this.notesDown.forEach( note => {

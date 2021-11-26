@@ -1,7 +1,7 @@
 import User from './user.js'
 
 const keyCenterElm = document.getElementById('KeyCenter')
-document.addEventListener('userupdate', function(){
+document.addEventListener('user:update', function(){
     document.dispatchEvent(new CustomEvent('transpose'))
 })
 

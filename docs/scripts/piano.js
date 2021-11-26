@@ -1,6 +1,6 @@
 import * as Tone from "../_snowpack/pkg/tone.js";
 import User from "./user.js";
-const piano = document.getElementById("piano");
+const piano = document.getElementById("Piano");
 const POSSIBLE_KEY_VALUES = ["C", ["C#", "Db"], "D", ["D#", "Eb"], "E", "F", ["F#", "Gb"], "G", ["G#", "Ab"], "A", ["A#", "Bb"], "B"];
 piano.fillKey = function(note, color) {
   let key = this.getNote(note);
@@ -29,7 +29,7 @@ class PianoPlayer {
     document.addEventListener("keyup", this.handleListenKeys);
     document.addEventListener("keydown", this.handleListenShifts);
     document.addEventListener("keyup", this.handleListenShifts);
-    document.addEventListener("question:start", this.clear.bind(this));
+    document.addEventListener("game:ask", this.clear.bind(this));
     this.synth = new Tone.Synth().toDestination();
   }
   async play(key) {
@@ -113,7 +113,7 @@ class PianoPlayer {
       }, 300);
     }
     let reportNote = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
-    document.dispatchEvent(new CustomEvent("answer", {detail: reportNote}));
+    document.dispatchEvent(new CustomEvent("answer", {detail: {note_with_octave: reportNote, note, elm: piano.querySelector(`[data-note="${note}"]`)}}));
   }
   clear() {
     this.notesDown.forEach((note) => {
