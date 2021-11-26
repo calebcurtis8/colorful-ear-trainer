@@ -31,3 +31,9 @@
     bottom: -160% !important;
     @apply px-2 py-1 !important;
 }
+
+.noUi-handle{
+    &:before, &:after{
+        background: var(--text-color)!important;
+    }
+}
