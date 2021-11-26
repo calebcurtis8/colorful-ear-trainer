@@ -151,9 +151,9 @@ class GameArea extends HTMLElement {
     }
     message(note, time = 1000){
         this.elements.message.innerHTML = note
-        this.elements.message.classList.add('active')
+        // this.elements.message.classList.add('active')
         setTimeout( () => {
-            this.elements.message.classList.remove('active')
+            // this.elements.message.classList.remove('active')
         }, time)
     }
 }
