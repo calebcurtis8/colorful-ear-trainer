@@ -17,7 +17,6 @@ html {
     @apply border rounded-lg pl-2 w-full text-lg;
     background: var(--bkg-color);
     color: var(--text-color);
-    min-width: 100px;
 }
 
 .btn {

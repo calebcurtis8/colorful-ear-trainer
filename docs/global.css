@@ -960,6 +960,10 @@ select {
   order: 1;
 
 }
+.col-span-3 {
+  grid-column: span 3 / span 3;
+
+}
 .col-span-2 {
   grid-column: span 2 / span 2;
 
@@ -1076,6 +1080,15 @@ select {
 }
 .gap-4 {
   gap: 1rem;
+
+}
+.gap-y-4 {
+  row-gap: 1rem;
+
+}
+.gap-x-2 {
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
 
 }
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
@@ -1345,7 +1358,6 @@ html {
   line-height: 1.75rem;
     background: var(--bkg-color);
     color: var(--text-color);
-    min-width: 100px;
 
 }
 .btn {

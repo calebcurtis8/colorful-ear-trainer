@@ -94,7 +94,7 @@
           </div>
           <form class="space-y-4">
             <key-selector>
-              <div class="grid grid-cols-2 gap-4 mb-4">
+              <div class="grid grid-cols-3 gap-y-4 gap-x-2 mb-4">
                 <div>
                   <label for="KeyCenter">Key Center:</label>
                   <select name="keycenter" id="KeyCenter" class="input">
@@ -119,8 +119,14 @@
                     <option value='minor'>Minor</option>
                   </select>
                 </div>
+                <div>
+                  <label for="NoteCount">Notes:</label>
+                  <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
+                    inputmode="decimal">
+                    <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
+                </div>
               </div>
-              <div>
+              <div class="col-span-3">
                 <label for="NoteSet">Note Set:</label>
                 <select name="set" id="NoteSet" class="input w-full note-sets">
                   <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
@@ -162,31 +168,26 @@
                 </select>
               </div>
             </key-selector>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-y-4 gap-x-2">
               <div>
-                <label for="NoteCount">Number of Notes:</label>
-                <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
-                  inputmode="decimal">
-              </div>
-              <div>
-                <label for="Timelimit">Time Limit:</label>
+                <label for="Timelimit">Time:</label>
                 <input type="number" name="timelimit" id="Timelimit" min="0" value="5" step="0.5" class="input"
                   inputmode="decimal">
-                <div class="text-xs text-theme-secondary">seconds per note</div>
+                <div class="text-xs text-theme-secondary">per note (seconds)</div>
               </div>
-              <div>
+              <!-- <div>
                 <label for="Octave">Cadence Octave:</label>
-                <input type="number" name="cadenceoctave" id="Octave" min="1" max="7" value="4" class="input"
-                  inputmode="decimal">
-              </div>
-              <div>
-                <label for="Octave">Play Cadence every:</label>
+                inputmode="decimal">
+              </div> -->
+              <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
+              <div class="col-span-2">
+                <label for="Octave">Cadence every:</label>
                 <input type="number" name="cadenceevery" id="Octave" min="1" value="1" class="input"
                   inputmode="decimal">
-                <div class="text-xs text-theme-secondary">notes</div>
+                <div class="text-xs text-theme-secondary">question(s)</div>
               </div>
-              <div>
-                <label for="Bpm">Tempo:</label>
+              <div class="col-span-2">
+                <label for="Bpm">Cadence Tempo:</label>
                 <input type="number" name="bpm" id="Bpm" min="1" max="200" value="60" class="input" inputmode="decimal">
                 <div class="text-xs text-theme-secondary">beats per minute</div>
               </div>
@@ -197,7 +198,7 @@
                   <span class="slider round"></span>
                 </label>
               </div>
-              <div class="col-span-2">
+              <div class="col-span-3">
                 <label for="NoteRange">Note Range (Octaves):</label>
                 <div id="NoteRange"></div>
               </div>
