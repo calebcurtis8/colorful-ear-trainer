@@ -7,7 +7,7 @@ const STORAGE = 'EarTrainerUser';
 
 (() => {
     let storage = JSON.parse(localStorage.getItem(STORAGE)) || {}
-    console.log(storage.darkmode)
+
     let isDark = prefersDarkScheme.matches && storage.darkmode !== false
 
     if(isDark) btn.checked = true

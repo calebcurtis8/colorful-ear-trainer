@@ -1,3 +1,4 @@
+import './scripts/inputs'
 import './scripts/theme'
 import './scripts/piano'
 import './scripts/background'
