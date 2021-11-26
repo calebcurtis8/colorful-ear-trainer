@@ -3,8 +3,12 @@ import User from './user'
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 const btn = document.getElementById('DarkMode');
 
+const STORAGE = 'EarTrainerUser';
+
 (() => {
-    let isDark = prefersDarkScheme.matches && User.get('darkmode', 'checkbox') !== false
+    let storage = JSON.parse(localStorage.getItem(STORAGE)) || {}
+    console.log(storage.darkmode)
+    let isDark = prefersDarkScheme.matches && storage.darkmode !== false
 
     if(isDark) btn.checked = true
     toggleTheme(isDark)

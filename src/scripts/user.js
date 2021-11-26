@@ -104,6 +104,7 @@ class DefineUser extends HTMLElement {
             let value = storage[name]
             let inputValue
             if(input.type == 'checkbox'){
+                if(input.id == 'DarkMode') return
                 if(value) input.checked = value
                 inputValue = input.checked
             } else {
