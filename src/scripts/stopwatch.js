@@ -13,7 +13,7 @@ class StopwatchTimer extends HTMLElement{
         this.face = this.querySelector('[data-face]')
         this.limit = this.querySelector('[data-limit]')
         this.timelimit = function(){ return User.get('timelimit','float') * User.get('note_count', 'number')}
-        this.timelimitInMs = function(){ return this.timelimit() * 1000 * User.get('note_count', 'number')}
+        this.timelimitInMs = function(){ return this.timelimit() * 1000}
 
         document.addEventListener('game:afterask', this.start.bind(this))
         document.addEventListener('game:answercomplete', this.stop.bind(this))
@@ -48,7 +48,7 @@ class StopwatchTimer extends HTMLElement{
             removeClassStartsWith(this.face, 'bg-')
             this.face.classList.add('bg-fail')
             this.status = 'fail'
-            document.dispatchEvent(new CustomEvent('gameify:update', { detail: { note: null, msg: 'timeFail' }}))
+            document.dispatchEvent(new CustomEvent('gameify:timeout', { detail: { note: null, msg: 'timeFail' }}))
         }
     }
     update(){

@@ -6,9 +6,9 @@ import { removeClassStartsWith } from "./remove-class-starts-with"
 
 import User from './user'
 import Gameify from './gameify'
+import { Stats } from './stats'
 
 const Stopwatch = document.getElementById('Stopwatch')
-
 export class Game {
     constructor(){
         this.handleAnswer = this.registerAnswer.bind(this)
@@ -43,7 +43,8 @@ export class Game {
         let noteSet = Transposer.transpose(User.get('set', 'array'))
         User.notes = random(User.get('note_count','number'), noteSet)
         //duplicate to remember which were selected
-        User.selected_notes = this.setOctaves(JSON.parse(JSON.stringify(User.notes)))
+        User.selected_notes_without_octave = JSON.parse(JSON.stringify(User.notes))
+        User.selected_notes = this.setOctaves(User.selected_notes_without_octave)
         //assign to previous note array
         User.previous_notes = User.selected_notes
 
@@ -86,29 +87,33 @@ export class Game {
     registerAnswer(e){
         let note_with_octave = e.detail.note_with_octave
         Gameify.total += 1
+        e.detail.q = User.selected_notes_without_octave
         let updateEvent = new CustomEvent('gameify:update', { detail: e.detail })
         if(User.notes.indexOf(note_with_octave) == -1){
             Gameify.streak = 0
             e.detail.msg = 'wrongNote'
+            e.detail.status = 0
             document.dispatchEvent(updateEvent)
             return 
         }
         if(Stopwatch.status == 'success'){
-            Gameify.streak += 1
             Gameify.correct += 1
             e.detail.msg = 'rightNote'
+            e.detail.status = 1
             document.dispatchEvent(updateEvent)
         }
         if(Stopwatch.status == 'fail'){
             Gameify.streak = 0
             Gameify.late += 1
             e.detail.msg = 'lateAnswer'
+            e.detail.status = -1
             document.dispatchEvent(updateEvent)
         }
 
         User.notes.splice(User.notes.indexOf(note_with_octave), 1)
         
         if(User.notes.length == 0){
+            Gameify.streak += 1
             document.removeEventListener('answer', this.handleAnswer)
             document.dispatchEvent(new CustomEvent('game:answercomplete'))
             this.setButtonState('PLAY', 'bg-green-gradient', false)

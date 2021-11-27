@@ -24,6 +24,7 @@ class GameArea extends HTMLElement {
             message: document.getElementById('Message')
         }
         document.addEventListener('gameify:update', this.update.bind(this))
+        document.addEventListener('gameify:timeout', this.update.bind(this))
         document.addEventListener('gameify:update', this.checkScores.bind(this))
         document.addEventListener('gameify:reward', this.reward.bind(this))
         document.addEventListener('gameify:punish', this.punish.bind(this))

@@ -254,17 +254,21 @@
           </div>
         </stopwatch-timer>
         <div class="z-10 flex flex-col items-center justify-center">
-          <div class="text-lg md:text-xl">Streak</div>
-          <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
-          <div class="text-lg md:text-lg border-t border-white flex justify-center items-center">
-            High:
-            <span data-high-streak class="ml-1">0</span>
+          <div class="flex flex-col bg-gradient-to-r from-green-600 to-green-700 pt-1 rounded-lg border-4 border-white">
+            <div class="text-lg md:text-xl px-4">Streak</div>
+            <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
+            <div class="text-lg md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center bg-gradient-to-r from-red-600 to-red-500 w-full">
+              High:
+              <span data-high-streak class="ml-1">0</span>
+            </div>
           </div>
         </div>
         <div class="z-10 flex flex-col items-center justify-center">
-          <div class="text-lg md:text-xl">Score</div>
-          <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
-            <span data-correct>0</span>/<span data-total>0</span>
+          <div class="bg-gradient-to-r py-2 px-4 from-green-600 to-green-700 pt-1 rounded-lg border-4 border-white">
+            <div class="text-lg md:text-xl">Score</div>
+            <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
+              <span data-correct>0</span>/<span data-total>0</span>
+            </div>
           </div>
         </div>
         <div
