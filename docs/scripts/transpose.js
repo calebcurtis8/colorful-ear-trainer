@@ -5,7 +5,7 @@ document.addEventListener('user:update', function(){
     document.dispatchEvent(new CustomEvent('transpose'))
 })
 
-const AllNotes = ["C", ["C#","Db"], "D", ["D#","Eb"], "E", "F", ["F#","Gb"], "G", ["G#","Ab"], "A", ["A#","Bb"], "B"]
+// const AllNotes = ["C", ["C#","Db"], "D", ["D#","Eb"], "E", "F", ["F#","Gb"], "G", ["G#","Ab"], "A", ["A#","Bb"], "B"]
 const Flats = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 const Sharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 export const Transposer = {
@@ -31,12 +31,12 @@ export const Transposer = {
         set = set.map( note => this.notes[keyCenter][this.normalizeIndex(parseInt(note) + keyCenter)])
         return set
     },
-    noteNames(set, keyCenter = keyCenterElm.value){
-        //make sure set is an array
+    notesAsNumber(set, keyCenter = keyCenterElm.value){
         Array.isArray(set) ? set = set : set = [set]
-        //make sure keyCenter is an int
         keyCenter = parseInt(keyCenter)
-        set = set.map( note => AllNotes[this.normalizeIndex(parseInt(note))])
+        set = set.map( name => {
+            return this.notes[keyCenter].indexOf(name)
+        })
         return set
     },
     normalizeIndex(i) {

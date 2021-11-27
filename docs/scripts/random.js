@@ -1,21 +1,58 @@
-import User from './user.js'
+import { Question }  from './stats.js'
 
 export default function random( count = 1, set = ["C","D","E","F","G","A","B"]){
-    let selected_notes = []
     
-    //collect previous notes
-    var all_previous_notes = User.previous_notes
-    all_previous_notes = all_previous_notes.map( note => note[0])
+    function run(ignore_set = []){
+        let selected_notes = []
+        while(selected_notes.length < count){
+            var r = Math.floor(Math.random() * set.length);
+            if(selected_notes.indexOf(set[r]) === -1) selected_notes.push(set[r]);
+            //if selected array matches ignore set, do this again
+            if(areArraysEqualSets(selected_notes, ignore_set)) selected_notes = []
+        }
+        return selected_notes
+    }
+    let selected = run()
 
-    //half the time ignore previous notes - when less than 3 notes
-    let ignore_previous = Math.floor(Math.random() * 2)
-    let compare_set = []
-    if(ignore_previous === 1 && count < 3) compare_set = all_previous_notes;
-    
-    while(selected_notes.length < count){
-        var r = Math.floor(Math.random() * set.length);
-        if(selected_notes.indexOf(set[r]) === -1 && compare_set.indexOf(set[r] === -1)) selected_notes.push(set[r]);
+    let strength = Question.strength(selected)
+
+    if(strength > 0){
+        let chance = Math.floor(1 / strength)
+        let rerun = Math.floor(Math.random() * chance)
+        if(rerun === 1){
+            //get new notes, the weaker the strength the less likely we are to find a new note
+            selected = run(selected)
+        }
     }
     
-    return selected_notes
+    return selected
 }
+
+/** assumes array elements are primitive types
+* check whether 2 arrays are equal sets.
+* @param  {} a1 is an array
+* @param  {} a2 is an array
+*/
+function areArraysEqualSets(a1, a2) {
+    const superSet = {};
+    for (const i of a1) {
+      const e = i + typeof i;
+      superSet[e] = 1;
+    }
+  
+    for (const i of a2) {
+      const e = i + typeof i;
+      if (!superSet[e]) {
+        return false;
+      }
+      superSet[e] = 2;
+    }
+  
+    for (let e in superSet) {
+      if (superSet[e] === 1) {
+        return false;
+      }
+    }
+  
+    return true;
+  }

@@ -9,7 +9,6 @@ class DefineUser extends HTMLElement {
         this.addListeners()
         
         this.inputs = this.querySelectorAll('input,select')
-        this.previous_notes = []
 
         this.rangeElm = this.querySelector('#NoteRange')
         this.levelElm = this.querySelector('#Level')

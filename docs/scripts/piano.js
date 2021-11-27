@@ -24,8 +24,8 @@ class PianoPlayer {
     this.handleListenKeys = this.listenKeys.bind(this);
     this.handleListenShifts = this.listenShifts.bind(this);
     this.playback = true;
-    this.piano.addEventListener("click", this.handlePlayClick);
-    this.piano.addEventListener("click", this.handleListenClick);
+    this.piano.addEventListener("mousedown", this.handlePlayClick);
+    this.piano.addEventListener("mousedown", this.handleListenClick);
     document.addEventListener("keyup", this.handleListenKeys);
     document.addEventListener("keydown", this.handleListenShifts);
     document.addEventListener("keyup", this.handleListenShifts);

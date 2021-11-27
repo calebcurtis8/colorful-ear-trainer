@@ -1,6 +1,7 @@
 import StopWatch from "../_snowpack/pkg/@slime/stopwatch.js"
 import { removeClassStartsWith } from './remove-class-starts-with.js'
 
+import Gameify from './gameify.js'
 import User from './user.js'
 
 class StopwatchTimer extends HTMLElement{
@@ -13,7 +14,7 @@ class StopwatchTimer extends HTMLElement{
         this.face = this.querySelector('[data-face]')
         this.limit = this.querySelector('[data-limit]')
         this.timelimit = function(){ return User.get('timelimit','float') * User.get('note_count', 'number')}
-        this.timelimitInMs = function(){ return this.timelimit() * 1000 * User.get('note_count', 'number')}
+        this.timelimitInMs = function(){ return this.timelimit() * 1000}
 
         document.addEventListener('game:afterask', this.start.bind(this))
         document.addEventListener('game:answercomplete', this.stop.bind(this))
@@ -48,7 +49,9 @@ class StopwatchTimer extends HTMLElement{
             removeClassStartsWith(this.face, 'bg-')
             this.face.classList.add('bg-fail')
             this.status = 'fail'
-            document.dispatchEvent(new CustomEvent('gameify:update', { detail: { note: null, msg: 'timeFail' }}))
+            Gameify.streak = 0
+            Gameify.punish({ msg: 'timeFail' })
+            Gameify.update({ msg: 'timeFail' })
         }
     }
     update(){
