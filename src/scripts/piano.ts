@@ -2,9 +2,11 @@ import * as Tone from 'tone'
 
 import User from './user'
 
+import { NOTE_NAMES } from './note_names'
+
 const piano = document.getElementById("Piano");
 
-const POSSIBLE_KEY_VALUES = ["C", ["C#","Db"], "D", ["D#","Eb"], "E", "F", ["F#","Gb"], "G", ["G#","Ab"], "A", ["A#","Bb"], "B"]
+const POSSIBLE_KEY_VALUES = NOTE_NAMES.all
 
 piano.fillKey = function(note, color){
     let key = this.getNote(note)
@@ -85,6 +87,7 @@ class PianoPlayer {
             if(Array.isArray(k)) return k.join(',')
             return k
         })
+        if(!match.length) return
         match = match.join('')
         this.listen(match)
 

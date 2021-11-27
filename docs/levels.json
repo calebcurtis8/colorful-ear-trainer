@@ -2,44 +2,40 @@
     {
         "level": "1",
         "keycenter": "0",
-        "tonality": "major",
+        "tonality": "major,1451",
         "set": "[0,4,7,11]",
         "note_count": "1",
         "timelimit": "5",
-        "cadenceoctave": "4",
         "bpm": "60",
         "range": [4, 5]
     },
     {
         "level": "2",
         "keycenter": "0",
-        "tonality": "major",
+        "tonality": "major,1451",
         "set": "[0,2,4,5,7,9,11]",
         "note_count": "1",
         "timelimit": "4",
-        "cadenceoctave": "4",
         "bpm": "90",
         "range": [4, 5]
     },
     {
         "level": "3",
         "keycenter": "0",
-        "tonality": "major",
+        "tonality": "major,1451",
         "set": "[0,2,4,5,7,9,11]",
         "note_count": "1",
         "timelimit": "4",
-        "cadenceoctave": "4",
         "bpm": "90",
         "range": [3, 5]
     },
     {
         "level": "4",
         "keycenter": "0",
-        "tonality": "major",
+        "tonality": "major,1451",
         "set": "[0,2,4,5,7,9,11]",
         "note_count": "2",
         "timelimit": "4",
-        "cadenceoctave": "4",
         "bpm": "120",
         "range": [3, 6]
     }

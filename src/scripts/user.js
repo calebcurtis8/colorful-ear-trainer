@@ -57,6 +57,9 @@ class DefineUser extends HTMLElement {
         let value = this.querySelector(`[name="${attr}"]`)
         return this[as](value)
     }
+    getElm(attr){
+        return this.querySelector(`[name="${attr}"]`)
+    }
     getJson(url){
         return fetch(url)
         .then(response => {

@@ -4,7 +4,7 @@
   --theme-light-bg: #efefef;
   --theme-dark-text: #fff;
   --theme-dark-bg: #121212;
-  --theme-dark-secondary: #ddd;
+  --theme-dark-secondary: #999;
 
 }
 body,
@@ -962,17 +962,34 @@ select {
   order: 1;
 
 }
-.col-span-3 {
-  grid-column: span 3 / span 3;
+.col-span-4 {
+  grid-column: span 4 / span 4;
+
+}
+.col-span-1 {
+  grid-column: span 1 / span 1;
 
 }
 .col-span-2 {
   grid-column: span 2 / span 2;
 
 }
+.col-span-3 {
+  grid-column: span 3 / span 3;
+
+}
+.col-span-full {
+  grid-column: 1 / -1;
+
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+
+}
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 
 }
 .my-2 {
@@ -1075,6 +1092,10 @@ select {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
 }
+.grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+
+}
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 
@@ -1097,6 +1118,10 @@ select {
 }
 .gap-4 {
   gap: 1rem;
+
+}
+.gap-2 {
+  gap: 0.5rem;
 
 }
 .gap-y-4 {
@@ -1168,6 +1193,10 @@ select {
 }
 .border-theme-bg {
   border-color: var(--bkg-color);
+
+}
+.border-theme-secondary {
+  border-color: var(--text-secondary);
 
 }
 .border-white {
@@ -1275,6 +1304,10 @@ select {
   padding: 1rem;
 
 }
+.p-2 {
+  padding: 0.5rem;
+
+}
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1338,6 +1371,10 @@ select {
   color: var(--text-secondary);
 
 }
+.text-theme-text {
+  color: var(--text-color);
+
+}
 .text-white {
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
@@ -1383,6 +1420,7 @@ html {
   width: 100%;
   border-radius: 0.5rem;
   border-width: 1px;
+  border-color: var(--text-secondary);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   font-size: 1.125rem;

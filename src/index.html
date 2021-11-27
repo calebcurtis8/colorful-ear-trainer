@@ -62,7 +62,8 @@
       </div>
     </div>
     <define-user id="User">
-      <div class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
+      <div
+        class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
         <div class="flex flex-col card order-2 md:order-1 flex-none">
           <!--           
           <label for="Level" class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text">Level:</label>
@@ -95,25 +96,34 @@
           </div>
           <form class="space-y-4">
             <key-selector>
-              <div class="grid grid-cols-3 gap-y-4 gap-x-2 mb-4">
-                <div>
-                  <label for="KeyCenter">Key Center:</label>
-                  <select name="keycenter" id="KeyCenter" class="input">
-                    <option value='0' selected>C</option>
-                    <option value='1'>Db</option>
-                    <option value='2'>D</option>
-                    <option value='3'>Eb</option>
-                    <option value='4'>E</option>
-                    <option value='5'>F</option>
-                    <option value='6'>Gb</option>
-                    <option value='7'>G</option>
-                    <option value='8'>Ab</option>
-                    <option value='9'>A</option>
-                    <option value='10'>Bb</option>
-                    <option value='11'>B</option>
-                  </select>
+              <div class="grid grid-cols-6 gap-y-4 gap-x-2 mb-4">
+                <div class="col-span-4 border-theme-secondary border rounded-lg p-2 grid grid-cols-2 gap-2">
+                  <div class="col-span-1">
+                    <label for="KeyCenter">Key Center:</label>
+                    <select name="keycenter" id="KeyCenter" class="input">
+                      <option value='0' selected>C</option>
+                      <option value='1'>Db</option>
+                      <option value='2'>D</option>
+                      <option value='3'>Eb</option>
+                      <option value='4'>E</option>
+                      <option value='5'>F</option>
+                      <option value='6'>Gb</option>
+                      <option value='7'>G</option>
+                      <option value='8'>Ab</option>
+                      <option value='9'>A</option>
+                      <option value='10'>Bb</option>
+                      <option value='11'>B</option>
+                    </select>
+                  </div>
+                  <div class="col-span-1">
+                    <label for="RandomKey" class="text-xs text-theme-text">Randomize</label>
+                    <label class="toggle inline-block my-1">
+                      <input id="RandomKey" name="randomkey" type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
                 </div>
-                <div>
+                <div class="col-span-2">
                   <label for="Tonality">Cadence:</label>
                   <select name="tonality" id="Tonality" class="input">
                     <optgroup label="Major">
@@ -127,130 +137,131 @@
                     </optgroup>
                   </select>
                 </div>
-                <div class="relative">
+                <div class="col-span-4">
+                  <label for="NoteSet">Note Set:</label>
+                  <select name="set" id="NoteSet" class="input w-full note-sets">
+                    <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
+                    <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
+                    <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G |
+                      B
+                    </option>
+                    <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic
+                    </option>
+                    <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic +
+                      Bb
+                    </option>
+                    <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}" data-tonality="major">
+                      Diatonic + Bb + Eb</option>
+                    <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {10} + {3} + {8}"
+                      data-tonality="major">Diatonic + Bb + Eb + Ab</option>
+                    <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}"
+                      data-tonality="major">Diatonic + Bb + Eb + Ab + Db</option>
+                    <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">
+                      Chromatic
+                    </option>
+                  </select>
+                  <select class="note-sets hidden" id="InactiveSet">
+                    <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
+                    <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
+                    <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G |
+                      Bb
+                    </option>
+                    <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">
+                      Diatonic (Aeolian)</option>
+                    <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">
+                      Diatonic + B</option>
+                    <option value='[0,2,3,4,5,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">
+                      Diatonic + B + E</option>
+                    <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9}"
+                      data-tonality="minor">Diatonic + B + E + A</option>
+                    <option value='[0,2,3,4,5,6,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9} + {6}"
+                      data-tonality="minor">Diatonic + B + E + A + Gb</option>
+                    <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">
+                      Chromatic
+                    </option>
+                  </select>
+                </div>
+                <div class="col-span-2 relative">
                   <label for="NoteCount">Notes:</label>
                   <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
                     inputmode="numeric">
                   <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
                 </div>
-              </div>
-              <div class="col-span-3">
-                <label for="NoteSet">Note Set:</label>
-                <select name="set" id="NoteSet" class="input w-full note-sets">
-                  <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
-                  <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
-                  <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G | B
-                  </option>
-                  <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic
-                  </option>
-                  <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic +
-                    Bb
-                  </option>
-                  <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}" data-tonality="major">
-                    Diatonic + Bb + Eb</option>
-                  <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {10} + {3} + {8}"
-                    data-tonality="major">Diatonic + Bb + Eb + Ab</option>
-                  <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}"
-                    data-tonality="major">Diatonic + Bb + Eb + Ab + Db</option>
-                  <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">Chromatic
-                  </option>
-                </select>
-                <select class="note-sets hidden" id="InactiveSet">
-                  <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
-                  <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
-                  <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G |
-                    Bb
-                  </option>
-                  <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">
-                    Diatonic (Aeolian)</option>
-                  <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">
-                    Diatonic + B</option>
-                  <option value='[0,2,3,4,5,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">
-                    Diatonic + B + E</option>
-                  <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9}"
-                    data-tonality="minor">Diatonic + B + E + A</option>
-                  <option value='[0,2,3,4,5,6,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9} + {6}"
-                    data-tonality="minor">Diatonic + B + E + A + Gb</option>
-                  <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">Chromatic
-                  </option>
-                </select>
-              </div>
             </key-selector>
-            <div class="grid grid-cols-3 gap-y-4 gap-x-2">
-              <div>
-                <label for="Timelimit">Time:</label>
-                <input type="number" name="timelimit" id="Timelimit" min="0.5" value="5" step="0.5" class="input"
-                  inputmode="decimal">
-                <div class="text-xs text-theme-secondary">per note (seconds)</div>
-              </div>
-              <!-- <div>
+            <div class="col-span-3">
+              <label for="Timelimit">Time:</label>
+              <input type="number" name="timelimit" id="Timelimit" min="0.5" value="5" step="0.5" class="input"
+                inputmode="decimal">
+              <div class="text-xs text-theme-secondary">per note (seconds)</div>
+            </div>
+            <!-- <div>
                 <label for="Octave">Cadence Octave:</label>
                 inputmode="numeric">
               </div> -->
-              <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
-              <div class="col-span-2">
-                <label for="Octave">Cadence every:</label>
-                <input type="number" name="cadenceevery" id="Octave" min="1" value="1" class="input"
-                  inputmode="numeric">
-                <div class="text-xs text-theme-secondary">question(s)</div>
-              </div>
-              <div class="col-span-2">
-                <label for="Bpm">Cadence Tempo:</label>
-                <input type="number" name="bpm" id="Bpm" min="1" max="300" value="60" class="input" inputmode="numeric">
-                <div class="text-xs text-theme-secondary">beats per minute</div>
-              </div>
-              <div>
-                <label for="DarkMode" class="block">Dark Mode:</label>
-                <label class="toggle inline-block my-2">
-                  <input id="DarkMode" name="darkmode" type="checkbox">
-                  <span class="slider round"></span>
-                </label>
-              </div>
-              <div class="col-span-3">
-                <label for="NoteRange">Note Range (Octaves):</label>
-                <div id="NoteRange"></div>
-              </div>
+            <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
+            <div class="col-span-3">
+              <label for="Octave">Cadence every:</label>
+              <input type="number" name="cadenceevery" id="Octave" min="1" max="999999" value="1" class="input"
+                inputmode="numeric">
+              <div class="text-xs text-theme-secondary">question(s)</div>
             </div>
-          </form>
+            <div class="col-span-3">
+              <label for="Bpm">Tempo:</label>
+              <input type="number" name="bpm" id="Bpm" min="1" max="300" value="60" class="input" inputmode="numeric">
+              <div class="text-xs text-theme-secondary">beats per minute</div>
+            </div>
+            <div class="col-span-3">
+              <label for="DarkMode" class="block">Dark Mode:</label>
+              <label class="toggle inline-block my-2">
+                <input id="DarkMode" name="darkmode" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-span-full">
+              <label for="NoteRange">Note Range (Octaves):</label>
+              <div id="NoteRange"></div>
+            </div>
         </div>
+        </form>
+      </div>
       </div>
     </define-user>
     <div class="md:col-span-2 md:order-3">
       <div id="Message" class="transition-all duration-200">HIGH SCORE</div>
       <div class="flex flex-col md:max-h-[var(--fullHeight)] space-y-4">
-          <div id="Piano" class="flex-auto min-h-0">
-            <svg viewBox="0 0 170 142">
-              <rect x="1" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="C">
-              </rect>
-              <rect x="25" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="D">
-              </rect>
-              <rect x="49" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="E">
-              </rect>
-              <rect x="73" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="F">
-              </rect>
-              <rect x="97" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="G">
-              </rect>
-              <rect x="121" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="A"></rect>
-              <rect x="145" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="transparent" data-key="white" data-note="B"></rect>
-              <rect x="18" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="var(--text-color)" data-key="black" data-note="C#,Db"></rect>
-              <rect x="42" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="var(--text-color)" data-key="black" data-note="D#,Eb"></rect>
-              <rect x="90" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="var(--text-color)" data-key="black" data-note="F#,Gb"></rect>
-              <rect x="114" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="var(--text-color)" data-key="black" data-note="G#,Ab"></rect>
-              <rect x="138" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-                fill="var(--text-color)" data-key="black" data-note="A#,Bb"></rect>
-            </svg>
-          </div>
+        <div id="Piano" class="flex-auto min-h-0">
+          <svg viewBox="0 0 170 142">
+            <rect x="1" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="C">
+            </rect>
+            <rect x="25" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="D">
+            </rect>
+            <rect x="49" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="E">
+            </rect>
+            <rect x="73" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="F">
+            </rect>
+            <rect x="97" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="G">
+            </rect>
+            <rect x="121" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="A"></rect>
+            <rect x="145" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="transparent" data-key="white" data-note="B"></rect>
+            <rect x="18" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="var(--text-color)" data-key="black" data-note="C#,Db"></rect>
+            <rect x="42" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="var(--text-color)" data-key="black" data-note="D#,Eb"></rect>
+            <rect x="90" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="var(--text-color)" data-key="black" data-note="F#,Gb"></rect>
+            <rect x="114" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="var(--text-color)" data-key="black" data-note="G#,Ab"></rect>
+            <rect x="138" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+              fill="var(--text-color)" data-key="black" data-note="A#,Bb"></rect>
+          </svg>
+        </div>
         <game-area id="Gameify"
           class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
           <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">

@@ -14,7 +14,7 @@ html {
 }
 
 .input {
-    @apply border rounded-lg px-2 w-full text-lg;
+    @apply border border-theme-secondary rounded-lg px-2 w-full text-lg;
     background: var(--bkg-color);
     color: var(--text-color);
 }

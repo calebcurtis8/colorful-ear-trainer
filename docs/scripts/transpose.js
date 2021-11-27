@@ -1,13 +1,14 @@
 import User from './user.js'
+import { NOTE_NAMES } from './note_names.js'
 
 const keyCenterElm = document.getElementById('KeyCenter')
 document.addEventListener('user:update', function(){
     document.dispatchEvent(new CustomEvent('transpose'))
 })
 
-// const AllNotes = ["C", ["C#","Db"], "D", ["D#","Eb"], "E", "F", ["F#","Gb"], "G", ["G#","Ab"], "A", ["A#","Bb"], "B"]
-const Flats = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
-const Sharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+// const AllNotes = NOTE_NAMES.all
+const Flats = NOTE_NAMES.flats
+const Sharps = NOTE_NAMES.sharps
 export const Transposer = {
     notes : [
         Flats,
@@ -39,6 +40,7 @@ export const Transposer = {
         })
         return set
     },
+
     normalizeIndex(i) {
         return i > 11 ? i - 12 : i;
     }

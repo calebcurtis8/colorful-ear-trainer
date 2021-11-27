@@ -4,9 +4,9 @@ import random from "./random.js";
 import { play_sequence } from './play_sequence.js'
 import { removeClassStartsWith } from "./remove-class-starts-with.js"
 
+import { NOTE_NAMES } from './note_names.js'
 import User from './user.js'
 import Gameify from './gameify.js'
-import { Stats } from './stats.js'
 
 const Stopwatch = document.getElementById('Stopwatch')
 export class Game {
@@ -29,6 +29,15 @@ export class Game {
             this.pause()
             return
         }
+
+        //check if we are randomizing keys or not
+        if(User.get('randomkey','checkbox')){
+            let newKey = Math.floor(Math.random() * 12)
+            let elm = User.getElm('keycenter')
+            elm.value = newKey
+            elm.dispatchEvent(new CustomEvent('change'))
+        }
+
         let playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
         if(playCadence){
             this.playCadence()

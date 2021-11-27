@@ -1,6 +1,6 @@
 import { Question }  from './stats.js'
 
-export default function random( count = 1, set = ["C","D","E","F","G","A","B"]){
+export default function random( count = 1, set = ["C","D","E","F","G","A","B"], weighted = true){
     
     function run(ignore_set = []){
         let selected_notes = []
@@ -16,7 +16,7 @@ export default function random( count = 1, set = ["C","D","E","F","G","A","B"]){
 
     let strength = Question.strength(selected)
 
-    if(strength > 0){
+    if(strength > 0 && weighted){
         let chance = Math.floor(1 / strength)
         let rerun = Math.floor(Math.random() * chance)
         //ie if strengh = .2, then there is a 1 in 5 chance of rerunning

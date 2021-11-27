@@ -30,6 +30,7 @@ class GameArea extends HTMLElement {
         this.updateHighScoreDisplay()
     }
     punish(e) {
+        if(!e.elm) return
         //specific punishments
         switch (e.msg) {
             case 'wrongNote':
