@@ -101,17 +101,23 @@ class DefineUser extends HTMLElement {
         this.inputs.forEach( input => {
             let name = input.getAttribute('name')
             let value = storage[name]
-            let inputValue
+            if(!value) return
+            let inputValue = false
             if(input.type == 'checkbox'){
                 if(input.id == 'DarkMode') return
-                if(value) input.checked = value
+                input.checked = value
                 inputValue = input.checked
+            } else if(input.tagName == 'SELECT'){
+                if(input.querySelector(`option[value="${value}"]`)) inputValue = input.value
             } else {
-                if(value) input.value = value
+                input.value = value
                 inputValue = input.value
             }
-            input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
-            this.set(name, inputValue)
+           
+            if(inputValue) {
+                input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
+                this.set(name, inputValue)
+            }
         })
     }
     saveOctaveRange(){
