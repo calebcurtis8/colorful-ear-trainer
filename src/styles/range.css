@@ -30,6 +30,8 @@
 .noUi-tooltip {
     bottom: -160% !important;
     @apply px-2 py-1 !important;
+    background: var(--bkg-color)!important;
+    color: var(--text-color)!important;
 }
 
 .noUi-handle{

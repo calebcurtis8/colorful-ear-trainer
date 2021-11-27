@@ -127,6 +127,8 @@ body.dark-theme {
     padding-right: 0.5rem !important;
     padding-top: 0.25rem !important;
     padding-bottom: 0.25rem !important;
+    background: var(--bkg-color)!important;
+    color: var(--text-color)!important;
 }
 .noUi-handle:before, .noUi-handle:after{
         background: var(--text-color)!important;
