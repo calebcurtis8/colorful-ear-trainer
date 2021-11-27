@@ -12,6 +12,13 @@ class FancyBackground extends HTMLElement {
         this.reset()
     }
     reset() {
+        removeClassStartsWith(this, 'duration-')
+        this.style.opacity = 0
+        setTimeout( () => {
+            //re-add duration class
+            this.classList.add('duration-1000')
+        }, 1000)
+
         removeClassStartsWith(this, 'from-')
         removeClassStartsWith(this, 'via-')
         removeClassStartsWith(this, 'to-')

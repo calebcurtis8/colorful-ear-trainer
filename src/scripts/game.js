@@ -39,14 +39,14 @@ export class Game {
         document.addEventListener('answer', this.handleAnswer)
         //clears the piano
         document.dispatchEvent(new CustomEvent('game:ask'))
+        //reset attempt count
+        this.attempts = 0
         //notes which the user must answer
         let noteSet = Transposer.transpose(User.get('set', 'array'))
         User.notes = random(User.get('note_count','number'), noteSet)
         //duplicate to remember which were selected
         User.selected_notes_without_octave = JSON.parse(JSON.stringify(User.notes))
         User.selected_notes = this.setOctaves(User.selected_notes_without_octave)
-        //assign to previous note array
-        User.previous_notes = User.selected_notes
 
         User.notes = this.setOctave(User.notes)
 
@@ -86,34 +86,35 @@ export class Game {
     }
     registerAnswer(e){
         let note_with_octave = e.detail.note_with_octave
-        Gameify.total += 1
+        Gameify.total++
+        this.attempts++
         e.detail.q = User.selected_notes_without_octave
-        let updateEvent = new CustomEvent('gameify:update', { detail: e.detail })
         if(User.notes.indexOf(note_with_octave) == -1){
             Gameify.streak = 0
             e.detail.msg = 'wrongNote'
             e.detail.status = 0
-            document.dispatchEvent(updateEvent)
+            Gameify.punish(e.detail)
+            Gameify.update(e.detail)
             return 
         }
         if(Stopwatch.status == 'success'){
             Gameify.correct += 1
             e.detail.msg = 'rightNote'
             e.detail.status = 1
-            document.dispatchEvent(updateEvent)
+            Gameify.reward(e.detail)
         }
         if(Stopwatch.status == 'fail'){
             Gameify.streak = 0
-            Gameify.late += 1
+            Gameify.late++
             e.detail.msg = 'lateAnswer'
             e.detail.status = -1
-            document.dispatchEvent(updateEvent)
+            Gameify.punish(e.detail)
         }
-
+        Gameify.update(e.detail)
         User.notes.splice(User.notes.indexOf(note_with_octave), 1)
         
         if(User.notes.length == 0){
-            Gameify.streak += 1
+            if(this.attempts == User.selected_notes.length && Stopwatch.status == 'success') Gameify.streak++
             document.removeEventListener('answer', this.handleAnswer)
             document.dispatchEvent(new CustomEvent('game:answercomplete'))
             this.setButtonState('PLAY', 'bg-green-gradient', false)

@@ -1,6 +1,7 @@
 import StopWatch from "@slime/stopwatch"
 import { removeClassStartsWith } from './remove-class-starts-with'
 
+import Gameify from './gameify'
 import User from './user'
 
 class StopwatchTimer extends HTMLElement{
@@ -48,7 +49,9 @@ class StopwatchTimer extends HTMLElement{
             removeClassStartsWith(this.face, 'bg-')
             this.face.classList.add('bg-fail')
             this.status = 'fail'
-            document.dispatchEvent(new CustomEvent('gameify:timeout', { detail: { note: null, msg: 'timeFail' }}))
+            Gameify.streak = 0
+            Gameify.punish({ msg: 'timeFail' })
+            Gameify.update({ msg: 'timeFail' })
         }
     }
     update(){

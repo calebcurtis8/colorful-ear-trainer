@@ -1,5 +1,4 @@
 import JSConfetti from 'js-confetti'
-import { removeClassStartsWith } from './remove-class-starts-with'
 
 const jsConfetti = new JSConfetti()
 
@@ -23,45 +22,38 @@ class GameArea extends HTMLElement {
             background: document.getElementById('Background'),
             message: document.getElementById('Message')
         }
-        document.addEventListener('gameify:update', this.update.bind(this))
-        document.addEventListener('gameify:timeout', this.update.bind(this))
-        document.addEventListener('gameify:update', this.checkScores.bind(this))
-        document.addEventListener('gameify:reward', this.reward.bind(this))
-        document.addEventListener('gameify:punish', this.punish.bind(this))
+   
+        document.addEventListener('game:answercomplete', this.update.bind(this))
 
         let savedScores = localStorage.getItem(SCORE_STORAGE)
         this.highScores = savedScores ? JSON.parse(savedScores) : { streak: 0 };
         this.updateHighScoreDisplay()
     }
     punish(e) {
-        removeClassStartsWith(this.elements.background, 'duration-')
-        this.elements.background.style.opacity = 0
-        setTimeout( () => {
-            //re-add duration class
-            this.elements.background.classList.add('duration-1000')
-        }, 1000)
         //specific punishments
-        switch (e.detail.msg) {
+        switch (e.msg) {
             case 'wrongNote':
-                let elm = e.detail.elm
+                let elm = e.elm
                 elm.classList.add('shake')
                 setTimeout( () => {
                     elm.classList.remove('shake')
                 }, 500)
                 break;
             case 'timeFail':
-                // console.log(e.detail.msg)
+                // console.log(e.msg)
                 break;
             case 'lateAnswer':
-                // console.log(e.detail.msg)
+                // console.log(e.msg)
                 break;
             default:
                 break;
         }
+        document.dispatchEvent(new CustomEvent('gameify:punish', { detail: e }))
     }
-    reward(e) {
-        let ratio = e.detail.ratio
-        let is_threshold = e.detail.is_threshold()
+    reward() {
+        let ratio = this.streak / this.fire
+        let is_threshold = (ratio >= 1 && ratio == parseInt(ratio));
+
         if (!is_threshold) return
         switch (ratio) {
             case 1:
@@ -131,24 +123,14 @@ class GameArea extends HTMLElement {
         this.message('HIGH STREAK 🎉', 1000)
     }
     update(e) {
+        document.dispatchEvent(new CustomEvent('gameify:update', { detail: e }))
         this.elements.streak.innerText = this.streak
         this.elements.correct.innerText = this.correct
         this.elements.total.innerText = this.total
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
         let ratio = this.streak / this.fire
         this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
-        if (ratio == 0) {
-            document.dispatchEvent(new CustomEvent('gameify:punish', { detail: e.detail }))
-        } else if (ratio >= 1) {
-            document.dispatchEvent(new CustomEvent('gameify:reward', {
-                detail: {
-                    ratio: ratio,
-                    is_threshold: function () {
-                        return ratio >= 1 && ratio == parseInt(ratio)
-                    }
-                }
-            }))
-        }
+        this.checkScores.bind()
     }
     message(note, time = 1000){
         this.elements.message.innerHTML = note
