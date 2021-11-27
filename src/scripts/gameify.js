@@ -130,7 +130,7 @@ class GameArea extends HTMLElement {
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
         let ratio = this.streak / this.fire
         this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
-        this.checkScores.bind()
+        this.checkScores()
     }
     message(note, time = 1000){
         this.elements.message.innerHTML = note

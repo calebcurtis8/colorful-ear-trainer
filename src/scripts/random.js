@@ -19,6 +19,7 @@ export default function random( count = 1, set = ["C","D","E","F","G","A","B"]){
     if(strength > 0){
         let chance = Math.floor(1 / strength)
         let rerun = Math.floor(Math.random() * chance)
+        //ie if strengh = .2, then there is a 1 in 5 chance of rerunning
         if(rerun === 1){
             //get new notes, the weaker the strength the less likely we are to find a new note
             selected = run(selected)

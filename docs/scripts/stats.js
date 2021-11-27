@@ -77,7 +77,6 @@ export const Stats = {
     register(e){
         //listens for question answers
         //validate question is an array
-        console.log(e)
         if(!Array.isArray(e.detail.q)) return
         Question.hit(e.detail.q, e.detail.status)
     }
