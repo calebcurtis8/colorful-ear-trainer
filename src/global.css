@@ -14,7 +14,7 @@ html {
 }
 
 .input {
-    @apply border rounded-lg pl-2 w-full text-lg;
+    @apply border rounded-lg px-2 w-full text-lg;
     background: var(--bkg-color);
     color: var(--text-color);
 }
@@ -37,5 +37,5 @@ label {
 }
 
 svg rect[data-note] {
-    @apply cursor-pointer select-none;
+    @apply cursor-pointer select-none transition-all duration-200;
 }

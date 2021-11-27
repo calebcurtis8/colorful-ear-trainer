@@ -8,7 +8,7 @@
   <title>Colorful Ear Trainer</title>
   <link rel="stylesheet" href="global.css">
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPDJ6X371X"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=%SNOWPACK_PUBLIC_ANALYTICS%"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -17,7 +17,7 @@
     }
     gtag('js', new Date());
 
-    gtag('config', 'G-QPDJ6X371X');
+    gtag('config', '%SNOWPACK_PUBLIC_ANALYTICS%');
   </script>
   <style>
     :root {
@@ -46,7 +46,8 @@
         </ul>
         <div class="pt-4 mt-4 border-t-2 border-theme-bg">
           Suggestions/comments: <a href="mailto:caleb@calebcurtis.com">caleb@calebcurtis.com</a>
-          <div class="text-sm mt-4 text-theme-secondary">Inspired by the old Ear Sharpener iOS app and the work of Charlie
+          <div class="text-sm mt-4 text-theme-secondary">Inspired by the old Ear Sharpener iOS app and the work of
+            Charlie
             Banacos.</div>
         </div>
         <div class="flex mt-4 pt-4 border-t-2 border-theme-bg space-x-2">
@@ -61,9 +62,9 @@
       </div>
     </div>
     <define-user id="User">
-      <div class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 md:max-h-[var(--fullHeight)] overflow-auto">
+      <div class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
         <div class="flex flex-col card order-2 md:order-1 flex-none">
-        <!--           
+          <!--           
           <label for="Level" class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text">Level:</label>
           <select id="Level" name="level" class="input mb-4">
             <optgroup label="Beginner">
@@ -113,17 +114,24 @@
                   </select>
                 </div>
                 <div>
-                  <label for="Tonality">Tonality:</label>
+                  <label for="Tonality">Cadence:</label>
                   <select name="tonality" id="Tonality" class="input">
-                    <option value='major' selected>Major</option>
-                    <option value='minor'>Minor</option>
+                    <optgroup label="Major">
+                      <option value="major,1451" selected>I IV V I</option>
+                      <option value="major,1251">I ii7 V7 I</option>
+                      <option value="major,1441">I IV iv I</option>
+                    </optgroup>
+                    <optgroup label="Minor">
+                      <option value="minor,1451">i iv v i</option>
+                      <option value="minor,14571">i iv V7 i</option>
+                    </optgroup>
                   </select>
                 </div>
                 <div class="relative">
                   <label for="NoteCount">Notes:</label>
                   <input type="number" name="note_count" id="NoteCount" min="1" max="12" value="1" class="input"
                     inputmode="numeric">
-                    <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
+                  <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
                 </div>
               </div>
               <div class="col-span-3">
@@ -207,76 +215,79 @@
         </div>
       </div>
     </define-user>
-    <div class="md:col-span-2 md:order-3 flex flex-col gap-4">
-      <div class="relative">
-        <div id="Message" class="transition-all duration-200">HIGH SCORE</div>
-        <div id="Piano">
-          <svg viewBox="0 0 170 142">
-            <rect x="1" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="C">
-            </rect>
-            <rect x="25" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="D">
-            </rect>
-            <rect x="49" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="E">
-            </rect>
-            <rect x="73" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="F">
-            </rect>
-            <rect x="97" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="G">
-            </rect>
-            <rect x="121" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="A"></rect>
-            <rect x="145" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="transparent" data-key="white" data-note="B"></rect>
-            <rect x="18" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="var(--text-color)" data-key="black" data-note="C#,Db"></rect>
-            <rect x="42" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="var(--text-color)" data-key="black" data-note="D#,Eb"></rect>
-            <rect x="90" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="var(--text-color)" data-key="black" data-note="F#,Gb"></rect>
-            <rect x="114" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="var(--text-color)" data-key="black" data-note="G#,Ab"></rect>
-            <rect x="138" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
-              fill="var(--text-color)" data-key="black" data-note="A#,Bb"></rect>
-          </svg>
-        </div>
+    <div class="md:col-span-2 md:order-3">
+      <div id="Message" class="transition-all duration-200">HIGH SCORE</div>
+      <div class="flex flex-col md:max-h-[var(--fullHeight)] space-y-4">
+          <div id="Piano" class="flex-auto min-h-0">
+            <svg viewBox="0 0 170 142">
+              <rect x="1" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="C">
+              </rect>
+              <rect x="25" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="D">
+              </rect>
+              <rect x="49" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="E">
+              </rect>
+              <rect x="73" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="F">
+              </rect>
+              <rect x="97" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="G">
+              </rect>
+              <rect x="121" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="A"></rect>
+              <rect x="145" y="1" width="24" height="140" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="transparent" data-key="white" data-note="B"></rect>
+              <rect x="18" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="var(--text-color)" data-key="black" data-note="C#,Db"></rect>
+              <rect x="42" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="var(--text-color)" data-key="black" data-note="D#,Eb"></rect>
+              <rect x="90" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="var(--text-color)" data-key="black" data-note="F#,Gb"></rect>
+              <rect x="114" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="var(--text-color)" data-key="black" data-note="G#,Ab"></rect>
+              <rect x="138" y="1" width="14" height="90" rx="2" ry="2" stroke="var(--text-color)" stroke-width="2"
+                fill="var(--text-color)" data-key="black" data-note="A#,Bb"></rect>
+            </svg>
+          </div>
+        <game-area id="Gameify"
+          class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
+          <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">
+            <div data-face
+              class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center">
+              <div data-time class="text-2xl md:text-4xl">0.00s</div>
+              <div data-limit class="text-lg md:text-2xl border-t border-white">1s</div>
+            </div>
+          </stopwatch-timer>
+          <div class="z-10 flex flex-col items-center justify-center">
+            <div
+              class="flex flex-col bg-gradient-to-r from-blue-500 to-blue-400 pt-1 rounded-lg border-4 border-theme-bg text-theme-bg">
+              <div class="text-lg md:text-xl px-4">Streak</div>
+              <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
+              <div
+                class="text-lg md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t border-theme-bg">
+                High:
+                <span data-high-streak class="ml-1 font-bold">0</span>
+              </div>
+            </div>
+          </div>
+          <div class="z-10 flex flex-col items-center justify-center">
+            <div
+              class="bg-gradient-to-r py-2 px-4 from-blue-500 to-blue-400 text-theme-bg pt-1 rounded-lg border-4 border-theme-bg">
+              <div class="text-lg md:text-xl">Score</div>
+              <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
+                <span data-correct>0</span>/<span data-total>0</span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-lg overflow-hidden absolute progress top-0 left-0 right-0 h-full bg-gradient-to-r from-red-700 to-red-900 z-0">
+            <div data-gradient class="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-400">
+            </div>
+          </div>
+        </game-area>
       </div>
-      <game-area id="Gameify"
-        class="rounded-lg flex-grow justify-center select-none items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
-        <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">
-          <div data-face
-            class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center">
-            <div data-time class="text-2xl md:text-4xl">0.00s</div>
-            <div data-limit class="text-lg md:text-2xl border-t border-white">1s</div>
-          </div>
-        </stopwatch-timer>
-        <div class="z-10 flex flex-col items-center justify-center">
-          <div class="flex flex-col bg-gradient-to-r from-blue-500 to-blue-400 pt-1 rounded-lg border-4 border-theme-bg text-theme-bg">
-            <div class="text-lg md:text-xl px-4">Streak</div>
-            <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
-            <div class="text-lg md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t border-theme-bg">
-              High:
-              <span data-high-streak class="ml-1 font-bold">0</span>
-            </div>
-          </div>
-        </div>
-        <div class="z-10 flex flex-col items-center justify-center">
-          <div class="bg-gradient-to-r py-2 px-4 from-blue-500 to-blue-400 text-theme-bg pt-1 rounded-lg border-4 border-theme-bg">
-            <div class="text-lg md:text-xl">Score</div>
-            <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
-              <span data-correct>0</span>/<span data-total>0</span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="rounded-lg overflow-hidden absolute progress top-0 left-0 right-0 h-full bg-gradient-to-r from-red-700 to-red-900 z-0">
-          <div data-gradient class="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-400">
-          </div>
-        </div>
-      </game-area>
     </div>
   </main>
   <script type="module" src="index.js"></script>

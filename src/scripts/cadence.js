@@ -1,33 +1,60 @@
-import { play_sequence } from './play_sequence'
+import {
+    play_sequence
+} from './play_sequence'
 
 import User from './user'
 
-import { Transposer } from './transpose'
+import {
+    Transposer
+} from './transpose'
 
-function formatChord(chord){
-    return Transposer.transpose(chord).map( note => `${note}${User.get('cadenceoctave','number')}` )
+function formatChord(chord) {
+    return Transposer.transpose(chord).map(note => `${note}${User.get('cadenceoctave','number')}`)
 }
 
-const Major = [
-    [ 0,4,7 ],
-    [ 0,5,9 ],
-    [ 2,7,11, ],
-    [ 0,4,7 ]
-]
-const Minor = [
-    [ 0,3,7 ],
-    [ 0,5,8 ],
-    [ 2,7,10 ],
-    [ 0,3,7 ]
-]
+const Major = {
+    1451: [
+        [0, 4, 7],
+        [0, 5, 9],
+        [2, 7, 11],
+        [0, 4, 7]
+    ],
+    1251: [
+        [0, 4, 7],
+        [2, 5, 9, 0],
+        [2, 7, 11, 0],
+        [0, 4, 7]
+    ],
+    1441: [
+        [0, 4, 7],
+        [0, 5, 9],
+        [0, 5, 8],
+        [0, 4, 7]
+    ]
+}
+const Minor = {
+    1451: [
+        [0, 3, 7],
+        [0, 5, 8],
+        [2, 7, 10],
+        [0, 3, 7]
+    ],
+    14571: [
+        [0, 3, 7],
+        [0, 5, 8],
+        [2, 7, 11, 0],
+        [0, 3, 7]
+    ]
+}
 
-let tonality = function(){
-    switch (User.get('tonality')) {
+let tonality = function () {
+    let progression = User.get('tonality').split(',')
+    switch (progression[0]) {
         case 'major':
-            return Major
+            return Major[progression[1]]
             break;
         case 'minor':
-            return Minor
+            return Minor[progression[1]]
             break;
         default:
             return Major
@@ -35,32 +62,23 @@ let tonality = function(){
     }
 }
 
-let Cadence = () => [
-    {
-        sequence: formatChord(tonality()[0]),
-        duration: 2,
-    },
-    {
-        sequence: formatChord(tonality()[1]),
-        duration: 1,
-    },
-    {
-        sequence: formatChord(tonality()[2]),
-        duration: 1,
-    },
-    {
-        sequence: formatChord(tonality()[3]),
-        duration: 2,
-    }
-]
+let Cadence = () => {
+    let progression = tonality().map( (chord, i) => {
+        return {
+            sequence: formatChord(chord),
+            duration: (i == 0 || i == 3 ? 2 : 1)
+        }
+    })
+    return progression
+}
 
-function duration(seq){
+function duration(seq) {
     let total = 0
-    seq.forEach( notes => total += (notes.duration * User.get('bpm', 'tempo')))
+    seq.forEach(notes => total += (notes.duration * User.get('bpm', 'tempo')))
     return total
 }
 
-export default function cadence(){
+export default function cadence() {
     {
         play_sequence(Cadence())
         return duration(Cadence())

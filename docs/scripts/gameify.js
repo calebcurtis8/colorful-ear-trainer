@@ -110,14 +110,14 @@ class GameArea extends HTMLElement {
         ]
         let timeout = 0
         keys.forEach( (key, i) => {
-            key.style.transition = '300ms'
             timeout += 50
             setTimeout( function(){
-                key.setAttribute('fill', `hsl(${ i * 25 }, 90%, 70%)`)
+                if(key.getAttribute('data-key') == 'black') key.setAttribute('fill', `hsl(${ i * 25 }, 90%, 70%)`)
+                key.setAttribute('stroke', `hsl(${ i * 25 }, 90%, 70%)`)
             }, timeout)
             setTimeout( function(){
-                key.setAttribute('fill', (key.getAttribute('data-key') == 'black' ? 'black' : 'transparent'))
-                key.style.transition = null
+                if(key.getAttribute('data-key') == 'black') key.setAttribute('fill', 'var(--text-color)')
+                key.setAttribute('stroke', 'var(--text-color)')
             }, timeout + 600)
         })
         this.message('HIGH STREAK 🎉', 1000)

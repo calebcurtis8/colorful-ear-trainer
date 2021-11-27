@@ -1026,6 +1026,10 @@ select {
   height: 6rem;
 
 }
+.min-h-0 {
+  min-height: 0px;
+
+}
 .w-full {
   width: 100%;
 
@@ -1360,14 +1364,6 @@ select {
   transition-duration: 150ms;
 
 }
-.transition {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-
-}
 .duration-1000 {
   transition-duration: 1000ms;
 
@@ -1386,6 +1382,7 @@ html {
   border-radius: 0.5rem;
   border-width: 1px;
   padding-left: 0.5rem;
+  padding-right: 0.5rem;
   font-size: 1.125rem;
   line-height: 1.75rem;
     background: var(--bkg-color);
@@ -1427,6 +1424,10 @@ svg rect[data-note] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-duration: 200ms;
 
 }
 @media (min-width: 768px) {
