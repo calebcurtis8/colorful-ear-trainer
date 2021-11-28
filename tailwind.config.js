@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./src/**/*.html', './src/scripts/**/*.{js,jsx,ts,tsx,vue}'],
+  purge: ['./src/**/*.{html,ejs}', './public/**/*.{html,ejs}', './src/scripts/**/*.{js,jsx,ts,tsx,vue}'],
   plugins: [
     require('@tailwindcss/forms'),
     // ...

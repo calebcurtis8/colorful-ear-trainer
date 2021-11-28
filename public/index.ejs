@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Colorful Ear Training Game" />
+  <title>Colorful Ear Trainer</title>
+  <link rel="stylesheet" href="%PUBLIC_URL%/_dist_/index.css">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=%SNOWPACK_PUBLIC_ANALYTICS%"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', '%SNOWPACK_PUBLIC_ANALYTICS%');
+  </script>
+  <style>
+    :root {
+      --fullHeight: calc(100vh - 2rem);
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center">
+  <fancy-background id="Background"
+    class="fixed z-[-1] top-0 bottom-0 left-0 right-0 transition-all duration-1000 pointer-events-none opacity-0 bg-gradient-to-r from-green-200 via-pink-500 to-blue-500">
+  </fancy-background>
+  <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4 max-w-screen-2xl mx-auto">
+    <div class="md:order-1 lg:order-4 flex flex-col md:max-h-[var(--fullHeight)] overflow-auto space-y-4">
+      <%- include('components/_instructions.ejs') %>
+    </div>
+    <define-user id="User">
+      <div
+        class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
+        <div class="flex flex-col card order-2 md:order-1 flex-none">
+          <!--           
+          <label for="Level" class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text">Level:</label>
+          <select id="Level" name="level" class="input mb-4">
+            <optgroup label="Beginner">
+              <option value="1" selected>Beginner: 1</option>
+              <option value="2">Beginner: 2</option>
+              <option value="3">Beginner: 3</option>
+            </optgroup>
+            <optgroup label="Intermediate">
+              <option value="4">Intermediate: 4</option>
+              <option value="5">Intermediate: 5</option>
+              <option value="6">Intermediate: 6</option>
+            </optgroup>
+            <optgroup label="Advanced">
+              <option value="7">Advanced: 7</option>
+              <option value="8">Advanced: 8</option>
+              <option value="9">Advanced: 9</option>
+            </optgroup>
+          </select> -->
+          <button id="Play" class="btn bg-gradient-to-r bg-green-gradient text-xl">PLAY</button>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200">Replay Cadence</button>
+            <button id="PlayNotes" class="btn bg-gradient-to-r from-blue-300 to-blue-200">Replay Notes</button>
+          </div>
+        </div>
+        <div class="card order-1 md:order-2 overflow-auto flex-auto">
+          <div class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text flex">
+            <span class="flex-grow">Options:</span>
+          </div>
+          <form class="space-y-4">
+            <key-selector>
+              <div class="grid grid-cols-6 gap-y-4 gap-x-2 mb-4">
+                <div class="col-span-4 border-theme-secondary border rounded-lg p-2 grid grid-cols-2 gap-2">
+                  <div class="col-span-1">
+                    <label for="KeyCenter">Key Center:</label>
+                    <select name="keycenter" id="KeyCenter" class="input">
+                      <option value='0' selected>C</option>
+                      <option value='1'>Db</option>
+                      <option value='2'>D</option>
+                      <option value='3'>Eb</option>
+                      <option value='4'>E</option>
+                      <option value='5'>F</option>
+                      <option value='6'>Gb</option>
+                      <option value='7'>G</option>
+                      <option value='8'>Ab</option>
+                      <option value='9'>A</option>
+                      <option value='10'>Bb</option>
+                      <option value='11'>B</option>
+                    </select>
+                  </div>
+                  <div class="col-span-1">
+                    <label for="RandomKey" class="text-xs text-theme-text">Randomize</label>
+                    <label class="toggle inline-block my-1">
+                      <input id="RandomKey" name="randomkey" type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <%- include('components/_cadence-selector.ejs') %>
+                </div>
+                <div class="col-span-4">
+                  <%- include('components/_noteset.ejs') %>
+                </div>
+                <div class="col-span-2 relative">
+                  <label for="NoteCount">Notes:</label>
+                    <%- include('components/_qty.ejs', { id: 'NoteCount', name: 'note_count', min: 1, max: 12, value: 1, step: 1 }) %>
+                  <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
+                </div>
+            </key-selector>
+            <div class="col-span-3">
+              <label for="Timelimit">Time:</label>
+                <%- include('components/_qty.ejs', { id: 'Timelimit', name: 'timelimit', min: 0.5, max: 999999, value: 5, step: 0.5 }) %>
+              <div class="text-xs text-theme-secondary">per note (seconds)</div>
+            </div>
+            <!-- <div>
+                <label for="Octave">Cadence Octave:</label>
+                inputmode="numeric">
+              </div> -->
+            <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
+            <div class="col-span-3">
+              <label for="Octave">Cadence every:</label>
+                <%- include('components/_qty.ejs', { id: 'Octave', name: 'cadenceevery', min: 1, max: 999999, value: 1, step: 1 }) %>
+              <div class="text-xs text-theme-secondary">question(s)</div>
+            </div>
+            <div class="col-span-3">
+              <label for="Bpm">Tempo:</label>
+              <%- include('components/_qty.ejs', { id: 'Bpm', name: 'bpm', min: 1, max: 400, value: 60, step: 1 }) %>
+              <div class="text-xs text-theme-secondary">beats per minute</div>
+            </div>
+            <div class="col-span-3">
+              <label for="DarkMode" class="block">Dark Mode:</label>
+              <label class="toggle inline-block my-2">
+                <input id="DarkMode" name="darkmode" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-span-full">
+              <label for="NoteRange">Note Range (Octaves):</label>
+              <div id="NoteRange"></div>
+            </div>
+        </div>
+        </form>
+      </div>
+      </div>
+    </define-user>
+    <div class="md:col-span-2 md:order-3">
+      <div id="Message" class="transition-all duration-200">HIGH SCORE</div>
+      <div class="flex flex-col md:max-h-[var(--fullHeight)] space-y-4">
+        <%- include('components/_piano.ejs') %>
+        <%- include('components/_game-area.ejs') %>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="%PUBLIC_URL%/_dist_/index.js"></script>
+</body>
+
+</html>

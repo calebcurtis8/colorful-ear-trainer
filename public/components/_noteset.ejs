@@ -1,0 +1,42 @@
+<label for="NoteSet">Note Set:</label>
+<select name="set" id="NoteSet" class="input w-full note-sets">
+    <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
+    <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
+    <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G |
+        B
+    </option>
+    <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic
+    </option>
+    <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic +
+        Bb
+    </option>
+    <option value='[0,2,3,4,5,7,9,10,11]' data-template="Diatonic + {10} + {3}" data-tonality="major">
+        Diatonic + Bb + Eb</option>
+    <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {10} + {3} + {8}" data-tonality="major">Diatonic +
+        Bb + Eb + Ab</option>
+    <option value='[0,1,2,3,4,5,6,7,9,10,11]' data-template="Diatonic + {10} + {3} + {8} + {1}" data-tonality="major">
+        Diatonic + Bb + Eb + Ab + Db</option>
+    <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">
+        Chromatic
+    </option>
+</select>
+<select class="note-sets hidden" id="InactiveSet">
+    <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
+    <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
+    <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G |
+        Bb
+    </option>
+    <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">
+        Diatonic (Aeolian)</option>
+    <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">
+        Diatonic + B</option>
+    <option value='[0,2,3,4,5,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">
+        Diatonic + B + E</option>
+    <option value='[0,2,3,4,5,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9}" data-tonality="minor">Diatonic +
+        B + E + A</option>
+    <option value='[0,2,3,4,5,6,7,8,9,10,11]' data-template="Diatonic + {11} + {4} + {9} + {6}" data-tonality="minor">
+        Diatonic + B + E + A + Gb</option>
+    <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">
+        Chromatic
+    </option>
+</select>

@@ -4,11 +4,11 @@ import { removeClassStartsWith } from './remove-class-starts-with'
 import Gameify from './gameify'
 import User from './user'
 
+
 class StopwatchTimer extends HTMLElement{
     constructor(){
         super()
-
-        this.stopwatch = new StopWatch()
+        this.stopwatch = new StopWatch.StopWatch()
 
         this.display = this.querySelector('[data-time]')
         this.face = this.querySelector('[data-face]')
@@ -64,4 +64,4 @@ customElements.define('stopwatch-timer', StopwatchTimer);
 
 const Stopwatch = document.getElementById('Stopwatch')
 
-export default Gameify
+export default Stopwatch

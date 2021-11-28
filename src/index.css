@@ -1,0 +1,41 @@
+@import './styles/theme';
+@import './styles/toggle';
+@import './styles/range';
+@import './styles/gameify';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+html {
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.input {
+    @apply border border-theme-text rounded-lg px-2 w-full text-lg;
+    background: var(--bkg-color);
+    color: var(--text-color);
+}
+
+.btn {
+    @apply rounded-lg px-5 py-3  font-bold text-black;
+    &:active{
+        color: var(--bkg-color);
+        background: var(--text-color);
+    }
+}
+
+.card {
+    @apply rounded-lg border-4 border-solid p-4;
+    border-color: var(--text-color);
+}
+
+label {
+    @apply block text-sm;
+}
+
+svg rect[data-note] {
+    @apply cursor-pointer select-none transition-all duration-200;
+}

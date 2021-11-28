@@ -107,10 +107,10 @@ export class Game {
             return 
         }
         if(Stopwatch.status == 'success'){
-            Gameify.correct += 1
+            Gameify.correct++
             e.detail.msg = 'rightNote'
             e.detail.status = 1
-            Gameify.reward(e.detail)
+            // Gameify.reward(e.detail)
         }
         if(Stopwatch.status == 'fail'){
             Gameify.streak = 0
@@ -123,7 +123,10 @@ export class Game {
         User.notes.splice(User.notes.indexOf(note_with_octave), 1)
         
         if(User.notes.length == 0){
-            if(this.attempts == User.selected_notes.length && Stopwatch.status == 'success') Gameify.streak++
+            if(this.attempts == User.selected_notes.length && Stopwatch.status == 'success'){
+                Gameify.streak++
+                Gameify.reward(e.detail)
+            }
             document.removeEventListener('answer', this.handleAnswer)
             document.dispatchEvent(new CustomEvent('game:answercomplete'))
             this.setButtonState('PLAY', 'bg-green-gradient', false)

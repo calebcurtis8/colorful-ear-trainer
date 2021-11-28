@@ -1,0 +1,14 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.incrementer{
+    @apply rounded-sm w-8 h-8 p-0 flex flex-none justify-center items-center border border-theme-text text-theme-text bg-theme-bg active:text-theme-bg active:bg-theme-text;
+}

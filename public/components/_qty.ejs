@@ -1,0 +1,13 @@
+<quantity-selector>
+    <div class="mt-1 flex items-center max-w-full">
+        <button type="button" class="incrementer" data-decrement="" aria-label="Decrease Quantity">
+            –
+        </button>
+        <input type="number" id="<%= id %>" name="<%= name %>" value="<%= value %>" min="<%= min %>" max="<%= max %>"
+            step="<%= step %>" class="appearance-none bg-theme-bg text-theme-text h-8 border-0 w-auto p-0 text-center border-t border-b border-theme-text flex-shrink min-w-0"
+            inputmode="decimal">
+        <button type="button" class="incrementer" data-increment="" aria-label="Increase Quantity">
+            +
+        </button>
+    </div>
+</quantity-selector>

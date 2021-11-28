@@ -1,7 +1,7 @@
 const numbers = document.querySelectorAll('input[type="number"]');
 (() => {
     numbers.forEach( num => {
-        num.addEventListener('input', validate)
+        num.addEventListener('change', validate)
         num.addEventListener('blur', validate)
     })
     function validate(e){

@@ -1,3 +1,4 @@
+import './scripts/quantity'
 import './scripts/inputs'
 import './scripts/theme'
 import './scripts/piano'

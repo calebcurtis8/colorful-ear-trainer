@@ -12,7 +12,7 @@ class DefineUser extends HTMLElement {
 
         this.rangeElm = this.querySelector('#NoteRange')
         this.levelElm = this.querySelector('#Level')
-        this.levels = this.getJson('./levels.json')
+        // this.levels = this.getJson('./levels.json')
 
         this.range = noUiSlider.create(this.rangeElm, {
             start: [4,5],
@@ -111,7 +111,7 @@ class DefineUser extends HTMLElement {
                 input.checked = value
                 inputValue = input.checked
             } else if(input.tagName == 'SELECT'){
-                if(input.querySelector(`option[value="${value}"]`)) inputValue = input.value
+                if(input.querySelector(`option[value='${value}']`)) inputValue = input.value
             } else {
                 input.value = value
                 inputValue = input.value
@@ -149,7 +149,7 @@ class DefineUser extends HTMLElement {
         this.addEventListener('keyup', this.update.bind(this))
     }
     update(e){
-        if(!e.target.getAttribute('name')) return
+        if(!e.target.getAttribute('name') || !e.target.value) return
         if(e.target.type == 'checkbox'){
             this.set(e.target.getAttribute('name'), e.target.checked)
         } else {

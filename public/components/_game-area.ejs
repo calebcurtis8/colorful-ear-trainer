@@ -1,0 +1,36 @@
+<game-area id="Gameify"
+    class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-3 text-center text-white gap-4 p-4 relative">
+    <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center font-bold">
+        <div data-face
+            class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center">
+            <div data-time class="text-2xl md:text-4xl">0.00s</div>
+            <div data-limit class="text-lg md:text-2xl border-t border-white">1s</div>
+        </div>
+    </stopwatch-timer>
+    <div class="z-10 flex flex-col items-center justify-center">
+        <div
+            class="flex flex-col bg-gradient-to-r from-blue-500 to-blue-400 pt-1 rounded-lg border-4 border-theme-bg text-theme-bg">
+            <div class="text-lg md:text-xl px-4">Streak</div>
+            <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
+            <div
+                class="text-lg md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t border-theme-bg">
+                High:
+                <span data-high-streak class="ml-1 font-bold">0</span>
+            </div>
+        </div>
+    </div>
+    <div class="z-10 flex flex-col items-center justify-center">
+        <div
+            class="bg-gradient-to-r py-2 px-4 from-blue-500 to-blue-400 text-theme-bg pt-1 rounded-lg border-4 border-theme-bg">
+            <div class="text-lg md:text-xl">Score</div>
+            <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
+                <span data-correct>0</span>/<span data-total>0</span>
+            </div>
+        </div>
+    </div>
+    <div
+        class="rounded-lg overflow-hidden absolute progress top-0 left-0 right-0 h-full bg-gradient-to-r from-red-700 to-red-900 z-0">
+        <div data-gradient class="h-full bg-gradient-to-r from-blue-500 to-blue-400 transition-all duration-400">
+        </div>
+    </div>
+</game-area>

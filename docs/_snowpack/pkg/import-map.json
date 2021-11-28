@@ -1,9 +1,0 @@
-{
-  "imports": {
-    "@slime/stopwatch": "./@slime/stopwatch.js",
-    "js-confetti": "./js-confetti.js",
-    "nouislider": "./nouislider.js",
-    "nouislider/dist/nouislider.css": "./nouislider/dist/nouislider.css",
-    "tone": "./tone.js"
-  }
-}
