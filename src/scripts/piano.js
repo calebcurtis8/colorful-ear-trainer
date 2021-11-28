@@ -22,8 +22,6 @@ piano.clearKey = function(note){
     if(key) key.style.fill = null
 }
 class PianoPlayer {
-    piano: {};
-    notesDown: [];
     constructor(pno) {
         this.piano = pno
         this.notesDown = []
@@ -32,7 +30,7 @@ class PianoPlayer {
         this.handleListenKeys = this.listenKeys.bind(this)
         this.handleListenShifts = this.listenShifts.bind(this)
         this.playback = true
-        
+        this.notesDown = []
         this.piano.addEventListener('mousedown', this.handlePlayClick)
         this.piano.addEventListener('mousedown', this.handleListenClick)
         document.addEventListener('keyup', this.handleListenKeys)
