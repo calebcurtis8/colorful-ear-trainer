@@ -53,7 +53,6 @@ class GameArea extends HTMLElement {
     }
     reward() {
         let ratio = this.streak / this.fire
-        console.log(this.streak, this.fire)
         let is_threshold = (ratio >= 1 && Number.isInteger(ratio))
 
         if (!is_threshold) return
