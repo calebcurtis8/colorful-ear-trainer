@@ -111,7 +111,7 @@ class DefineUser extends HTMLElement {
                 input.checked = value
                 inputValue = input.checked
             } else if(input.tagName == 'SELECT'){
-                if(input.querySelector(`option[value='${value}']`)) inputValue = input.value
+                if(input.querySelector(`option[value='${value}']`)) inputValue = value
             } else {
                 input.value = value
                 inputValue = input.value
