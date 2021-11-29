@@ -1,6 +1,9 @@
+import * as Tone from '../../_snowpack/pkg/tone.js'
 import JSConfetti from '../../_snowpack/pkg/js-confetti.js'
 
 const jsConfetti = new JSConfetti()
+const drum = new Tone.MembraneSynth().toDestination();
+drum.volume.value = -12
 
 const SCORE_STORAGE = 'EarTrainerScores'
 class GameArea extends HTMLElement {
@@ -41,6 +44,7 @@ class GameArea extends HTMLElement {
             case 'wrongNote':
                 let elm = e.elm
                 elm.classList.add('shake')
+                
                 setTimeout( () => {
                     elm.classList.remove('shake')
                 }, 500)
@@ -56,10 +60,11 @@ class GameArea extends HTMLElement {
         }
         document.dispatchEvent(new CustomEvent('gameify:punish', { detail: e }))
     }
-    reward() {
+    reward(e) {
         let ratio = this.streak / this.fire
         let is_threshold = (ratio >= 1 && Number.isInteger(ratio))
-
+        //nice suboctave reinforcement of correct note
+        drum.triggerAttackRelease(e.note.split(',')[0] + '1', "16n");  
         if (!is_threshold) return
         switch (ratio) {
             case 1:
