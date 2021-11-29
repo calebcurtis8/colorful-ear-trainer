@@ -32,8 +32,8 @@ class GameArea extends HTMLElement {
 
         let savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE))
         this.highScores = {
-            streak: savedScores.streak || 0,
-            score: savedScores.score || 0
+            streak: savedScores?.streak || 0,
+            score: savedScores?.score || 0
         }
         this.updateHighScoreDisplay()
     }
