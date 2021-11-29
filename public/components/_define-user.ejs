@@ -1,7 +1,7 @@
 <define-user id="User">
     <div
       class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
-      <div class="flex flex-col card order-2 md:order-1 flex-none">
+      <div class="flex flex-col order-2 md:order-1 flex-none">
         <!--           
         <label for="Level" class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text">Level:</label>
         <select id="Level" name="level" class="input mb-4">
@@ -23,8 +23,8 @@
         </select> -->
         <button id="Play" class="btn bg-gradient-to-r bg-green-gradient text-xl">PLAY</button>
         <div class="grid grid-cols-2 gap-4 mt-4">
-          <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200">Replay Cadence</button>
-          <button id="PlayNotes" class="btn bg-gradient-to-r from-blue-300 to-blue-200">Replay Notes</button>
+          <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Cadence</button>
+          <button id="PlayNotes" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Notes</button>
         </div>
       </div>
       <div class="card order-1 md:order-2 overflow-auto flex-auto">
@@ -74,7 +74,7 @@
           </key-selector>
           <div class="col-span-3">
             <label for="CountdownMinutes">Total Time:</label>
-            <minutes-seconds class="flex time-input mt-1" id="Countdown">
+            <minutes-seconds class="flex time-input mt-1 bg-theme-bg" id="Countdown">
               <input type="hidden" name="countdown" value="300">
               <button type="button" class="time-incrementer" data-decrement="" aria-label="Decrease Time">
                 –
