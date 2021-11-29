@@ -1,41 +1,42 @@
 <game-area id="Gameify"
-    class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-4 text-center text-white gap-4 p-4 relative">
+    class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-4 text-center text-white gap-2 md:gap-4 p-2 md:p-4 relative">
     <countdown-timer id="Countdown" class="flex flex-col items-center justify-center">
-        <div data-face class="relative overflow-hidden mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center bg-fail">
-            <span data-time class="text-2xl md:text-4xl font-bold">05:00</span>
-            <span class="text-sm">remaining</span>
-            <div class="absolute bg-success left-0 bottom-0 right-0 h-full z-[-1]" data-bg></div>
+        <div data-face class="relative overflow-hidden z-10 rounded-full w-full bg-fail aspect-w-1 aspect-h-1">
+            <div class="rounded-full flex flex-col justify-center items-center border-4 border-white">
+                <span data-time class="text-xl md:text-4xl font-bold">05:00</span>
+                <span class="text-sm hidden md:block">remaining</span>
+                <span class="text-sm md:hidden">left</span>
+                <div class="absolute bg-success left-0 bottom-0 right-0 h-full z-[-1]" data-bg></div>
+            </div>
         </div>
     </countdown-timer>
     <stopwatch-timer id="Stopwatch" class="flex flex-col items-center justify-center">
-        <div data-face
-            class="mx-auto z-10 border-4 border-white rounded-full w-24 h-24 md:w-32 md:h-32 flex flex-col justify-center items-center bg-success">
-            <div data-time class="text-2xl md:text-4xl font-bold">0.00s</div>
-            <div class="text-sm border-t border-white"><span data-limit class="mr-1">1s</span><span>max</span></div>
-            
+        <div data-face class="relative overflow-hidden z-10 rounded-full w-full bg-fail aspect-w-1 aspect-h-1">
+            <div class="rounded-full flex flex-col justify-center items-center border-4 border-white">
+                <div data-time class="text-xl md:text-4xl font-bold">0.00s</div>
+                <div class="text-sm md:text-base md:pt-1 md:mt-1 border-t border-white"><span data-limit class="mr-1">1s</span></div>
+            </div>
         </div>
     </stopwatch-timer>
     <div class="z-10 flex flex-col items-center justify-center">
-        <div
-            class="w-full flex flex-col bg-gradient-to-r pt-1 rounded-lg border-4 border-white text-white">
-            <div class="text-lg md:text-xl px-4">Streak:</div>
-            <div data-streak class="font-bold text-2xl md:text-4xl">0</div>
+        <div class="w-full flex flex-col bg-gradient-to-r pt-1 rounded-lg border-4 border-white text-white">
+            <div class="text-lg md:text-xl">Streak:</div>
+            <div data-streak class="font-bold text-xl md:text-4xl">0</div>
             <div
-                class="text-lg md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t-2 border-white">
+                class="text-sm md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t-2 border-white">
                 Best:
                 <span data-high-streak class="ml-1 font-bold">0</span>
             </div>
         </div>
     </div>
     <div class="z-10 flex flex-col items-center justify-center w-full">
-        <div
-            class="w-full bg-gradient-to-r text-white pt-1 rounded-lg border-4 border-white">
+        <div class="w-full bg-gradient-to-r text-white pt-1 rounded-lg border-4 border-white">
             <div class="text-lg md:text-xl">Score:</div>
-            <div class="flex flex-row justify-center font-bold text-2xl md:text-4xl">
+            <div class="flex flex-row justify-center font-bold text-xl md:text-4xl">
                 <span data-correct>0</span>/<span data-total>0</span>
             </div>
             <div
-                class="text-lg md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t-2 border-white">
+                class="text-sm md:text-lg pt-1 pb-1 px-4 mt-1 flex justify-center items-center border-t-2 border-white">
                 Best:
                 <span data-high-score class="ml-1 font-bold">0</span>
             </div>

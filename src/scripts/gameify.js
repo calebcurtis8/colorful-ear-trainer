@@ -27,8 +27,11 @@ class GameArea extends HTMLElement {
         document.addEventListener('game:answercomplete', this.update.bind(this))
         document.addEventListener('countdown:expired', this.update.bind(this))
 
-        let savedScores = localStorage.getItem(SCORE_STORAGE)
-        this.highScores = savedScores ? JSON.parse(savedScores) : { streak: 0, score: 0 };
+        let savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE))
+        this.highScores = {
+            streak: savedScores.streak || 0,
+            score: savedScores.score || 0
+        }
         this.updateHighScoreDisplay()
     }
     punish(e) {
@@ -93,7 +96,6 @@ class GameArea extends HTMLElement {
     }
     saveScores(){
         this.updateHighScoreDisplay()
-        console.log(this.highScores)
         localStorage.setItem(SCORE_STORAGE, JSON.stringify(this.highScores))
     }
     updateHighScoreDisplay(){

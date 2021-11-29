@@ -3,6 +3,7 @@ module.exports = {
   purge: ['./src/**/*.{html,ejs}', './public/**/*.{html,ejs}', './src/scripts/**/*.{js,jsx,ts,tsx,vue}'],
   plugins: [
     require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio')
     // ...
   ],
   theme: {
