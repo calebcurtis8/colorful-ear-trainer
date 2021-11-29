@@ -1119,10 +1119,6 @@ select {
   min-width: 3ch;
 
 }
-.min-w-\[6ch\] {
-  min-width: 6ch;
-
-}
 .min-w-0 {
   min-width: 0px;
 

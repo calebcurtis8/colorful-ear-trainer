@@ -53,7 +53,6 @@ class CountdownTimer extends HTMLElement{
         this.stopwatch.reset()
         this.success = true
         this.expired = false
-        console.trace('reset')
     }
     getRemainingTime(){
         return -(this.stopwatch.getTimeElapsedInMs - this.timelimitInMs)

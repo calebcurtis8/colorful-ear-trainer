@@ -1,4 +1,5 @@
 import './scripts/quantity.js'
+import './scripts/minutes-seconds.js'
 import './scripts/inputs.js'
 import './scripts/theme.js'
 import './scripts/piano.js'

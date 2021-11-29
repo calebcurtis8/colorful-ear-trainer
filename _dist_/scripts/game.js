@@ -98,7 +98,6 @@ export class Game {
         })
     }
     playNotes(){
-        console.log('playnotes', User.selected_notes)
         User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], 0) : null;
     }
     askNotes(){
