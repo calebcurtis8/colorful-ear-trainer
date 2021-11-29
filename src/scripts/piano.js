@@ -37,8 +37,6 @@ class PianoPlayer {
         document.addEventListener('keydown', this.handleListenShifts)
         document.addEventListener('keyup', this.handleListenShifts)
 
-        document.addEventListener('game:ask', this.clear.bind(this))
-
         this.synth = new Tone.Synth().toDestination();
     }
     async play(key) {
@@ -131,4 +129,6 @@ class PianoPlayer {
     }
 }
 
-new PianoPlayer(piano)
+const Piano = new PianoPlayer(piano)
+
+export default Piano

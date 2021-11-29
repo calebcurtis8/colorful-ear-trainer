@@ -4,31 +4,60 @@ import random from "./random";
 import { play_sequence } from './play_sequence'
 import { removeClassStartsWith } from "./remove-class-starts-with"
 
-import { NOTE_NAMES } from './note_names'
 import User from './user'
 import Gameify from './gameify'
+import Piano from './piano'
 
 const Stopwatch = document.getElementById('Stopwatch')
 export class Game {
     constructor(){
         this.handleAnswer = this.registerAnswer.bind(this)
         this.playBtn = document.querySelector('#Play')
-        this.playBtn?.addEventListener('click', this.play.bind(this))
+        this.playBtn?.addEventListener('click', this.playClick.bind(this))
+        this.handleStart = this.start.bind(this)
+        this.playBtn?.addEventListener('click', this.handleStart)
         this.cadenceBtn = document.querySelector('#PlayCadence')
         this.cadenceBtn?.addEventListener('click', this.playCadence.bind(this))
         this.notesBtn = document.querySelector('#PlayNotes')
-        this.notesBtn?.addEventListener('click', function(){
-            this.playNotes(0)
-        }.bind(this))
+        this.notesBtn?.addEventListener('click', this.playNotes.bind(this))
 
         this.playCount = 0
+        this.gameStarted = false
+
+        document.addEventListener('countdown:expired', this.stop.bind(this))
     }
-    play(){
-        this.playCount += 1
-        if(this.playBtn.isPlaying){ 
+    start(){
+        this.playBtn?.removeEventListener('click', this.handleStart)
+        document.dispatchEvent(new CustomEvent('game:start'))
+        this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
+    }
+    stop(){
+        this.pause()
+        this.playBtn?.addEventListener('click', this.handleStart)
+        this.setButtonState('PLAY', 'bg-green-gradient', 'stopped')
+        Gameify.streak = 0
+        Gameify.correct = 0
+        Gameify.total = 0
+        Gameify.late = 0
+        this.attempts = 0
+        User.notes = []
+        User.selected_notes = []
+        this.playCount = 0
+        this.gameStarted = false
+        document.removeEventListener('answer', this.handleAnswer)
+    }
+    playClick(){
+        if(this.playBtn.state == 'playing'){ 
             this.pause()
             return
         }
+        if(this.playBtn.state == 'paused'){
+            document.dispatchEvent(new CustomEvent('game:continue'))
+        }
+        this.play()
+    }
+    play(){
+        this.playCount += 1
 
         //check if we are randomizing keys or not
         if(User.get('randomkey','checkbox')){
@@ -39,15 +68,7 @@ export class Game {
         }
 
         let playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
-        if(playCadence){
-            this.playCadence()
-        } else {
-            this.offset = .25 // in seconds
-        }
 
-        document.addEventListener('answer', this.handleAnswer)
-        //clears the piano
-        document.dispatchEvent(new CustomEvent('game:ask'))
         //reset attempt count
         this.attempts = 0
         //notes which the user must answer
@@ -59,32 +80,45 @@ export class Game {
 
         User.notes = this.setOctave(User.notes)
 
-        this.setButtonState('PAUSE', 'bg-yellow-gradient', true)
-        this.playNotes()
-        setTimeout(() => {
-            if(this.playBtn.isPlaying) document.dispatchEvent(new CustomEvent('game:afterask'))
-        },this.offset * 1000)
+        if(playCadence){
+            this.playCadence().then( this.askNotes.bind(this) )
+        } else {
+            setTimeout(this.askNotes.bind(this), 250)
+        }
     }
     playCadence(){
-        if(this.playingCadence) return
-        this.playingCadence = true
-        this.offset = cadence()
-        setTimeout( function(){
-            this.playingCadence = false
-        }.bind(this), this.offset * 1000)
+        return new Promise( (res, rej) => {
+            if(this.playingCadence) return
+            this.playingCadence = true
+            this.offset = cadence()
+            setTimeout( function(){
+                this.playingCadence = false
+                res()
+            }.bind(this), this.offset * 1000)
+        })
     }
-    playNotes(offset = this.offset){
-        User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], offset) : null;
+    playNotes(){
+        console.log('playnotes', User.selected_notes)
+        User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], 0) : null;
+    }
+    askNotes(){
+        Piano.clear()
+        if(this.playBtn.state == 'stopped') return
+        this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
+        this.playNotes()
+        document.addEventListener('answer', this.handleAnswer)
+        //clears the piano
+        document.dispatchEvent(new CustomEvent('game:ask'))
     }
     pause(){
-        this.setButtonState('PLAY', 'bg-green-gradient', false)
+        this.setButtonState('PLAY', 'bg-green-gradient', 'paused')
         document.dispatchEvent(new CustomEvent('game:pause'))
     }
-    setButtonState(state, colorClass, playing){
+    setButtonState(state, colorClass, playState){
         removeClassStartsWith(this.playBtn, 'bg-')
         this.playBtn.classList.add(colorClass)
         this.playBtn.innerText = state
-        this.playBtn.isPlaying = playing
+        this.playBtn.state = playState
     }
     setOctave(arr){
         return arr.map( note => `${note}${User.get('cadenceoctave', 'number')}` )
@@ -129,7 +163,7 @@ export class Game {
             }
             document.removeEventListener('answer', this.handleAnswer)
             document.dispatchEvent(new CustomEvent('game:answercomplete'))
-            this.setButtonState('PLAY', 'bg-green-gradient', false)
+            this.setButtonState('PLAY', 'bg-green-gradient', 'paused')
             setTimeout(this.play.bind(this), 350)
         }
     }

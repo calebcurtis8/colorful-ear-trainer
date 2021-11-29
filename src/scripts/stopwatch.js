@@ -4,7 +4,6 @@ import { removeClassStartsWith } from './remove-class-starts-with'
 import Gameify from './gameify'
 import User from './user'
 
-
 class StopwatchTimer extends HTMLElement{
     constructor(){
         super()
@@ -16,7 +15,7 @@ class StopwatchTimer extends HTMLElement{
         this.timelimit = function(){ return User.get('timelimit','float') * User.get('note_count', 'number')}
         this.timelimitInMs = function(){ return this.timelimit() * 1000}
 
-        document.addEventListener('game:afterask', this.start.bind(this))
+        document.addEventListener('game:ask', this.start.bind(this))
         document.addEventListener('game:answercomplete', this.stop.bind(this))
         document.addEventListener('game:pause', this.stop.bind(this))
         document.addEventListener('user:update', this.update.bind(this))
