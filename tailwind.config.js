@@ -13,6 +13,9 @@ module.exports = {
         'theme-secondary': 'var(--text-secondary)',
         'theme-bg': 'var(--bkg-color)',
       },
+      maxWidth:{
+        '32': '8rem'
+      },
       transitionDuration: {
         '0': '0ms',
       },
