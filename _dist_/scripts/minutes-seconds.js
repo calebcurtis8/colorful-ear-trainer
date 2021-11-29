@@ -41,7 +41,8 @@ class MinutesSeconds extends HTMLElement {
     }
     validate(e) {
         let input = e.target
-        if(input.value.length == 1) input.value = '0' + input.value
+        input.value = parseInt(input.value)
+        if(input.value.length == 1) input.value = '0' + parseInt(input.value)
         this.setValue()
     }
     setValue(){

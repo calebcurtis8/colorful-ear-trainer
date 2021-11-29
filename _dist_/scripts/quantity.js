@@ -13,16 +13,16 @@ class QuantitySelector extends HTMLElement {
     }
     increment(e){
       e.preventDefault()
-      let step = parseInt(this.input.step) || 1
+      let step = parseFloat(this.input.step) || 1
       if(e.shiftKey) step = step * 10
-      this.input.value = parseInt(this.input.value) + step
+      this.input.value = parseFloat(this.input.value) + step
       this.dispatchChangeEvent()
     }
     decrement(e){
       e.preventDefault()
-      let step = parseInt(this.input.step) || 1
+      let step = parseFloat(this.input.step) || 1
       if(e.shiftKey) step = step * 10
-      this.input.value = parseInt(this.input.value) - step
+      this.input.value = parseFloat(this.input.value) - step
       this.dispatchChangeEvent()
     }
     dispatchChangeEvent(){
