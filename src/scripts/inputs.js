@@ -7,10 +7,11 @@ const numbers = document.querySelectorAll('input[type="number"]');
     function validate(e){
             const el = e.target || e
             if(el.type == "number" && el.max && el.min ){
-              let value = parseInt(el.value)
+              let step = parseFloat(el.getAttribute('step')) || 1
+              let value = Number.isInteger(el.value / step) ? parseFloat(el.value) : Math.floor(el.value / step) * step;
               el.value = value // for 000 like input cleanup to 0
-              let max = parseInt(el.max)
-              let min = parseInt(el.min)
+              let max = parseFloat(el.max)
+              let min = parseFloat(el.min)
               if ( value > max ) el.value = el.max
               if ( value < min || isNaN(value)) el.value = el.min
             }
