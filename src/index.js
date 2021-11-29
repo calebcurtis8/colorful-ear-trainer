@@ -1,4 +1,5 @@
 import './scripts/quantity'
+import './scripts/minutes-seconds'
 import './scripts/inputs'
 import './scripts/theme'
 import './scripts/piano'

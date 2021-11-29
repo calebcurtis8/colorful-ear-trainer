@@ -93,9 +93,18 @@
             <div class="text-xs text-theme-secondary">beats per minute</div>
           </div>
           <div class="col-span-3">
-            <label for="Bpm">Total Time:</label>
-            <%- include('_qty.ejs', { id: 'Countdown', name: 'countdown', min: 1, max: 9999999, value: 300, step: 1, inputClass: 'min-w-[6ch]' }) %>
-            <div class="text-xs text-theme-secondary">countdown (in seconds)</div>
+            <label for="CountdownMinutes">Total Time:</label>
+            <minutes-seconds class="flex time-input" id="Countdown">
+              <input type="hidden" name="countdown" value="300">
+              <button type="button" class="time-incrementer" data-decrement="" aria-label="Decrease Time">
+                –
+              </button>
+              <input type="text" id="CountdownMinutes" inputmode="numeric" min="0" max="99" name="countdown-minutes" value="05" pattern="\d{2}" step="1" autocomplete="off">:<input type="text" id="CountdownSeconds" inputmode="numeric" min="0" max="59" name="countdown-seconds" value="00" pattern="\d{2}" step="1" autocomplete="off">
+              <button type="button" class="time-incrementer" data-increment="" aria-label="Increase Time">
+                  +
+              </button>
+            </minutes-seconds>
+            <div class="text-xs text-theme-secondary">countdown MM:SS</div>
           </div>
           <div class="col-span-full">
             <label for="NoteRange">Note Range (Octaves):</label>

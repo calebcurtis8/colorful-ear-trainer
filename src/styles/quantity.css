@@ -12,3 +12,14 @@ input[type=number] {
 .incrementer{
     @apply rounded-sm w-8 h-8 p-0 flex flex-none justify-center items-center border border-theme-text text-theme-text bg-theme-bg active:text-theme-bg active:bg-theme-text;
 }
+
+.time-incrementer{
+    @apply rounded-sm w-8 h-8 p-0 flex flex-none justify-center items-center border-l border-r border-theme-text text-theme-text bg-theme-bg active:text-theme-bg active:bg-theme-text;
+}
+
+.time-input{
+  @apply border-t border-b border-theme-text leading-8;
+  input {
+    @apply appearance-none border-0 flex-grow bg-theme-bg text-theme-text h-8 w-auto py-0 px-2 text-center flex-shrink min-w-0;
+  }
+}
