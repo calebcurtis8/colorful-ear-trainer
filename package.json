@@ -2,8 +2,9 @@
   "name": "colorful-ear-trainer",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://calebcurtis8.github.io/colorful-ear-trainer",
+  "homepage": "https://ears.calebcurtis.com",
   "scripts": {
+    "postbuild": "cp ./CNAME ./build/CNAME",
     "start": "snowpack dev",
     "build": "snowpack build",
     "format": "prettier --write \"src/**/*.js\"",
