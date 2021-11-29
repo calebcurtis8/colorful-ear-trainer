@@ -111,7 +111,10 @@ class DefineUser extends HTMLElement {
                 input.checked = value
                 inputValue = input.checked
             } else if(input.tagName == 'SELECT'){
-                if(input.querySelector(`option[value='${value}']`)) inputValue = value
+                if(input.querySelector(`option[value='${value}']`)){
+                    inputValue = value
+                    input.value = value
+                }
             } else {
                 input.value = value
                 inputValue = input.value
@@ -130,7 +133,7 @@ class DefineUser extends HTMLElement {
         return (60 / parseInt(input.value))
     }
     number(input){
-        return parseInt(input.value)
+        return (input?.value ? parseInt(input.value) : null)
     }
     float(input){
         return parseFloat(input.value)

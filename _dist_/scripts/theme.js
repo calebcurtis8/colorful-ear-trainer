@@ -1,5 +1,3 @@
-import User from './user.js'
-
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 const btn = document.getElementById('DarkMode');
 
