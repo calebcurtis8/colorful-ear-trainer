@@ -80,7 +80,8 @@ class DefineUser extends HTMLElement {
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
     loadLevel(e){
-        if(e.target.value == 0){
+        const value = e?.target?.value || 0;
+        if(value == 0){
             document.getElementById('UserCard')?.classList.remove('hidden')
             document.getElementById('LevelInfo')?.classList.add('hidden')
             return
@@ -88,7 +89,7 @@ class DefineUser extends HTMLElement {
         document.getElementById('UserCard')?.classList.add('hidden')
         document.getElementById('LevelInfo')?.classList.remove('hidden')
         this.levelElm.removeEventListener('change', this.handleLevelChange)
-        const level = this.levels.filter( lvl => lvl.level == e.target.value )[0]
+        const level = this.levels.filter( lvl => lvl.level == value )[0]
         if(!level) return
 
         //display level attributes

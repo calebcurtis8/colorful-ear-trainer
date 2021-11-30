@@ -1,34 +1,10 @@
 <header class="z-20 sticky top-0 h-16 w-full bg-theme-bg lg:bg-transparent border-b-2 border-theme-text">
     <div class="max-w-screen-2xl grid grid-cols-2 md:grid-cols-3 px-4 h-full mx-auto">
         <div class="flex items-center">
-            <label for="Level" class="font-bold text-lg md:text-2xl mr-2">Level:</label>
-            <div class="select-wrap">
-                <local-storage data-key="EarTrainerUser">
-                    <select id="Level" name="level" class="input w-auto">
-                        <optgroup label="Practice">
-                            <option value="0" selected>Practice Mode</option>
-                        </optgroup>
-                        <optgroup label="Beginner">
-                            <option value="1">Beginner: 1</option>
-                            <option value="2">Beginner: 2</option>
-                            <option value="3">Beginner: 3</option>
-                        </optgroup>
-                        <optgroup label="Intermediate">
-                            <option value="4">Intermediate: 4</option>
-                            <option value="5">Intermediate: 5</option>
-                            <option value="6">Intermediate: 6</option>
-                        </optgroup>
-                        <optgroup label="Advanced">
-                            <option value="7">Advanced: 7</option>
-                            <option value="8">Advanced: 8</option>
-                            <option value="9">Advanced: 9</option>
-                        </optgroup>
-                    </select>
-                </local-storage>
-            </div>
+            <!-- <%- include('./_level-selector.ejs') %> -->
         </div>
         <div class="text-center items-center justify-center hidden md:flex">
-            <h1 class="text-2xl font-bold tracking-wider bg-gradient-to-r from-yellow-500 to-purple-400">Colorful Ear Trainer</h1>
+            <h1 class="text-2xl font-bold tracking-wider bg-gradient-to-r from-yellow-500 via-blue-300 to-purple-400">Colorful Ear Trainer</h1>
         </div>
         <div class="flex items-center justify-end">
             <div class="mr-4">

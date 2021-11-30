@@ -1,48 +1,25 @@
-<%- include('_levels.ejs') %>
-
-<div class="mb-2">
-    <div id="LevelInfo" class="hidden">
-        <div class="grid grid-cols-3 gap-2">
-            <div class="level-attribute">
-                <div>Key Center:</div>
-                <div data-name="keycenter" data-format="transpose"></div>
-                <div data-name="randomkey" data-format="checkmark"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Cadence:</div>
-                <div data-name="tonality" data-format="optiontext"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Note Set:</div>
-                <div data-name="set" data-format="transpose"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Notes:</div>
-                <div data-name="note_count" data-format="integer"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Total Time:</div>
-                <div data-name>
-                    <span data-name="countdown-minutes" data-format="string"></span>:<span data-name="countdown-seconds"
-                        data-format="string"></span>
-                </div>
-            </div>
-            <div class="level-attribute">
-                <div>Time Per Note:</div>
-                <div data-name="timelimit" data-format="float"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Cadence every:</div>
-                <div data-name="cadenceevery" data-format="integer"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Tempo:</div>
-                <div data-name="bpm" data-format="integer"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Note Range (Octaves):</div>
-                <div data-name="range" data-format="integer"></div>
-            </div>
-        </div>
-    </div>
+<label for="Level" class="font-bold text-lg md:text-2xl mr-2">Level:</label>
+<div class="select-wrap">
+    <local-storage data-key="EarTrainerUser">
+        <select id="Level" name="level" class="input w-auto">
+            <optgroup label="Practice">
+                <option value="0" selected>Practice Mode</option>
+            </optgroup>
+            <optgroup label="Beginner">
+                <option value="1">Beginner: 1</option>
+                <option value="2">Beginner: 2</option>
+                <option value="3">Beginner: 3</option>
+            </optgroup>
+            <optgroup label="Intermediate">
+                <option value="4">Intermediate: 4</option>
+                <option value="5">Intermediate: 5</option>
+                <option value="6">Intermediate: 6</option>
+            </optgroup>
+            <optgroup label="Advanced">
+                <option value="7">Advanced: 7</option>
+                <option value="8">Advanced: 8</option>
+                <option value="9">Advanced: 9</option>
+            </optgroup>
+        </select>
+    </local-storage>
 </div>
