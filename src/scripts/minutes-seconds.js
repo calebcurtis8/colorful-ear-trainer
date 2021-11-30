@@ -14,7 +14,7 @@ class MinutesSeconds extends HTMLElement {
             input.addEventListener('keyup', this.arrowKeys.bind(this))
         })
 
-        let _this = this
+        const _this = this
         this.btnIncrement.addEventListener('click', (e) => {
             _this.increment(_this.seconds, e.shiftKey)
         })
@@ -25,7 +25,7 @@ class MinutesSeconds extends HTMLElement {
         this.setValue()
     }
     arrowKeys(e){
-        let useKeys = ['ArrowUp','ArrowDown']
+        const useKeys = ['ArrowUp','ArrowDown']
         if(useKeys.indexOf(e.key) == -1) return
         e.preventDefault()
         switch (e.key) {
@@ -40,7 +40,7 @@ class MinutesSeconds extends HTMLElement {
         }
     }
     validate(e) {
-        let input = e.target
+        const input = e.target
         input.value = parseInt(input.value)
         if(input.value.length == 1) input.value = '0' + parseInt(input.value)
         this.setValue()
@@ -50,12 +50,12 @@ class MinutesSeconds extends HTMLElement {
         this.valueElm.value = (parseInt(this.minutes.value) * 60) + parseInt(this.seconds.value)
     }
     increment(input, shift){
-        let min = parseInt(input.getAttribute('min'))
-        let max = parseInt(input.getAttribute('max'))
+        const min = parseInt(input.getAttribute('min'))
+        const max = parseInt(input.getAttribute('max'))
         let step = parseInt(input.getAttribute('step'))
         if(shift) step = step * 10;
-        let value = parseInt(input.value)
-        let newValue = value + step
+        const value = parseInt(input.value)
+        const newValue = value + step
         if(newValue > max){
             newValue = min
             if(input.getAttribute('name') == 'countdown-seconds') this.increment(this.minutes)
@@ -64,12 +64,12 @@ class MinutesSeconds extends HTMLElement {
         input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
     }
     decrement(input, shift){
-        let min = parseInt(input.getAttribute('min'))
-        let max = parseInt(input.getAttribute('max'))
+        const min = parseInt(input.getAttribute('min'))
+        const max = parseInt(input.getAttribute('max'))
         let step = parseInt(input.getAttribute('step'))
         if(shift) step = step * 10;
-        let value = parseInt(input.value)
-        let newValue = value - step
+        const value = parseInt(input.value)
+        const newValue = value - step
         if(newValue < min){
             newValue = max
             if(input.getAttribute('name') == 'countdown-seconds') this.decrement(this.minutes)

@@ -2,9 +2,9 @@ import StopWatch from "@slime/stopwatch"
 import User from './user'
 
 function getMinSec(seconds){
-    var date = new Date(0);
-    date.setSeconds(seconds); // specify value for SECONDS here
-    return date.toTimeString().substr(3, 5);
+    const date = new Date(0)
+    date.setSeconds(seconds)
+    return date.toTimeString().substr(3, 5)
 }
 class CountdownTimer extends HTMLElement{
     constructor(){
@@ -58,8 +58,8 @@ class CountdownTimer extends HTMLElement{
         return -(this.stopwatch.getTimeElapsedInMs - this.timelimitInMs)
     }
     refresh(){
-        let remainingTime = this.getRemainingTime()
-        let percentage = (remainingTime / (this.timeRemaining * 1000)) * 100
+        const remainingTime = this.getRemainingTime()
+        const percentage = (remainingTime / (this.timeRemaining * 1000)) * 100
         this.timeDisplay.innerText = getMinSec(remainingTime / 1000)
         this.timeBackground.style.height = `${percentage}%`
         if(remainingTime <= 0){

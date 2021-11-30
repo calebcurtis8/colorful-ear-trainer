@@ -58,8 +58,8 @@ class KeySelector extends HTMLElement {
         this.transposeSetSelector()
     }
     transposeSetSelector() {
-        let tonality = User.get('tonality').split(',')[0]
-        let selectedIndex = this.set.selectedIndex
+        const tonality = User.get('tonality').split(',')[0]
+        const selectedIndex = this.set.selectedIndex
         this.setSelector.forEach( (set,i) => {
             const regex = /\{(.*?)}/gm;
             let str = set.getAttribute('data-template');

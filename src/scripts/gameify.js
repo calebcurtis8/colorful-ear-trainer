@@ -30,7 +30,7 @@ class GameArea extends HTMLElement {
         document.addEventListener('game:answercomplete', this.update.bind(this))
         document.addEventListener('countdown:expired', this.update.bind(this))
 
-        let savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE))
+        const savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE))
         this.highScores = {
             streak: savedScores?.streak || 0,
             score: savedScores?.score || 0
@@ -42,7 +42,7 @@ class GameArea extends HTMLElement {
         //specific punishments
         switch (e.msg) {
             case 'wrongNote':
-                let elm = e.elm
+                const elm = e.elm
                 elm.classList.add('shake')
                 
                 setTimeout( () => {
@@ -61,8 +61,8 @@ class GameArea extends HTMLElement {
         document.dispatchEvent(new CustomEvent('gameify:punish', { detail: e }))
     }
     reward(e) {
-        let ratio = this.streak / this.fire
-        let is_threshold = (ratio >= 1 && Number.isInteger(ratio))
+        const ratio = this.streak / this.fire
+        const is_threshold = (ratio >= 1 && Number.isInteger(ratio))
         //nice suboctave reinforcement of correct note
         drum.triggerAttackRelease(e.note.split(',')[0] + '1', "16n");  
         if (!is_threshold) return
@@ -145,7 +145,7 @@ class GameArea extends HTMLElement {
         this.elements.correct.innerText = this.correct
         this.elements.total.innerText = this.total
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
-        let ratio = this.streak / this.fire
+        const ratio = this.streak / this.fire
         this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
         this.checkScores()
     }

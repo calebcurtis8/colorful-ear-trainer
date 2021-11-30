@@ -2,6 +2,7 @@ import noUiSlider from 'nouislider'
 import 'nouislider/dist/nouislider.css'
 
 const STORAGE = 'EarTrainerUser'
+const CUSTOM_LEVEL = 'EarTrainerCustomLevel'
 
 class DefineUser extends HTMLElement {
     constructor(){
@@ -12,7 +13,7 @@ class DefineUser extends HTMLElement {
 
         this.rangeElm = this.querySelector('#NoteRange')
         this.levelElm = this.querySelector('#Level')
-        // this.levels = this.getJson('./levels.json')
+        this.levels = this.getJson('Levels')
 
         this.range = noUiSlider.create(this.rangeElm, {
             start: [4,5],
@@ -49,31 +50,21 @@ class DefineUser extends HTMLElement {
     }
     set(attr, value){
         if(!attr) return
-        let storage = this.getStorage()
+        const storage = this.getStorage()
         storage[attr] = value
         localStorage.setItem(STORAGE, JSON.stringify(storage))
     }
     get(attr, as = 'normal'){
-        let value = this.querySelector(`[name="${attr}"]`)
+        const value = this.querySelector(`[name="${attr}"]`)
         return this[as](value)
     }
     getElm(attr){
         return this.querySelector(`[name="${attr}"]`)
     }
-    getJson(url){
-        return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("HTTP error " + response.status);
-            }
-            return response.json();
-        })
-        .then(json => {
-            return json
-        })
-        .catch(function () {
-            this.dataError = true;
-        })
+    getJson(id){
+        const elm = document.getElementById(id)
+        if(!elm) return false
+        return JSON.parse(elm.innerText)
     }
     getOctaveRange(){
         return this.range.get()
@@ -88,22 +79,30 @@ class DefineUser extends HTMLElement {
     }
     loadLevel(e){
         this.levelElm.removeEventListener('change', this.handleLevelChange)
-        this.levels.then( data => {
-            let level = data.filter( lvl => lvl.level == e.target.value )[0]
-            if(!level) return
-            localStorage.setItem(STORAGE, JSON.stringify(level))
-            this.loadUser()
+        const level = this.levels.filter( lvl => lvl.level == e.target.value )[0]
+        if(!level) return
+        localStorage.setItem(STORAGE, JSON.stringify(level))
+
+        //display level attributes
+        const displayElm = document.getElementById('LevelInfo')
+        displayElm.innerText = ''
+        Object.entries(level).forEach( entry => {
+            const elm = document.createElement('div')
+            elm.innerText = `${entry[0]}: ${entry[1]}`
+            displayElm.appendChild(elm)
         })
+
+        this.loadUser()
     }
     loadOctaveRange(){
-        let value = this.getStorage().range
+        const value = this.getStorage().range
         if(value) this.range.set(value)
     }
     loadStorage(){
-        let storage = this.getStorage()
+        const storage = this.getStorage()
         this.inputs.forEach( input => {
-            let name = input.getAttribute('name')
-            let value = storage[name]
+            const name = input.getAttribute('name')
+            const value = storage[name]
             if(!value) return
             let inputValue = false
             if(input.type == 'checkbox'){

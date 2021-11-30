@@ -4,9 +4,9 @@ const btn = document.getElementById('DarkMode');
 const STORAGE = 'EarTrainerUser';
 
 (() => {
-    let storage = JSON.parse(localStorage.getItem(STORAGE)) || {}
+    const storage = JSON.parse(localStorage.getItem(STORAGE)) || {}
 
-    let isDark = prefersDarkScheme.matches && storage.darkmode !== false
+    const isDark = prefersDarkScheme.matches && storage.darkmode !== false
 
     if(isDark) btn.checked = true
     toggleTheme(isDark)

@@ -1,6 +1,4 @@
-import {
-    removeClassStartsWith
-} from './remove-class-starts-with'
+import { removeClassStartsWith } from './remove-class-starts-with'
 
 const Colors = ['green','pink','blue','purple','yellow']
 const Stop = ['from','via','to']
@@ -23,7 +21,7 @@ class FancyBackground extends HTMLElement {
         removeClassStartsWith(this, 'via-')
         removeClassStartsWith(this, 'to-')
 
-        var selected_colors = []
+        let selected_colors = []
 
         while(selected_colors.length < 3){
             var rand = Math.floor(Math.random() * Colors.length)

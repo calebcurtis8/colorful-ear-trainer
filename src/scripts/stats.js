@@ -20,7 +20,7 @@ export const Question = {
     hit(q, status){
         //get existing reference or use our new question
         q = this.normalize(q)
-        let data = Stats.get(q) || {...questionAttrs}
+        const data = Stats.get(q) || {...questionAttrs}
         //register stat...
         switch (status) {
             case -1:
@@ -42,15 +42,15 @@ export const Question = {
         Stats.set(q, data)
     },
     normalize(q){
-        let nums = Transposer.notesAsNumber(q)
+        const nums = Transposer.notesAsNumber(q)
         return nums.sort(ascending).join(',')
     },
     total(q){
-        let data = Stats.get(this.normalize(q))
+        const data = Stats.get(this.normalize(q))
         return data.r + data.w + data.l
     },
     ratio(q){
-        let data = Stats.get(this.normalize(q))
+        const data = Stats.get(this.normalize(q))
         return data.r / (data.r + data.w + data.l)
     },
     strength(q){
@@ -65,12 +65,12 @@ export const Stats = {
         document.addEventListener('gameify:update', this.register.bind(this))
     },
     get(key){
-        let data = JSON.parse(sessionStorage.getItem(SESSION)) || {}
-        let value = key ? data[key] : data;
+        const data = JSON.parse(sessionStorage.getItem(SESSION)) || {}
+        const value = key ? data[key] : data;
         return value
     },
     set(key, value){
-        let s = this.get()
+        const s = this.get()
         s[key] = value
         return sessionStorage.setItem(SESSION, JSON.stringify(s))
     },

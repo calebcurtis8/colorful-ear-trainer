@@ -2,25 +2,9 @@
     <div
       class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
       <div class="flex flex-col order-2 md:order-1 flex-none">
-        <!--           
-        <label for="Level" class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text">Level:</label>
-        <select id="Level" name="level" class="input mb-4">
-          <optgroup label="Beginner">
-            <option value="1" selected>Beginner: 1</option>
-            <option value="2">Beginner: 2</option>
-            <option value="3">Beginner: 3</option>
-          </optgroup>
-          <optgroup label="Intermediate">
-            <option value="4">Intermediate: 4</option>
-            <option value="5">Intermediate: 5</option>
-            <option value="6">Intermediate: 6</option>
-          </optgroup>
-          <optgroup label="Advanced">
-            <option value="7">Advanced: 7</option>
-            <option value="8">Advanced: 8</option>
-            <option value="9">Advanced: 9</option>
-          </optgroup>
-        </select> -->
+        
+        <%- include('_level-selector.ejs') %>
+        
         <button id="Play" class="btn bg-gradient-to-r bg-green-gradient text-xl">PLAY</button>
         <div class="grid grid-cols-2 gap-4 mt-4">
           <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Cadence</button>
@@ -91,10 +75,6 @@
               <%- include('_qty.ejs', { id: 'Timelimit', name: 'timelimit', min: 0.5, max: 999999, value: 5, step: 0.5 }) %>
             <div class="text-xs text-theme-secondary">seconds</div>
           </div>
-          <!-- <div>
-              <label for="Octave">Cadence Octave:</label>
-              inputmode="numeric">
-            </div> -->
           <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
           <div class="col-span-3">
             <label for="Octave">Cadence every:</label>
