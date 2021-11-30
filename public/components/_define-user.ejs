@@ -1,13 +1,6 @@
 <define-user id="User">
     <div
       class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
-      <div class="flex flex-col order-2 md:order-1 flex-none">
-        <button id="Play" class="btn bg-gradient-to-r bg-green-gradient text-xl">PLAY</button>
-        <div class="grid grid-cols-2 gap-4 mt-4">
-          <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Cadence</button>
-          <button id="PlayNotes" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Notes</button>
-        </div>
-      </div>
       <div class="card order-1 md:order-2 overflow-auto flex-auto">
         <%- include('_level-selector.ejs') %>
         <div id="UserCard" class="hidden">
@@ -17,20 +10,22 @@
                 <div class="col-span-4 border-theme-text border rounded-lg p-2 grid grid-cols-2 gap-2">
                   <div class="col-span-1">
                     <label for="KeyCenter">Key Center:</label>
-                    <select name="keycenter" id="KeyCenter" class="input">
-                      <option value='0' selected>C</option>
-                      <option value='1'>Db</option>
-                      <option value='2'>D</option>
-                      <option value='3'>Eb</option>
-                      <option value='4'>E</option>
-                      <option value='5'>F</option>
-                      <option value='6'>Gb</option>
-                      <option value='7'>G</option>
-                      <option value='8'>Ab</option>
-                      <option value='9'>A</option>
-                      <option value='10'>Bb</option>
-                      <option value='11'>B</option>
-                    </select>
+                    <div class="select-wrap">
+                      <select name="keycenter" id="KeyCenter" class="input w-full">
+                        <option value='0' selected>C</option>
+                        <option value='1'>Db</option>
+                        <option value='2'>D</option>
+                        <option value='3'>Eb</option>
+                        <option value='4'>E</option>
+                        <option value='5'>F</option>
+                        <option value='6'>Gb</option>
+                        <option value='7'>G</option>
+                        <option value='8'>Ab</option>
+                        <option value='9'>A</option>
+                        <option value='10'>Bb</option>
+                        <option value='11'>B</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="col-span-1">
                     <label for="RandomKey" class="text-xs text-theme-text">Randomize</label>

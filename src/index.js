@@ -1,5 +1,6 @@
 import './scripts/transpose'
 import './scripts/quantity'
+import './scripts/modals'
 import './scripts/minutes-seconds'
 import './scripts/inputs'
 import './scripts/theme'

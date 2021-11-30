@@ -1,9 +1,9 @@
 <game-area id="Gameify"
-    class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-4 text-center text-white gap-2 md:gap-4 p-2 md:p-4 relative">
+    class="rounded-lg flex-none justify-center select-none items-center grid grid-cols-4 md:grid-cols-2 text-center text-white gap-2 md:gap-4 p-2 md:p-4 relative">
     <div class="flex flex-col items-center justify-center">
         <countdown-timer id="Countdown" class="block w-full h-full max-w-32">
             <div data-face class="relative overflow-hidden z-10 rounded-full w-full bg-fail aspect-w-1 aspect-h-1">
-                <div class="rounded-full flex flex-col justify-center items-center border-4 border-white">
+                <div class="rounded-full flex flex-col justify-center items-center border-2 border-white">
                     <span data-time class="text-xl md:text-4xl font-bold">05:00</span>
                     <span class="text-sm hidden md:block">remaining</span>
                     <span class="text-sm md:hidden">left</span>
@@ -15,7 +15,7 @@
     <div class="flex flex-col items-center justify-center">
         <stopwatch-timer id="Stopwatch" class="block w-full h-full max-w-32">
             <div data-face class="relative overflow-hidden z-10 rounded-full w-full bg-fail aspect-w-1 aspect-h-1">
-                <div class="rounded-full flex flex-col justify-center items-center border-4 border-white">
+                <div class="rounded-full flex flex-col justify-center items-center border-2 border-white">
                     <div data-time class="text-xl md:text-4xl font-bold">0.00s</div>
                     <div class="text-sm md:text-base md:pt-1 md:mt-1 border-t border-white"><span data-limit class="mr-1">1s</span></div>
                 </div>
@@ -23,7 +23,7 @@
         </stopwatch-timer>
     </div>
     <div class="z-10 flex flex-col items-center justify-center">
-        <div class="w-full flex flex-col bg-gradient-to-r pt-1 rounded-lg border-4 border-white text-white">
+        <div class="w-full flex flex-col bg-gradient-to-r pt-1 rounded-lg border-2 border-white text-white">
             <div class="text-lg md:text-xl">Streak:</div>
             <div data-streak class="font-bold text-xl md:text-4xl">0</div>
             <div
@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="z-10 flex flex-col items-center justify-center w-full">
-        <div class="w-full bg-gradient-to-r text-white pt-1 rounded-lg border-4 border-white">
+        <div class="w-full bg-gradient-to-r text-white pt-1 rounded-lg border-2 border-white">
             <div class="text-lg md:text-xl">Score:</div>
             <div class="flex flex-row justify-center font-bold text-xl md:text-4xl">
                 <span data-correct>0</span>/<span data-total>0</span>
