@@ -36,15 +36,16 @@
   </script>
   <style>
     :root {
-      --fullHeight: calc(100vh - 2rem);
+      --fullHeight: calc(100vh - 6rem);
     }
   </style>
 </head>
 
-<body class="flex items-center justify-center">
+<body class="flex flex-col items-center justify-center">
   <fancy-background id="Background"
     class="fixed z-[-1] top-0 bottom-0 left-0 right-0 transition-all duration-1000 pointer-events-none opacity-0 bg-gradient-to-r from-green-200 via-pink-500 to-blue-500">
   </fancy-background>
+  <%- include('components/_header.ejs') %>
   <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 gap-4 max-w-screen-2xl mx-auto">
     <div class="md:order-1 lg:order-4 flex flex-col md:max-h-[var(--fullHeight)] overflow-auto space-y-4">
       <%- include('components/_instructions.ejs') %>

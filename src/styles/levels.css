@@ -1,6 +1,10 @@
 .level-attribute{
-    @apply relative border border-theme-text rounded-md p-2;
+
+    @apply relative;
+    div{
+        @apply underline;
+    }
     [data-name]{
-        @apply text-base;
+        @apply text-base no-underline;
     }
 }

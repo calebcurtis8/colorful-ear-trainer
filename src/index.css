@@ -15,9 +15,16 @@ html {
 }
 
 .input {
-    @apply border border-theme-text rounded-lg px-2 w-full text-lg;
+    @apply border border-theme-text rounded-lg px-2 w-full text-lg z-0;
     background: var(--bkg-color);
     color: var(--text-color);
+}
+select{
+    @apply relative;
+    &:after{
+        content: '>';
+        @apply absolute w-4 h-4 top-0 right-2 pointer-events-none text-theme-text;
+    }
 }
 
 .btn {

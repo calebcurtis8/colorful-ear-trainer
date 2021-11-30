@@ -2,104 +2,93 @@
     <div
       class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
       <div class="flex flex-col order-2 md:order-1 flex-none">
-        
-        <%- include('_level-selector.ejs') %>
-        
         <button id="Play" class="btn bg-gradient-to-r bg-green-gradient text-xl">PLAY</button>
         <div class="grid grid-cols-2 gap-4 mt-4">
           <button id="PlayCadence" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Cadence</button>
           <button id="PlayNotes" class="btn bg-gradient-to-r from-blue-300 to-blue-200 whitespace-nowrap">Replay Notes</button>
         </div>
       </div>
-      <div id="UserCard" class="card order-1 md:order-2 overflow-auto flex-auto hidden">
-        <div class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text flex">
-          <span class="flex-grow">Options:</span>
+      <div class="card order-1 md:order-2 overflow-auto flex-auto">
+        <%- include('_level-selector.ejs') %>
+        <div id="UserCard" class="hidden">
+          <form class="space-y-4">
+            <key-selector>
+              <div class="grid grid-cols-6 gap-y-4 gap-x-3 mb-4">
+                <div class="col-span-4 border-theme-text border rounded-lg p-2 grid grid-cols-2 gap-2">
+                  <div class="col-span-1">
+                    <label for="KeyCenter">Key Center:</label>
+                    <select name="keycenter" id="KeyCenter" class="input">
+                      <option value='0' selected>C</option>
+                      <option value='1'>Db</option>
+                      <option value='2'>D</option>
+                      <option value='3'>Eb</option>
+                      <option value='4'>E</option>
+                      <option value='5'>F</option>
+                      <option value='6'>Gb</option>
+                      <option value='7'>G</option>
+                      <option value='8'>Ab</option>
+                      <option value='9'>A</option>
+                      <option value='10'>Bb</option>
+                      <option value='11'>B</option>
+                    </select>
+                  </div>
+                  <div class="col-span-1">
+                    <label for="RandomKey" class="text-xs text-theme-text">Randomize</label>
+                    <label class="toggle inline-block my-1">
+                      <input id="RandomKey" name="randomkey" type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-span-2">
+                  <%- include('_cadence-selector.ejs') %>
+                </div>
+                <div class="col-span-4">
+                  <%- include('_noteset.ejs') %>
+                </div>
+                <div class="col-span-2 relative">
+                  <label for="NoteCount">Notes:</label>
+                    <%- include('_qty.ejs', { id: 'NoteCount', name: 'note_count', min: 1, max: 12, value: 1, step: 1 }) %>
+                  <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
+                </div>
+            </key-selector>
+            <div class="col-span-3">
+              <label for="CountdownMinutes">Total Time:</label>
+              <minutes-seconds class="flex time-input mt-1 bg-theme-bg" id="Countdown">
+                <input type="hidden" name="countdown" value="300">
+                <button type="button" class="time-incrementer" data-decrement="" aria-label="Decrease Time">
+                  –
+                </button>
+                <input type="text" id="CountdownMinutes" inputmode="numeric" min="0" max="99" name="countdown-minutes" value="05" pattern="\d{2}" step="1" autocomplete="off">:<input type="text" id="CountdownSeconds" inputmode="numeric" min="0" max="59" name="countdown-seconds" value="00" pattern="\d{2}" step="1" autocomplete="off">
+                <button type="button" class="time-incrementer" data-increment="" aria-label="Increase Time">
+                    +
+                </button>
+              </minutes-seconds>
+              <div class="text-xs text-theme-secondary">countdown MM:SS</div>
+            </div>
+            <div class="col-span-3">
+              <label for="Timelimit">Time Per Note:</label>
+                <%- include('_qty.ejs', { id: 'Timelimit', name: 'timelimit', min: 0.5, max: 999999, value: 5, step: 0.5 }) %>
+              <div class="text-xs text-theme-secondary">seconds</div>
+            </div>
+            <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
+            <div class="col-span-3">
+              <label for="Octave">Cadence every:</label>
+                <%- include('_qty.ejs', { id: 'Octave', name: 'cadenceevery', min: 1, max: 999999, value: 1, step: 1 }) %>
+              <div class="text-xs text-theme-secondary">question(s)</div>
+            </div>
+            <div class="col-span-3">
+              <label for="Bpm">Tempo:</label>
+              <%- include('_qty.ejs', { id: 'Bpm', name: 'bpm', min: 1, max: 400, value: 60, step: 1, inputClass: 'min-w-[3ch]' }) %>
+              <div class="text-xs text-theme-secondary">beats per minute</div>
+            </div>
+            <div class="col-span-full">
+              <label for="NoteRange">Note Range (Octaves):</label>
+              <div id="NoteRange"></div>
+            </div>
         </div>
-        <form class="space-y-4">
-          <key-selector>
-            <div class="grid grid-cols-6 gap-y-4 gap-x-3 mb-4">
-              <div class="col-span-4 border-theme-text border rounded-lg p-2 grid grid-cols-2 gap-2">
-                <div class="col-span-1">
-                  <label for="KeyCenter">Key Center:</label>
-                  <select name="keycenter" id="KeyCenter" class="input">
-                    <option value='0' selected>C</option>
-                    <option value='1'>Db</option>
-                    <option value='2'>D</option>
-                    <option value='3'>Eb</option>
-                    <option value='4'>E</option>
-                    <option value='5'>F</option>
-                    <option value='6'>Gb</option>
-                    <option value='7'>G</option>
-                    <option value='8'>Ab</option>
-                    <option value='9'>A</option>
-                    <option value='10'>Bb</option>
-                    <option value='11'>B</option>
-                  </select>
-                </div>
-                <div class="col-span-1">
-                  <label for="RandomKey" class="text-xs text-theme-text">Randomize</label>
-                  <label class="toggle inline-block my-1">
-                    <input id="RandomKey" name="randomkey" type="checkbox">
-                    <span class="slider round"></span>
-                  </label>
-                </div>
-              </div>
-              <div class="col-span-2">
-                <%- include('_cadence-selector.ejs') %>
-              </div>
-              <div class="col-span-4">
-                <%- include('_noteset.ejs') %>
-              </div>
-              <div class="col-span-2 relative">
-                <label for="NoteCount">Notes:</label>
-                  <%- include('_qty.ejs', { id: 'NoteCount', name: 'note_count', min: 1, max: 12, value: 1, step: 1 }) %>
-                <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
-              </div>
-          </key-selector>
-          <div class="col-span-3">
-            <label for="CountdownMinutes">Total Time:</label>
-            <minutes-seconds class="flex time-input mt-1 bg-theme-bg" id="Countdown">
-              <input type="hidden" name="countdown" value="300">
-              <button type="button" class="time-incrementer" data-decrement="" aria-label="Decrease Time">
-                –
-              </button>
-              <input type="text" id="CountdownMinutes" inputmode="numeric" min="0" max="99" name="countdown-minutes" value="05" pattern="\d{2}" step="1" autocomplete="off">:<input type="text" id="CountdownSeconds" inputmode="numeric" min="0" max="59" name="countdown-seconds" value="00" pattern="\d{2}" step="1" autocomplete="off">
-              <button type="button" class="time-incrementer" data-increment="" aria-label="Increase Time">
-                  +
-              </button>
-            </minutes-seconds>
-            <div class="text-xs text-theme-secondary">countdown MM:SS</div>
-          </div>
-          <div class="col-span-3">
-            <label for="Timelimit">Time Per Note:</label>
-              <%- include('_qty.ejs', { id: 'Timelimit', name: 'timelimit', min: 0.5, max: 999999, value: 5, step: 0.5 }) %>
-            <div class="text-xs text-theme-secondary">seconds</div>
-          </div>
-          <input type="hidden" name="cadenceoctave" id="Octave" value="4" />
-          <div class="col-span-3">
-            <label for="Octave">Cadence every:</label>
-              <%- include('_qty.ejs', { id: 'Octave', name: 'cadenceevery', min: 1, max: 999999, value: 1, step: 1 }) %>
-            <div class="text-xs text-theme-secondary">question(s)</div>
-          </div>
-          <div class="col-span-3">
-            <label for="Bpm">Tempo:</label>
-            <%- include('_qty.ejs', { id: 'Bpm', name: 'bpm', min: 1, max: 400, value: 60, step: 1, inputClass: 'min-w-[3ch]' }) %>
-            <div class="text-xs text-theme-secondary">beats per minute</div>
-          </div>
-          <div class="col-span-full">
-            <label for="NoteRange">Note Range (Octaves):</label>
-            <div id="NoteRange"></div>
-          </div>
-          <div class="col-span-2">
-            <label for="DarkMode" class="block">Dark Mode:</label>
-            <label class="toggle inline-block my-2">
-              <input id="DarkMode" name="darkmode" type="checkbox">
-              <span class="slider round"></span>
-            </label>
-          </div>
- 
+        </form>
       </div>
-      </form>
-    </div>
+      </div>
     </div>
   </define-user>

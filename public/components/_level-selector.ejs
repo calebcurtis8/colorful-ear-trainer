@@ -1,29 +1,8 @@
 <%- include('_levels.ejs') %>
 
-<div class="mb-4">
-    <label for="Level" class="font-bold text-2xl mb-4 pb-4 border-b-2 border-theme-text">Level:</label>
-    <select id="Level" name="level" class="input">
-        <optgroup label="Beginner">
-            <option value="1" selected>Beginner: 1</option>
-            <option value="2">Beginner: 2</option>
-            <option value="3">Beginner: 3</option>
-        </optgroup>
-        <optgroup label="Intermediate">
-            <option value="4">Intermediate: 4</option>
-            <option value="5">Intermediate: 5</option>
-            <option value="6">Intermediate: 6</option>
-        </optgroup>
-        <optgroup label="Advanced">
-            <option value="7">Advanced: 7</option>
-            <option value="8">Advanced: 8</option>
-            <option value="9">Advanced: 9</option>
-        </optgroup>
-        <optgroup label="Practice">
-            <option value="0">Practice</option>
-        </optgroup>
-    </select>
-    <div id="LevelInfo" class="hidden text-xs">
-        <div class="grid grid-cols-3 gap-2 px-2 py-2">
+<div class="mb-2">
+    <div id="LevelInfo" class="hidden">
+        <div class="grid grid-cols-3 gap-2 py-2">
             <div class="level-attribute">
                 <div>Key Center:</div>
                 <div data-name="keycenter" data-format="transpose"></div>
@@ -43,7 +22,7 @@
             </div>
             <div class="level-attribute">
                 <div>Total Time:</div>
-                <div>
+                <div data-name>
                     <span data-name="countdown-minutes" data-format="string"></span>:<span data-name="countdown-seconds"
                         data-format="string"></span>
                 </div>

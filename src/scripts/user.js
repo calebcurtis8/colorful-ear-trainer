@@ -14,7 +14,7 @@ class DefineUser extends HTMLElement {
         this.inputs = this.querySelectorAll('input,select')
 
         this.rangeElm = this.querySelector('#NoteRange')
-        this.levelElm = this.querySelector('#Level')
+        this.levelElm = document.getElementById('Level')
         this.levels = this.getJson('Levels')
 
         this.range = noUiSlider.create(this.rangeElm, {
