@@ -55,7 +55,7 @@ class MinutesSeconds extends HTMLElement {
         let step = parseInt(input.getAttribute('step'))
         if(shift) step = step * 10;
         const value = parseInt(input.value)
-        const newValue = value + step
+        let newValue = value + step
         if(newValue > max){
             newValue = min
             if(input.getAttribute('name') == 'countdown-seconds') this.increment(this.minutes)
@@ -69,7 +69,7 @@ class MinutesSeconds extends HTMLElement {
         let step = parseInt(input.getAttribute('step'))
         if(shift) step = step * 10;
         const value = parseInt(input.value)
-        const newValue = value - step
+        let newValue = value - step
         if(newValue < min){
             newValue = max
             if(input.getAttribute('name') == 'countdown-seconds') this.decrement(this.minutes)

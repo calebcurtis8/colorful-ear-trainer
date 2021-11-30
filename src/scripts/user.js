@@ -1,3 +1,5 @@
+import { Transposer } from './transpose.js'
+
 import noUiSlider from 'nouislider'
 import 'nouislider/dist/nouislider.css'
 
@@ -47,6 +49,8 @@ class DefineUser extends HTMLElement {
         this.handleLevelChange = this.loadLevel.bind(this)
 
         this.loadUser()
+
+        this.loadLevel({ target: this.levelElm })
     }
     set(attr, value){
         if(!attr) return
@@ -78,6 +82,13 @@ class DefineUser extends HTMLElement {
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
     loadLevel(e){
+        if(e.target.value == 0){
+            document.getElementById('UserCard')?.classList.remove('hidden')
+            document.getElementById('LevelInfo')?.classList.add('hidden')
+            return
+        }
+        document.getElementById('UserCard')?.classList.add('hidden')
+        document.getElementById('LevelInfo')?.classList.remove('hidden')
         this.levelElm.removeEventListener('change', this.handleLevelChange)
         const level = this.levels.filter( lvl => lvl.level == e.target.value )[0]
         if(!level) return
@@ -85,12 +96,16 @@ class DefineUser extends HTMLElement {
 
         //display level attributes
         const displayElm = document.getElementById('LevelInfo')
-        displayElm.innerText = ''
         Object.entries(level).forEach( entry => {
-            const elm = document.createElement('div')
-            elm.innerText = `${entry[0]}: ${entry[1]}`
-            displayElm.appendChild(elm)
+            //fill the level info display area with values
+            const elm = displayElm.querySelector(`[data-name="${ entry[0] }"]`)
+            if(!elm) return
+            const parser = elm.getAttribute('data-format')
+            this[parser] ? elm.innerHTML = this[parser]( entry[1] ) : elm.innerHTML = entry[1];
         })
+
+        displayElm.classList.remove('h-0')
+        displayElm.classList.add('h-auto')
 
         this.loadUser()
     }
@@ -129,22 +144,41 @@ class DefineUser extends HTMLElement {
         this.set('range', this.getOctaveRange())
     }
     tempo(input){
-        return (60 / parseInt(input.value))
+        const value = input.value ? input.value : input;
+        return (60 / parseInt(value))
     }
     number(input){
-        return (input?.value ? parseInt(input.value) : null)
+        const value = input.value ? input.value : input;
+        return (value ? parseInt(value) : null)
     }
     float(input){
-        return parseFloat(input.value)
+        const value = input.value ? input.value : input;
+        return parseFloat(value)
     }
     array(input){
-        return JSON.parse(input.value)
+        const value = input.value ? input.value : input;
+        return JSON.parse(value)
     }
     checkbox(input){
         return input.checked
     }
+    checkmark(input){
+        return (input ? 'x' : '')
+    }
+    optiontext(input){
+        const elm = this.querySelector(`[value="${ input }"]`)
+        return ( elm ? elm.innerText : null) 
+    }
+    transpose(input){
+        //validate as array
+        input = JSON.parse(input)
+        if(!Array.isArray(input)) input = [input]
+        // input = Transposer.transpose(input)
+        return input.join(', ')
+    }
     normal(input){
-        return input.value
+        const value = input.value ? input.value : input;
+        return value
     }
     addListeners(){
         this.addEventListener('change', this.update.bind(this))

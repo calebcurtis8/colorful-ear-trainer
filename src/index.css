@@ -2,6 +2,7 @@
 @import './styles/toggle';
 @import './styles/range';
 @import './styles/gameify';
+@import './styles/levels';
 
 @tailwind base;
 @tailwind components;

@@ -1,0 +1,6 @@
+.level-attribute{
+    @apply relative border border-theme-text rounded-md p-2;
+    [data-name]{
+        @apply text-base;
+    }
+}
