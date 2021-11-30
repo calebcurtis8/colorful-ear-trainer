@@ -39,7 +39,6 @@
       --fullHeight: calc(100vh - 6rem);
     }
   </style>
-  <%- include('components/_local-storage.ejs') %>
 </head>
 
 <body class="flex flex-col items-center justify-center">
@@ -63,7 +62,7 @@
       <%- include('components/_paypal.ejs') %>
     </div>
   </main>
-  <script type="module" src="%PUBLIC_URL%/_dist_/index.js"></script>
+  <script type="module" src="%PUBLIC_URL%/_dist_/index.js" defer></script>
 </body>
 
 </html>

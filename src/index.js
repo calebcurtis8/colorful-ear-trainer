@@ -1,3 +1,4 @@
+import './scripts/local-storage'
 import './scripts/transpose'
 import './scripts/quantity'
 import './scripts/modals'
