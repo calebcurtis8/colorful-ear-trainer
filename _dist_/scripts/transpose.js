@@ -1,4 +1,3 @@
-import User from './user.js'
 import { NOTE_NAMES } from './note_names.js'
 
 const keyCenterElm = document.getElementById('KeyCenter')
@@ -9,7 +8,7 @@ document.addEventListener('user:update', function(){
 // const AllNotes = NOTE_NAMES.all
 const Flats = NOTE_NAMES.flats
 const Sharps = NOTE_NAMES.sharps
-export const Transposer = {
+const Transposer = {
     notes : [
         Flats,
         Flats,
@@ -58,8 +57,9 @@ class KeySelector extends HTMLElement {
         this.transposeSetSelector()
     }
     transposeSetSelector() {
-        let tonality = User.get('tonality').split(',')[0]
-        let selectedIndex = this.set.selectedIndex
+        const tonalityElm = document.getElementById('Tonality')
+        const tonality = tonalityElm.value.split(',')[0]
+        const selectedIndex = this.set.selectedIndex
         this.setSelector.forEach( (set,i) => {
             const regex = /\{(.*?)}/gm;
             let str = set.getAttribute('data-template');
@@ -85,3 +85,5 @@ class KeySelector extends HTMLElement {
 }
 
 customElements.define('key-selector', KeySelector);
+
+export default Transposer

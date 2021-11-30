@@ -1,23 +1,24 @@
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 const btn = document.getElementById('DarkMode');
 
-const STORAGE = 'EarTrainerUser';
+const STORAGE = 'EarTrainerTheme';
 
 (() => {
-    let storage = JSON.parse(localStorage.getItem(STORAGE)) || {}
+    const storage = JSON.parse(localStorage.getItem(STORAGE)) || { darkmode: prefersDarkScheme.matches }
 
-    let isDark = prefersDarkScheme.matches && storage.darkmode !== false
+    const isDark = storage.darkmode
 
     if(isDark) btn.checked = true
+    
     toggleTheme(isDark)
     
     btn.addEventListener('change', toggleTheme)
 
-    function toggleTheme(theme){
-        if(typeof theme === 'object'){
-            theme = theme.target.checked
+    function toggleTheme(dark){
+        if(typeof dark === 'object'){
+            dark = dark.target.checked
         }
-        if (theme) {
+        if (dark) {
             document.body.classList.remove('light-theme');
             document.body.classList.add('dark-theme');
         } else {

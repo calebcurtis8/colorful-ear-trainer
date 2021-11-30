@@ -1,3 +1,5 @@
+import Transposer from './transpose.js'
+
 import noUiSlider from '../../_snowpack/pkg/nouislider.js'
 import '../../_snowpack/pkg/nouislider/dist/nouislider.css.proxy.js'
 
@@ -11,8 +13,8 @@ class DefineUser extends HTMLElement {
         this.inputs = this.querySelectorAll('input,select')
 
         this.rangeElm = this.querySelector('#NoteRange')
-        this.levelElm = this.querySelector('#Level')
-        // this.levels = this.getJson('./levels.json')
+        this.levelElm = document.getElementById('Level')
+        this.levels = this.getJson('Levels')
 
         this.range = noUiSlider.create(this.rangeElm, {
             start: [4,5],
@@ -46,34 +48,26 @@ class DefineUser extends HTMLElement {
         this.handleLevelChange = this.loadLevel.bind(this)
 
         this.loadUser()
+
+        this.loadLevel({ target: this.levelElm })
     }
     set(attr, value){
         if(!attr) return
-        let storage = this.getStorage()
+        const storage = this.getStorage()
         storage[attr] = value
         localStorage.setItem(STORAGE, JSON.stringify(storage))
     }
     get(attr, as = 'normal'){
-        let value = this.querySelector(`[name="${attr}"]`)
+        const value = this.querySelector(`[name="${attr}"]`)
         return this[as](value)
     }
     getElm(attr){
         return this.querySelector(`[name="${attr}"]`)
     }
-    getJson(url){
-        return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("HTTP error " + response.status);
-            }
-            return response.json();
-        })
-        .then(json => {
-            return json
-        })
-        .catch(function () {
-            this.dataError = true;
-        })
+    getJson(id){
+        const elm = document.getElementById(id)
+        if(!elm) return false
+        return JSON.parse(elm.innerText)
     }
     getOctaveRange(){
         return this.range.get()
@@ -82,70 +76,85 @@ class DefineUser extends HTMLElement {
         return JSON.parse(localStorage.getItem(STORAGE)) || {}
     }
     loadUser(){
-        this.loadStorage()
         this.loadOctaveRange()
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
     loadLevel(e){
+        const value = e?.target?.value || 0;
+        if(value == 0){
+            document.getElementById('UserCard')?.classList.remove('hidden')
+            document.getElementById('LevelInfo')?.classList.add('hidden')
+            return
+        }
+        document.getElementById('UserCard')?.classList.add('hidden')
+        document.getElementById('LevelInfo')?.classList.remove('hidden')
         this.levelElm.removeEventListener('change', this.handleLevelChange)
-        this.levels.then( data => {
-            let level = data.filter( lvl => lvl.level == e.target.value )[0]
-            if(!level) return
-            localStorage.setItem(STORAGE, JSON.stringify(level))
-            this.loadUser()
+        const level = this.levels.filter( lvl => lvl.level == value )[0]
+        if(!level) return
+
+        //display level attributes
+        const displayElm = document.getElementById('LevelInfo')
+        Object.entries(level).forEach( entry => {
+            //fill the level info display area with values
+            const elm = displayElm.querySelector(`[data-name="${ entry[0] }"]`)
+            if(!elm) return
+            const parser = elm.getAttribute('data-format')
+            this[parser] ? elm.innerHTML = this[parser]( entry[1] ) : elm.innerHTML = entry[1];
+
+            const input = document.querySelector(`[name=${entry[0]}]`)
+            if(!input) return
+            //window scoped function...
+            setInputValue(input, entry[1])
         })
+
+        displayElm.classList.remove('h-0')
+        displayElm.classList.add('h-auto')
+
+        this.loadUser()
     }
     loadOctaveRange(){
-        let value = this.getStorage().range
+        const value = this.getStorage().range
         if(value) this.range.set(value)
-    }
-    loadStorage(){
-        let storage = this.getStorage()
-        this.inputs.forEach( input => {
-            let name = input.getAttribute('name')
-            let value = storage[name]
-            if(!value) return
-            let inputValue = false
-            if(input.type == 'checkbox'){
-                if(input.id == 'DarkMode') return
-                input.checked = value
-                inputValue = input.checked
-            } else if(input.tagName == 'SELECT'){
-                if(input.querySelector(`option[value='${value}']`)){
-                    inputValue = value
-                    input.value = value
-                }
-            } else {
-                input.value = value
-                inputValue = input.value
-            }
-           
-            if(inputValue) {
-                input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
-                this.set(name, inputValue)
-            }
-        })
     }
     saveOctaveRange(){
         this.set('range', this.getOctaveRange())
     }
     tempo(input){
-        return (60 / parseInt(input.value))
+        const value = input.value ? input.value : input;
+        return (60 / parseInt(value))
     }
     number(input){
-        return (input?.value ? parseInt(input.value) : null)
+        const value = input.value ? input.value : input;
+        return (value ? parseInt(value) : null)
     }
     float(input){
-        return parseFloat(input.value)
+        const value = input.value ? input.value : input;
+        return parseFloat(value)
     }
     array(input){
-        return JSON.parse(input.value)
+        const value = input.value ? input.value : input;
+        return JSON.parse(value)
     }
     checkbox(input){
         return input.checked
     }
+    checkmark(input){
+        return (input ? 'x' : '')
+    }
+    optiontext(input){
+        const elm = this.querySelector(`[value="${ input }"]`)
+        return ( elm ? elm.innerText : null) 
+    }
+    transpose(input){
+        //validate as array
+        input = JSON.parse(input)
+        if(!Array.isArray(input)) input = [input]
+        input = Transposer.transpose(input)  
+        return input.join(', ')
+    }
     normal(input){
-        return input.value
+        const value = input.value ? input.value : input;
+        return value
     }
     addListeners(){
         this.addEventListener('change', this.update.bind(this))

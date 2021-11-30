@@ -9,7 +9,7 @@ const piano = document.getElementById("Piano");
 const POSSIBLE_KEY_VALUES = NOTE_NAMES.all
 
 piano.fillKey = function(note, color){
-    let key = this.getNote(note)
+    const key = this.getNote(note)
     if(key) key.style.fill = color
 }
 
@@ -18,7 +18,7 @@ piano.getNote = function( note ){
 }
 
 piano.clearKey = function(note){
-    let key = this.getNote(note)
+    const key = this.getNote(note)
     if(key) key.style.fill = null
 }
 class PianoPlayer {
@@ -44,12 +44,12 @@ class PianoPlayer {
         await Tone.start()
 
         //play the note for the duration of an 8th note
-        let note = this.formatNote(key)
+        const note = this.formatNote(key)
     
         this.synth.triggerAttackRelease(note, "8n");        
     }
     playClick(e){
-        let key = e.target.getAttribute('data-note').split(',')[0]
+        const key = e.target.getAttribute('data-note').split(',')[0]
         this.play(key)
     }
     listenClick(e){
@@ -67,13 +67,13 @@ class PianoPlayer {
         }
     }
     listenKeys(e){
-        let key = e.key.toUpperCase()
+        const key = e.key.toUpperCase()
         if(POSSIBLE_KEY_VALUES.indexOf(key) == -1) return
-        let sharp = this.shiftRightActive
-        let flat = this.shiftLeftActive
+        const sharp = this.shiftRightActive
+        const flat = this.shiftLeftActive
         if(sharp && flat) return
-        let note = `${ key }${ sharp ? '#' : '' }${ flat ? 'b' : '' }`;
-        let matches = POSSIBLE_KEY_VALUES.filter( k => {
+        const note = `${ key }${ sharp ? '#' : '' }${ flat ? 'b' : '' }`;
+        const matches = POSSIBLE_KEY_VALUES.filter( k => {
             if(Array.isArray(k)){
                 return k.indexOf(note) > -1
             }
@@ -90,9 +90,9 @@ class PianoPlayer {
         this.play(match.split(',')[0])
     }
     listen(fullKey){
-        let key = fullKey.split(',')
+        const key = fullKey.split(',')
         let matchKey = false
-        let notes = User.selected_notes || []
+        const notes = User.selected_notes || []
         notes.filter( n => {
             if(key.indexOf(n[0]) > -1){
                 matchKey = n[0]
@@ -100,7 +100,7 @@ class PianoPlayer {
             }
             return false
         })
-        let note = fullKey;
+        const note = fullKey;
         //if octave independent note is a match, highlight it
         if(matchKey) {
             this.piano.removeEventListener('click', this.handlePlay)
@@ -116,7 +116,7 @@ class PianoPlayer {
                 piano.clearKey(note)
             }, 300)
         }
-        let reportNote = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
+        const reportNote = matchKey ? this.formatNote(matchKey) : this.formatNote(key[0]);
         document.dispatchEvent(new CustomEvent('answer', { detail: { note_with_octave: reportNote, note: note, elm: piano.querySelector(`[data-note="${ note }"]`) } }))
     }
     clear(){

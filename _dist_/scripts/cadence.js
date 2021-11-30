@@ -1,12 +1,8 @@
-import {
-    play_sequence
-} from './play_sequence.js'
+import { play_sequence } from './play_sequence.js'
 
 import User from './user.js'
 
-import {
-    Transposer
-} from './transpose.js'
+import Transposer from './transpose.js'
 
 function formatChord(chord) {
     return Transposer.transpose(chord).map(note => `${note}${User.get('cadenceoctave','number')}`)
@@ -47,7 +43,7 @@ const Minor = {
     ]
 }
 
-let tonality = function () {
+const Tonality = function () {
     let progression = User.get('tonality').split(',')
     switch (progression[0]) {
         case 'major':
@@ -62,8 +58,8 @@ let tonality = function () {
     }
 }
 
-let Cadence = () => {
-    let progression = tonality().map( (chord, i) => {
+const Cadence = () => {
+    let progression = Tonality().map( (chord, i) => {
         return {
             sequence: formatChord(chord),
             duration: (i == 0 || i == 3 ? 2 : 1)

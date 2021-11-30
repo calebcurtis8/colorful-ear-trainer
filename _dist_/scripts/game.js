@@ -1,4 +1,4 @@
-import { Transposer } from './transpose.js'
+import Transposer from './transpose.js'
 import cadence from './cadence.js'
 import random from "./random.js";
 import { play_sequence } from './play_sequence.js'
@@ -52,7 +52,8 @@ export class Game {
             return
         }
         if(this.playBtn.state == 'paused'){
-            document.dispatchEvent(new CustomEvent('game:continue'))
+            this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
+            document.dispatchEvent(new CustomEvent('game:continue'))   
         }
         this.play()
     }
@@ -61,18 +62,18 @@ export class Game {
 
         //check if we are randomizing keys or not
         if(User.get('randomkey','checkbox')){
-            let newKey = Math.floor(Math.random() * 12)
-            let elm = User.getElm('keycenter')
+            const newKey = Math.floor(Math.random() * 12)
+            const elm = User.getElm('keycenter')
             elm.value = newKey
             elm.dispatchEvent(new CustomEvent('change'))
         }
 
-        let playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
+        const playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
 
         //reset attempt count
         this.attempts = 0
         //notes which the user must answer
-        let noteSet = Transposer.transpose(User.get('set', 'array'))
+        const noteSet = Transposer.transpose(User.get('set', 'array'))
         User.notes = random(User.get('note_count','number'), noteSet)
         //duplicate to remember which were selected
         User.selected_notes_without_octave = JSON.parse(JSON.stringify(User.notes))
@@ -102,7 +103,7 @@ export class Game {
     }
     askNotes(){
         Piano.clear()
-        if(this.playBtn.state == 'stopped') return
+        if(this.playBtn.state == 'stopped' || this.playBtn.state == 'paused') return
         this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
         this.playNotes()
         document.addEventListener('answer', this.handleAnswer)
@@ -123,11 +124,11 @@ export class Game {
         return arr.map( note => `${note}${User.get('cadenceoctave', 'number')}` )
     }
     setOctaves(arr){
-        let range = User.getOctaveRange()
+        const range = User.getOctaveRange()
         return arr.map( note => [note,`${User.getOctaveRange()[0] + Math.floor(Math.random() * (range[1] - range[0]))}`])
     }
     registerAnswer(e){
-        let note_with_octave = e.detail.note_with_octave
+        const note_with_octave = e.detail.note_with_octave
         Gameify.total++
         this.attempts++
         e.detail.q = User.selected_notes_without_octave
@@ -162,7 +163,7 @@ export class Game {
             }
             document.removeEventListener('answer', this.handleAnswer)
             document.dispatchEvent(new CustomEvent('game:answercomplete'))
-            this.setButtonState('PLAY', 'bg-green-gradient', 'paused')
+            // this.setButtonState('PLAY', 'bg-green-gradient', 'paused')
             setTimeout(this.play.bind(this), 350)
         }
     }
