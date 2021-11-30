@@ -1,10 +1,9 @@
-import { Transposer } from './transpose.js'
+import Transposer from './transpose.js'
 
 import noUiSlider from 'nouislider'
 import 'nouislider/dist/nouislider.css'
 
 const STORAGE = 'EarTrainerUser'
-const CUSTOM_LEVEL = 'EarTrainerCustomLevel'
 
 class DefineUser extends HTMLElement {
     constructor(){
@@ -77,7 +76,6 @@ class DefineUser extends HTMLElement {
         return JSON.parse(localStorage.getItem(STORAGE)) || {}
     }
     loadUser(){
-        this.loadStorage()
         this.loadOctaveRange()
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
@@ -92,7 +90,6 @@ class DefineUser extends HTMLElement {
         this.levelElm.removeEventListener('change', this.handleLevelChange)
         const level = this.levels.filter( lvl => lvl.level == e.target.value )[0]
         if(!level) return
-        localStorage.setItem(STORAGE, JSON.stringify(level))
 
         //display level attributes
         const displayElm = document.getElementById('LevelInfo')
@@ -102,6 +99,11 @@ class DefineUser extends HTMLElement {
             if(!elm) return
             const parser = elm.getAttribute('data-format')
             this[parser] ? elm.innerHTML = this[parser]( entry[1] ) : elm.innerHTML = entry[1];
+
+            const input = document.querySelector(`[name=${entry[0]}]`)
+            if(!input) return
+            //window scoped function...
+            setInputValue(input, entry[1])
         })
 
         displayElm.classList.remove('h-0')
@@ -112,33 +114,6 @@ class DefineUser extends HTMLElement {
     loadOctaveRange(){
         const value = this.getStorage().range
         if(value) this.range.set(value)
-    }
-    loadStorage(){
-        const storage = this.getStorage()
-        this.inputs.forEach( input => {
-            const name = input.getAttribute('name')
-            const value = storage[name]
-            if(!value) return
-            let inputValue = false
-            if(input.type == 'checkbox'){
-                if(input.id == 'DarkMode') return
-                input.checked = value
-                inputValue = input.checked
-            } else if(input.tagName == 'SELECT'){
-                if(input.querySelector(`option[value='${value}']`)){
-                    inputValue = value
-                    input.value = value
-                }
-            } else {
-                input.value = value
-                inputValue = input.value
-            }
-           
-            if(inputValue) {
-                input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
-                this.set(name, inputValue)
-            }
-        })
     }
     saveOctaveRange(){
         this.set('range', this.getOctaveRange())
@@ -173,7 +148,7 @@ class DefineUser extends HTMLElement {
         //validate as array
         input = JSON.parse(input)
         if(!Array.isArray(input)) input = [input]
-        // input = Transposer.transpose(input)
+        input = Transposer.transpose(input)  
         return input.join(', ')
     }
     normal(input){

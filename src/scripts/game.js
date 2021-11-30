@@ -1,4 +1,4 @@
-import { Transposer } from './transpose'
+import Transposer from './transpose'
 import cadence from './cadence'
 import random from "./random";
 import { play_sequence } from './play_sequence'

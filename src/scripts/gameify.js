@@ -1,9 +1,6 @@
-import * as Tone from 'tone'
 import JSConfetti from 'js-confetti'
 
 const jsConfetti = new JSConfetti()
-const drum = new Tone.MembraneSynth().toDestination();
-drum.volume.value = -12
 
 const SCORE_STORAGE = 'EarTrainerScores'
 class GameArea extends HTMLElement {
@@ -63,8 +60,6 @@ class GameArea extends HTMLElement {
     reward(e) {
         const ratio = this.streak / this.fire
         const is_threshold = (ratio >= 1 && Number.isInteger(ratio))
-        //nice suboctave reinforcement of correct note
-        drum.triggerAttackRelease(e.note.split(',')[0] + '1', "16n");  
         if (!is_threshold) return
         switch (ratio) {
             case 1:

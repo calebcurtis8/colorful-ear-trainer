@@ -1,4 +1,4 @@
-import { Transposer } from './transpose'
+import Transposer from './transpose'
 
 const SESSION = 'EarTrainerStats'
 

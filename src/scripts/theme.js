@@ -9,6 +9,7 @@ const STORAGE = 'EarTrainerTheme';
     const isDark = storage.darkmode
 
     if(isDark) btn.checked = true
+    
     toggleTheme(isDark)
     
     btn.addEventListener('change', toggleTheme)
@@ -17,9 +18,6 @@ const STORAGE = 'EarTrainerTheme';
         if(typeof dark === 'object'){
             dark = dark.target.checked
         }
-        //save value
-        storage.darkmode = dark
-        localStorage.setItem(STORAGE, JSON.stringify(storage))
         if (dark) {
             document.body.classList.remove('light-theme');
             document.body.classList.add('dark-theme');

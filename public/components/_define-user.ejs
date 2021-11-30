@@ -1,10 +1,11 @@
+<local-storage data-key="EarTrainerUser">
 <define-user id="User">
     <div
       class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
       <div class="card order-1 md:order-2 overflow-auto flex-auto">
         <%- include('_level-selector.ejs') %>
         <div id="UserCard" class="hidden">
-          <form class="space-y-4">
+          <form>
             <key-selector>
               <div class="grid grid-cols-6 gap-y-4 gap-x-3 mb-4">
                 <div class="col-span-4 border-theme-text border rounded-lg p-2 grid grid-cols-2 gap-2">
@@ -87,3 +88,4 @@
       </div>
     </div>
   </define-user>
+</local-storage>
