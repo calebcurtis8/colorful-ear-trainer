@@ -19,6 +19,7 @@ class CountdownTimer extends HTMLElement{
         document.addEventListener('game:start', this.start.bind(this))
         document.addEventListener('game:pause', this.pause.bind(this))
         document.addEventListener('game:continue', this.continue.bind(this))
+        document.addEventListener('game:stop', this.stop.bind(this))
 
         document.addEventListener('user:update', this.updateDisplay.bind(this))
 

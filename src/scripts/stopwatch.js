@@ -19,6 +19,7 @@ class StopwatchTimer extends HTMLElement{
         document.addEventListener('game:answercomplete', this.stop.bind(this))
         document.addEventListener('game:pause', this.stop.bind(this))
         document.addEventListener('user:update', this.update.bind(this))
+        document.addEventListener('game:stop', this.stop.bind(this))
 
         window.addEventListener('blur', this.stop.bind(this))
 

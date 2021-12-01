@@ -129,3 +129,13 @@
     }
   }
 }
+
+.mode-toggle{
+  background: var(--disabled-bg);
+  label{
+    @apply text-theme-bg;
+  }
+  input:checked + label{
+    @apply text-theme-bg;
+  }
+}

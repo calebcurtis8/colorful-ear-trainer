@@ -1,5 +1,5 @@
 import Transposer from './transpose.js'
-
+import { removeClassStartsWith } from './remove-class-starts-with'
 import noUiSlider from 'nouislider'
 import 'nouislider/dist/nouislider.css'
 
@@ -12,8 +12,9 @@ class DefineUser extends HTMLElement {
         
         this.inputs = this.querySelectorAll('input,select')
 
-        this.rangeElm = this.querySelector('#NoteRange')
+        this.rangeElm = document.getElementById('NoteRange')
         this.levelElm = document.getElementById('Level')
+        this.modeElm = document.getElementById('Mode')
         this.levels = this.getJson('Levels')
 
         this.range = noUiSlider.create(this.rangeElm, {
@@ -49,7 +50,10 @@ class DefineUser extends HTMLElement {
 
         this.loadUser()
 
-        this.loadLevel({ target: this.levelElm })
+        this.modeElm?.addEventListener('change', this.loadMode.bind(this))
+        this.loadMode()
+
+        this.loadLevel()
     }
     set(attr, value){
         if(!attr) return
@@ -80,14 +84,8 @@ class DefineUser extends HTMLElement {
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
     loadLevel(e){
-        const value = e?.target?.value || 0;
-        if(value == 0){
-            document.getElementById('UserCard')?.classList.remove('hidden')
-            document.getElementById('LevelInfo')?.classList.add('hidden')
-            return
-        }
-        document.getElementById('UserCard')?.classList.add('hidden')
-        document.getElementById('LevelInfo')?.classList.remove('hidden')
+        if(!e) e = { target: this.levelElm }
+        const value = e?.target?.value || 1;
         this.levelElm.removeEventListener('change', this.handleLevelChange)
         const level = this.levels.filter( lvl => lvl.level == value )[0]
         if(!level) return
@@ -110,7 +108,31 @@ class DefineUser extends HTMLElement {
         displayElm.classList.remove('h-0')
         displayElm.classList.add('h-auto')
 
+        document.dispatchEvent(new CustomEvent('user:levelchange'))
+
         this.loadUser()
+    }
+    loadMode(){
+        const selected = this.modeElm.querySelector('input:checked')
+        const UserCard = document.getElementById('UserCard')
+        const LevelInfo = document.getElementById('LevelInfo')
+        const AnimatedLabel = this.modeElm.querySelector('[data-animated-label]')
+        if(selected.value === 'practice'){
+            UserCard?.classList.remove('hidden')
+            LevelInfo?.classList.add('hidden')
+            AnimatedLabel.classList.remove('translate-x-full')
+            document.dispatchEvent(new CustomEvent('user:levelchange'))
+            return
+        }
+        // else 'play'
+        UserCard?.classList.add('hidden')
+        LevelInfo?.classList.remove('hidden')
+        
+        AnimatedLabel.classList.add('translate-x-full')
+        setTimeout( () => {
+            AnimatedLabel.classList.add('transition-all','duration-200')
+        }, 200)
+        this.loadLevel()
     }
     loadOctaveRange(){
         const value = this.getStorage().range

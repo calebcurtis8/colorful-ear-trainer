@@ -4,6 +4,8 @@ import User from './user'
 
 import { NOTE_NAMES } from './note_names'
 
+let synth = new Tone.Synth().toDestination()
+
 const piano = document.getElementById("Piano");
 
 const POSSIBLE_KEY_VALUES = NOTE_NAMES.all
@@ -36,8 +38,7 @@ class PianoPlayer {
         document.addEventListener('keyup', this.handleListenKeys)
         document.addEventListener('keydown', this.handleListenShifts)
         document.addEventListener('keyup', this.handleListenShifts)
-
-        this.synth = new Tone.Synth().toDestination();
+        document.addEventListener('game:stop', this.stop.bind(this))
     }
     async play(key) {
         if(!this.playback) return
@@ -46,7 +47,7 @@ class PianoPlayer {
         //play the note for the duration of an 8th note
         const note = this.formatNote(key)
     
-        this.synth.triggerAttackRelease(note, "8n");        
+        synth.triggerAttackRelease(note, "8n");        
     }
     playClick(e){
         const key = e.target.getAttribute('data-note').split(',')[0]
@@ -126,6 +127,10 @@ class PianoPlayer {
     }
     formatNote(note){
         return `${ note }${ User.get('cadenceoctave','number') }`
+    }
+    stop(){
+        synth.disconnect()
+        synth = new Tone.Synth().toDestination()
     }
 }
 

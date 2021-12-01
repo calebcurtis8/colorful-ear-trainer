@@ -1,7 +1,33 @@
 <%- include('_levels.ejs') %>
-
 <div class="mb-2">
     <div id="LevelInfo" class="hidden">
+        <local-storage data-key="EarTrainerUser">
+            <div class="flex items-center mb-4">
+                <label for="Level" class="font-bold text-lg md:text-2xl mr-2">Level:</label>
+                <div class="select-wrap w-full">
+                    <select id="Level" name="level" class="input w-full">
+                        <optgroup label="Beginner">
+                            <option value="1">Beginner: 1</option>
+                            <option value="2">Beginner: 2</option>
+                            <option value="3">Beginner: 3</option>
+                        </optgroup>
+                        <optgroup label="Intermediate">
+                            <option value="4">Intermediate: 4</option>
+                            <option value="5">Intermediate: 5</option>
+                            <option value="6">Intermediate: 6</option>
+                        </optgroup>
+                        <optgroup label="Advanced">
+                            <option value="7">Advanced: 7</option>
+                            <option value="8">Advanced: 8</option>
+                            <option value="9">Advanced: 9</option>
+                        </optgroup>
+                        <optgroup label="Insane">
+                            <option value="10">Insane: 10</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </local-storage>
         <div class="grid grid-cols-3 gap-2">
             <div class="level-attribute">
                 <div>Key Center:</div>

@@ -1,15 +1,15 @@
 <header class="z-20 sticky top-0 h-16 w-full bg-theme-bg lg:bg-transparent border-b-2 border-theme-text">
-    <div class="max-w-screen-2xl flex md:grid md:grid-cols-3 px-4 h-full mx-auto">
-        <div class="items-center hidden md:flex">
-            <!-- <%- include('./_level-selector.ejs') %> -->
+    <div class="max-w-screen-2xl flex md:grid md:grid-cols-4 md:gap-4 px-4 h-full mx-auto">
+        <div class="items-center flex">
+            <%- include('./_mode-toggle.ejs') %>
         </div>
-        <div class="md:text-center items-center md:justify-center flex flex-grow">
+        <div class="md:text-center items-center md:justify-center hidden md:flex flex-grow col-span-2">
             <h1 class="text-2xl font-bold tracking-wider bg-gradient-to-r from-yellow-500 via-blue-300 to-purple-400">Colorful Ear Trainer</h1>
         </div>
-        <div class="flex items-center justify-end">
+        <div class="flex items-center justify-end flex-grow">
             <div class="mr-4">
                 <modal-toggle aria-controls="Instructions">
-                    <button class="w-12 h-12 rounded-full md:rounded-lg md:w-auto md:px-4 md:font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-black">
+                    <button class="w-12 h-12 rounded-full md:rounded-lg md:w-auto md:px-4 md:font-bold bg-gradient-to-r from-yellow-600 to-yellow-400 text-theme-bg">
                         <span class="md:hidden text-xl">?</span>
                         <span class="hidden md:block">Instructions</span>
                     </button>

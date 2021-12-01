@@ -7,7 +7,11 @@ window.setInputValue = function(input, value){
         if(input.querySelector(`option[value='${value}']`)){
             inputValue = value
             input.value = value
+        } else {
+            return
         }
+    }  else if(input.type == 'radio'){
+        if(input.value == value) input.setAttribute('checked', true)
     } else {
         input.value = value
         inputValue = input.value

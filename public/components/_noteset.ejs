@@ -3,9 +3,8 @@
     <select name="set" id="NoteSet" class="input w-full note-sets">
         <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
         <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
-        <option value='[0,4,7,11]' data-template="{0} | {4} | {7} | {11}" data-tonality="major">C | E | G |
-            B
-        </option>
+        <option value='[0,2,4,5,7]' data-template="{0} | {2} | {4} | {5} | {7}" data-tonality="major">C | D | E | F | G</option>
+        <option value='[0,2,4,5,7,9]' data-template="{0} | {2} | {4} | {5} | {7} | {9}" data-tonality="major">C | D | E | F | G | A</option>
         <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic
         </option>
         <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic +
@@ -25,9 +24,8 @@
 <select class="note-sets hidden" id="InactiveSet">
     <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
     <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
-    <option value='[0,3,7,10]' data-template="{0} | {3} | {7} | {10}" data-tonality="minor">C | Eb | G |
-        Bb
-    </option>
+    <option value='[0,2,3,5,7]' data-template="{0} | {2} | {3} | {5} | {7}" data-tonality="minor">C | D | Eb | F | G</option>
+    <option value='[0,2,3,5,7,8]' data-template="{0} | {2} | {3} | {5} | {7} | {8}" data-tonality="minor">C | D | Eb | F | G | Ab</option>
     <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">
         Diatonic (Aeolian)</option>
     <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">
