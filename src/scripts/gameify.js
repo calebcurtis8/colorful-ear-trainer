@@ -26,7 +26,7 @@ class GameArea extends HTMLElement {
         document.addEventListener('user:levelchange', this.reset.bind(this))
         
         const savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE)) || {}
-        const levels = this.elements.level.querySelectorAll('option')
+        const levels = this.elements.level.querySelectorAll('input')
         //set default for practice mode
         if(!savedScores[0]){
             savedScores[0] = {
