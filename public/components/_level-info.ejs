@@ -1,74 +1,99 @@
 <%- include('_levels.ejs') %>
-<div class="mb-2">
-    <div id="LevelInfo" class="hidden">
-        <local-storage data-key="EarTrainerUser">
-            <div class="flex items-center mb-4">
-                <label for="Level" class="font-bold text-lg md:text-2xl mr-2">Level:</label>
-                <div class="select-wrap w-full">
-                    <select id="Level" name="level" class="input w-full">
-                        <optgroup label="Beginner">
-                            <option value="1">Beginner: 1</option>
-                            <option value="2">Beginner: 2</option>
-                            <option value="3">Beginner: 3</option>
-                        </optgroup>
-                        <optgroup label="Intermediate">
-                            <option value="4">Intermediate: 4</option>
-                            <option value="5">Intermediate: 5</option>
-                            <option value="6">Intermediate: 6</option>
-                        </optgroup>
-                        <optgroup label="Advanced">
-                            <option value="7">Advanced: 7</option>
-                            <option value="8">Advanced: 8</option>
-                            <option value="9">Advanced: 9</option>
-                        </optgroup>
-                        <optgroup label="Insane">
-                            <option value="10">Insane: 10</option>
-                        </optgroup>
-                    </select>
+<div id="LevelInfo" class="hidden">
+    <local-storage data-key="EarTrainerUser">
+        <h2 class="-mt-4 -ml-4 -mr-4 bg-theme-text text-theme-bg font-bold px-4 py-2 text-lg">Choose Level:</h2>
+        <div id="Level" class="select-none -ml-4 -mr-4 grid grid-cols-4 justify-center items-center"
+            data-controls="Level">
+            <div class="text-sm pl-4">Easy</div>
+            <div>
+                <input type="radio" id="Beginner1" name="level-selector" value="1" class="hidden">
+                <label for="Beginner1">1 <star-status></star-status></label>
+            </div>
+            <div>
+                <input type="radio" id="Beginner2" name="level-selector" value="2" class="hidden">
+                <label for="Beginner2">2 <star-status></star-status></label>
+            </div>
+            <div>
+                <input type="radio" id="Beginner3" name="level-selector" value="3" class="hidden">
+                <label for="Beginner3">3 <star-status></star-status></label>
+            </div>
+            <div class="text-sm pl-4">Medium</div>
+            <div>
+                <input type="radio" id="Intermediate1" name="level-selector" value="4" class="hidden">
+                <label for="Intermediate1">1 <star-status></star-status></label>
+            </div>
+            <div>
+                <input type="radio" id="Intermediate2" name="level-selector" value="5" class="hidden">
+                <label for="Intermediate2">2 <star-status></star-status></label>
+            </div>
+            <div>
+                <input type="radio" id="Intermediate3" name="level-selector" value="6" class="hidden">
+                <label for="Intermediate3">3 <star-status></star-status></label>
+            </div>
+            <div class="text-sm pl-4">Hard</div>
+            <div class="grid col-span-3 grid-cols-4">
+                <div>
+                    <input type="radio" id="Advanced1" name="level-selector" value="7" class="hidden">
+                    <label for="Advanced1">1 <star-status></star-status></label>
                 </div>
-            </div>
-        </local-storage>
-        <div class="grid grid-cols-3 gap-2">
-            <div class="level-attribute">
-                <div>Key Center:</div>
-                <div data-name="keycenter" data-format="transpose"></div>
-                <div data-name="randomkey" data-format="checkmark"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Cadence:</div>
-                <div data-name="tonality" data-format="optiontext"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Note Set:</div>
-                <div data-name="set" data-format="transpose"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Notes:</div>
-                <div data-name="note_count" data-format="integer"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Total Time:</div>
-                <div data-name>
-                    <span data-name="countdown-minutes" data-format="string"></span>:<span data-name="countdown-seconds"
-                        data-format="string"></span>
+                <div>
+                    <input type="radio" id="Advanced2" name="level-selector" value="8" class="hidden">
+                    <label for="Advanced2">2 <star-status></star-status></label>
                 </div>
-            </div>
-            <div class="level-attribute">
-                <div>Time Per Note:</div>
-                <div data-name="timelimit" data-format="float"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Cadence every:</div>
-                <div data-name="cadenceevery" data-format="integer"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Tempo:</div>
-                <div data-name="bpm" data-format="integer"></div>
-            </div>
-            <div class="level-attribute">
-                <div>Note Range (Octaves):</div>
-                <div data-name="range" data-format="integer"></div>
+                <div>
+                    <input type="radio" id="Advanced3" name="level-selector" value="9" class="hidden">
+                    <label for="Advanced3">3 <star-status></star-status></label>
+                </div>
+
+                <div>
+                    <input type="radio" id="Insane1" name="level-selector" value="10" class="hidden">
+                    <label for="Insane1">🔥 <star-status></star-status></label>
+                </div>
             </div>
         </div>
+    </local-storage>
+    <div
+        class="text-xl -ml-4 -mr-4 mb-2 p-4 grid grid-cols-3 col-span-3 gap-2 bg-gradient-to-r from-blue-400 to-blue-500">
+        <div class="level-attribute">
+            <div class="text-sm font-bold">Key:</div>
+            <div data-name="keycenter" data-format="transpose"></div>
+            <div data-name="randomkey" data-format="checkmark"></div>
+        </div>
+        <div class="level-attribute">
+            <div class="text-sm font-bold">Time:</div>
+            <div data-name>
+                <span data-name="countdown-minutes" data-format="string"></span>:<span data-name="countdown-seconds"
+                    data-format="string"></span>
+            </div>
+        </div>
+        <div class="level-attribute">
+            <div class="text-sm font-bold">Streak to win:</div>
+            <div data-name="to_beat" data-format="integer"></div>
+        </div>
     </div>
+    <ul class="list-disc ml-4 leading-loose">
+        <!-- <li class="level-attribute">
+                <div>Cadence:</div>
+                <div data-name="tonality" data-format="optiontext"></div>
+             </li> -->
+        <li class="level-attribute">
+            <span data-name="set" data-format="transpose"></span>
+        </li>
+        <li class="level-attribute">
+            <span data-name="note_count" data-format="integer" data-append=" note(s) after cadence"></span>
+        </li>
+        <li class="level-attribute">
+            <span data-name="timelimit" data-format="float" data-append=" second(s) per note"></span>
+        </li>
+        <li class="level-attribute">
+            <span>Cadence every</span>
+            <span data-name="cadenceevery" data-format="integer" data-append=" note(s)"></span>
+        </li>
+        <li class="level-attribute">
+            <span data-name="bpm" data-format="integer" data-append=" bpm"></span>
+        </li>
+        <li class="level-attribute">
+            <span data-name="range" data-format="difference" data-append=" octave(s)"></span>
+        </li>
+    </ul>
 </div>

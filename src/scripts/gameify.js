@@ -6,12 +6,8 @@ const SCORE_STORAGE = 'EarTrainerScores'
 class GameArea extends HTMLElement {
     constructor() {
         super()
-        this.streak = 0
-        this.correct = 0
-        this.total = 0
-        this.late = 0
         this.fire = 10
-
+        
         this.elements = {
             streak: this.querySelector('[data-streak]'),
             highStreak: this.querySelector('[data-high-streak]'),
@@ -21,18 +17,36 @@ class GameArea extends HTMLElement {
             late: this.querySelector('[data-late]'),
             gradient: this.querySelector('[data-gradient'),
             background: document.getElementById('Background'),
-            message: document.getElementById('Message')
+            message: document.getElementById('Message'),
+            level: document.getElementById('Level')
         }
-   
+        
         document.addEventListener('game:answercomplete', this.update.bind(this))
         document.addEventListener('countdown:expired', this.update.bind(this))
-
-        const savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE))
-        this.highScores = {
-            streak: savedScores?.streak || 0,
-            score: savedScores?.score || 0
+        document.addEventListener('user:levelchange', this.reset.bind(this))
+        
+        const savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE)) || {}
+        const levels = this.elements.level.querySelectorAll('option')
+        //set default for practice mode
+        if(!savedScores[0]){
+            savedScores[0] = {
+                streak: 0,
+                score: 0
+            }
         }
-        this.updateHighScoreDisplay()
+        //set defaults for all levels
+        levels.forEach( level => {
+            const id = level.value
+            if(!savedScores[id]){
+                savedScores[id] = {
+                    streak: 0,
+                    score: 0
+                }
+            }
+        })
+        this.highScores = savedScores
+
+        this.reset()
     }
     punish(e) {
         if(!e.elm) return
@@ -82,15 +96,16 @@ class GameArea extends HTMLElement {
 
     }
     checkScores(){
-        if(this.streak > this.highScores.streak){
+        const levelID = this.getLevelID()
+        if(this.streak > this.highScores[levelID].streak){
             document.dispatchEvent(new CustomEvent('gameify:highstreak'))
-            this.highScores.streak = this.streak
+            this.highScores[levelID].streak = this.streak
             this.saveScores()
             if(this.streak >= 10) this.streakAnimation()
         }
-        if(this.correct > this.highScores.score){
+        if(this.correct > this.highScores[levelID].score){
             document.dispatchEvent(new CustomEvent('gameify:highscore'))
-            this.highScores.score = this.correct
+            this.highScores[levelID].score = this.correct
             this.saveScores()
         }
     }
@@ -99,8 +114,15 @@ class GameArea extends HTMLElement {
         localStorage.setItem(SCORE_STORAGE, JSON.stringify(this.highScores))
     }
     updateHighScoreDisplay(){
-        this.elements.highStreak.innerText = this.highScores.streak
-        this.elements.highScore.innerText = this.highScores.score
+        const levelID = this.getLevelID()
+        this.elements.highStreak.innerText = this.highScores[levelID].streak
+        this.elements.highScore.innerText = this.highScores[levelID].score
+    }
+    getLevelID(){
+        const mode = document.querySelector('input[name="mode"]:checked').value
+        const level = this.elements.level.querySelector('input:checked').value
+        if(mode == 'practice') return 0
+        return level
     }
     streakAnimation(){
         const white_keys = document.querySelectorAll('#Piano [data-key="white"]')
@@ -136,13 +158,17 @@ class GameArea extends HTMLElement {
     }
     update(e) {
         document.dispatchEvent(new CustomEvent('gameify:update', { detail: e }))
+        this.checkScores()
+        this.updateScoreDisplay()
+    }
+    updateScoreDisplay(){
         this.elements.streak.innerText = this.streak
         this.elements.correct.innerText = this.correct
         this.elements.total.innerText = this.total
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
         const ratio = this.streak / this.fire
         this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
-        this.checkScores()
+        this.updateHighScoreDisplay()
     }
     message(note, time = 1000){
         this.elements.message.innerHTML = note
@@ -150,6 +176,13 @@ class GameArea extends HTMLElement {
         setTimeout( () => {
             // this.elements.message.classList.remove('active')
         }, time)
+    }
+    reset(){
+        this.streak = 0
+        this.correct = 0
+        this.total = 0
+        this.late = 0
+        this.updateScoreDisplay()
     }
 }
 

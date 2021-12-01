@@ -1,5 +1,4 @@
 import Transposer from './transpose.js'
-import { removeClassStartsWith } from './remove-class-starts-with'
 import noUiSlider from 'nouislider'
 import 'nouislider/dist/nouislider.css'
 
@@ -17,7 +16,7 @@ class DefineUser extends HTMLElement {
         this.modeElm = document.getElementById('Mode')
         this.levels = this.getJson('Levels')
 
-        this.range = noUiSlider.create(this.rangeElm, {
+        this.rangeElm.range = noUiSlider.create(this.rangeElm, {
             start: [4,5],
             margin: 1,
             snap: true,
@@ -42,9 +41,9 @@ class DefineUser extends HTMLElement {
                 }
             }
         })
-
+        this.rangeElm.dispatchEvent(new CustomEvent('range:ready'))
         
-        this.range.on('change', this.saveOctaveRange.bind(this))
+        this.rangeElm.range.on('change', this.saveOctaveRange.bind(this))
 
         this.handleLevelChange = this.loadLevel.bind(this)
 
@@ -52,8 +51,6 @@ class DefineUser extends HTMLElement {
 
         this.modeElm?.addEventListener('change', this.loadMode.bind(this))
         this.loadMode()
-
-        this.loadLevel()
     }
     set(attr, value){
         if(!attr) return
@@ -74,13 +71,12 @@ class DefineUser extends HTMLElement {
         return JSON.parse(elm.innerText)
     }
     getOctaveRange(){
-        return this.range.get()
+        return this.rangeElm.range.get()
     }
     getStorage(){
         return JSON.parse(localStorage.getItem(STORAGE)) || {}
     }
     loadUser(){
-        this.loadOctaveRange()
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
     loadLevel(e){
@@ -97,7 +93,14 @@ class DefineUser extends HTMLElement {
             const elm = displayElm.querySelector(`[data-name="${ entry[0] }"]`)
             if(!elm) return
             const parser = elm.getAttribute('data-format')
-            this[parser] ? elm.innerHTML = this[parser]( entry[1] ) : elm.innerHTML = entry[1];
+            let append = elm.getAttribute('data-append')
+            let content;
+            this[parser] ? content = this[parser]( entry[1] ) : content = entry[1];
+            if(append){
+                parseInt(content) > 1 ? append = append.replace('(s)', 's') : append = append.replace('(s)','');
+                content = content + append;
+            }
+            elm.innerHTML = content
 
             const input = document.querySelector(`[name=${entry[0]}]`)
             if(!input) return
@@ -136,7 +139,7 @@ class DefineUser extends HTMLElement {
     }
     loadOctaveRange(){
         const value = this.getStorage().range
-        if(value) this.range.set(value)
+        if(value) this.rangeElm.range.set(value)
     }
     saveOctaveRange(){
         this.set('range', this.getOctaveRange())
@@ -156,6 +159,9 @@ class DefineUser extends HTMLElement {
     array(input){
         const value = input.value ? input.value : input;
         return JSON.parse(value)
+    }
+    difference(input){
+        return input[1] - input[0]
     }
     checkbox(input){
         return input.checked

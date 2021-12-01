@@ -5,12 +5,13 @@
       <div class="card order-1 md:order-2 overflow-auto flex-auto">
         <%- include('_level-info.ejs') %>
         <div id="UserCard" class="hidden">
+          <h2 class="-mt-4 -ml-4 -mr-4 bg-theme-text text-theme-bg font-bold px-4 py-2 text-lg">Set Options:</h2>
           <form>
             <key-selector>
-              <div class="grid grid-cols-6 gap-y-4 gap-x-3 mb-4">
+              <div class="grid grid-cols-6 gap-y-4 gap-x-3 mb-4 mt-4">
                 <div class="col-span-4 border-theme-text border rounded-lg p-2 grid grid-cols-2 gap-2">
                   <div class="col-span-1">
-                    <label for="KeyCenter">Key Center:</label>
+                    <label for="KeyCenter">Key:</label>
                     <div class="select-wrap">
                       <select name="keycenter" id="KeyCenter" class="input w-full">
                         <option value='0' selected>C</option>
@@ -79,8 +80,8 @@
               <div class="text-xs text-theme-secondary">beats per minute</div>
             </div>
             <div class="col-span-full">
-              <label for="NoteRange">Note Range (Octaves):</label>
-              <div id="NoteRange"></div>
+              <label for="NoteRange">Range (Octaves):</label>
+              <div id="NoteRange" name="range"></div>
             </div>
         </div>
         </form>

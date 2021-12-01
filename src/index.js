@@ -9,6 +9,7 @@ import './scripts/piano'
 import './scripts/background'
 import './scripts/stopwatch'
 import './scripts/countdown'
+import './scripts/level-status'
 
 import { Game } from './scripts/game'
 new Game()
