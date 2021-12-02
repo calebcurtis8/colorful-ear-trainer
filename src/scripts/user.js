@@ -79,9 +79,8 @@ class DefineUser extends HTMLElement {
     loadUser(){
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
-    loadLevel(e){
-        if(!e) e = { target: this.levelElm }
-        const value = e?.target?.value || 1;
+    loadLevel(){
+        const value = this.levelElm.querySelector('input:checked').value || 1;
         this.levelElm.removeEventListener('change', this.handleLevelChange)
         const level = this.levels.filter( lvl => lvl.level == value )[0]
         if(!level) return
