@@ -50,10 +50,12 @@ class PianoPlayer {
         synth.triggerAttackRelease(note, "8n");        
     }
     playClick(e){
+        if(!e.target.hasAttribute('data-note')) return
         const key = e.target.getAttribute('data-note').split(',')[0]
         this.play(key)
     }
     listenClick(e){
+        if(!e.target.hasAttribute('data-note')) return
         this.listen(e.target.getAttribute('data-note'))
     } 
     listenShifts(e){
