@@ -35,7 +35,7 @@ class PianoPlayer {
         this.notesDown = []
         this.piano.addEventListener('mousedown', this.handlePlayClick)
         this.piano.addEventListener('mousedown', this.handleListenClick)
-        document.addEventListener('keyup', this.handleListenKeys)
+        document.addEventListener('keydown', this.handleListenKeys)
         document.addEventListener('keydown', this.handleListenShifts)
         document.addEventListener('keyup', this.handleListenShifts)
         document.addEventListener('game:stop', this.stop.bind(this))
