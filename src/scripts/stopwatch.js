@@ -1,5 +1,6 @@
 import StopWatch from "@slime/stopwatch"
 import { removeClassStartsWith } from './remove-class-starts-with'
+import { setInterval, clearInterval } from 'requestanimationframe-timer'
 
 import Gameify from './gameify'
 import User from './user'

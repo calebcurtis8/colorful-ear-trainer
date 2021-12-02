@@ -146,7 +146,6 @@ export class Game {
             Gameify.correct++
             e.detail.msg = 'rightNote'
             e.detail.status = 1
-            // Gameify.reward(e.detail)
         }
         if(Stopwatch.status == 'fail'){
             Gameify.streak = 0

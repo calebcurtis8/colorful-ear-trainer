@@ -18,12 +18,14 @@ class GameArea extends HTMLElement {
             gradient: this.querySelector('[data-gradient'),
             background: document.getElementById('Background'),
             message: document.getElementById('Message'),
-            level: document.getElementById('Level')
+            level: document.getElementById('Level'),
+            bpm: document.getElementById('BPM')
         }
         
         document.addEventListener('game:answercomplete', this.update.bind(this))
         document.addEventListener('countdown:expired', this.update.bind(this))
         document.addEventListener('user:levelchange', this.reset.bind(this))
+        document.addEventListener('game:stop', this.resetTempo.bind(this))
         
         const savedScores = JSON.parse(localStorage.getItem(SCORE_STORAGE)) || {}
         const levels = this.elements.level.querySelectorAll('input')
@@ -49,6 +51,7 @@ class GameArea extends HTMLElement {
         this.reset()
     }
     punish(e) {
+        this.resetTempo()
         if(!e.elm) return
         //specific punishments
         switch (e.msg) {
@@ -72,6 +75,7 @@ class GameArea extends HTMLElement {
         document.dispatchEvent(new CustomEvent('gameify:punish', { detail: e }))
     }
     reward(e) {
+        this.increaseTempo()
         const ratio = this.streak / this.fire
         const is_threshold = (ratio >= 1 && Number.isInteger(ratio))
         if (!is_threshold) return
@@ -93,25 +97,34 @@ class GameArea extends HTMLElement {
 
                 break;
         }
-
     }
     checkScores(){
         const levelID = this.getLevelID()
         if(this.streak > this.highScores[levelID].streak){
-            document.dispatchEvent(new CustomEvent('gameify:highstreak'))
             this.highScores[levelID].streak = this.streak
             this.saveScores()
             if(this.streak >= 10) this.streakAnimation()
+            document.dispatchEvent(new CustomEvent('gameify:highstreak'))
         }
         if(this.correct > this.highScores[levelID].score){
-            document.dispatchEvent(new CustomEvent('gameify:highscore'))
             this.highScores[levelID].score = this.correct
             this.saveScores()
+            document.dispatchEvent(new CustomEvent('gameify:highscore'))
         }
     }
     saveScores(){
         this.updateHighScoreDisplay()
         localStorage.setItem(SCORE_STORAGE, JSON.stringify(this.highScores))
+    }
+    increaseTempo(){
+        //set original tempo if not already set
+        if(!this.elements.bpm.hasAttribute('data-original')) this.elements.bpm.setAttribute('data-original', this.elements.bpm.value)
+        this.elements.bpm.value = parseInt(this.elements.bpm.value * 1.025)
+    }
+    resetTempo(){
+        if(!this.elements.bpm.hasAttribute('data-original')) return
+        this.elements.bpm.value = parseInt(this.elements.bpm.getAttribute('data-original'))
+        this.elements.bpm.removeAttribute('data-original')
     }
     updateHighScoreDisplay(){
         const levelID = this.getLevelID()
@@ -168,6 +181,7 @@ class GameArea extends HTMLElement {
         this.elements.gradient.style.width = (this.correct / this.total) * 100 + '%'
         const ratio = this.streak / this.fire
         this.elements.background.style.opacity = ratio >= 1 ? 1 : ratio;
+
         this.updateHighScoreDisplay()
     }
     message(note, time = 1000){

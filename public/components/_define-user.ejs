@@ -1,7 +1,7 @@
 <local-storage data-key="EarTrainerUser">
 <define-user id="User">
     <div
-      class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 h-full md:max-h-[var(--fullHeight)] overflow-auto">
+      class="grid gap-4 md:gap-0 md:flex md:flex-col md:space-y-4 md:max-h-[var(--fullHeight)] overflow-auto">
       <div class="card order-1 md:order-2 overflow-auto flex-auto">
         <%- include('_level-info.ejs') %>
         <div id="UserCard" class="hidden">
@@ -40,10 +40,10 @@
                 <div class="col-span-2">
                   <%- include('_cadence-selector.ejs') %>
                 </div>
-                <div class="col-span-4">
+                <div class="col-span-6">
                   <%- include('_noteset.ejs') %>
                 </div>
-                <div class="col-span-2 relative">
+                <div class="col-span-3 relative">
                   <label for="NoteCount">Notes:</label>
                     <%- include('_qty.ejs', { id: 'NoteCount', name: 'note_count', min: 1, max: 12, value: 1, step: 1 }) %>
                   <div class="text-xs text-theme-secondary absolute w-full">after cadence</div>
@@ -74,17 +74,17 @@
                 <%- include('_qty.ejs', { id: 'Octave', name: 'cadenceevery', min: 1, max: 999999, value: 1, step: 1 }) %>
               <div class="text-xs text-theme-secondary">question(s)</div>
             </div>
-            <div class="col-span-3">
-              <label for="Bpm">Tempo:</label>
-              <%- include('_qty.ejs', { id: 'Bpm', name: 'bpm', min: 1, max: 400, value: 60, step: 1, inputClass: 'min-w-[3ch]' }) %>
-              <div class="text-xs text-theme-secondary">beats per minute</div>
-            </div>
             <div class="col-span-full">
               <label for="NoteRange">Range (Octaves):</label>
               <div id="NoteRange" name="range"></div>
             </div>
         </div>
         </form>
+      </div>
+      <div class="-ml-4 -mr-4 -mb-4 p-4 mt-4 border-t-2 border-theme-text">
+        <label for="Bpm">Cadence Tempo:</label>
+        <%- include('_qty.ejs', { id: 'BPM', name: 'bpm', min: 1, max: 400, value: 60, step: 1, inputClass: 'min-w-[3ch]' }) %>
+        <div class="text-xs text-theme-secondary">beats per minute</div>
       </div>
       </div>
     </div>

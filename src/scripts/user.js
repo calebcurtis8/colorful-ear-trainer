@@ -11,6 +11,7 @@ class DefineUser extends HTMLElement {
         
         this.inputs = this.querySelectorAll('input,select')
 
+        this.noteSetElm = document.getElementById('NoteSet')
         this.rangeElm = document.getElementById('NoteRange')
         this.levelElm = document.getElementById('Level')
         this.modeElm = document.getElementById('Mode')
@@ -143,10 +144,6 @@ class DefineUser extends HTMLElement {
     saveOctaveRange(){
         this.set('range', this.getOctaveRange())
     }
-    tempo(input){
-        const value = input.value ? input.value : input;
-        return (60 / parseInt(value))
-    }
     number(input){
         const value = input.value ? input.value : input;
         return (value ? parseInt(value) : null)
@@ -171,6 +168,10 @@ class DefineUser extends HTMLElement {
     optiontext(input){
         const elm = this.querySelector(`[value="${ input }"]`)
         return ( elm ? elm.innerText : null) 
+    }
+    noteset(input){
+        const option = this.noteSetElm.querySelector(`option[value="${input}"]`)
+        return (option ? option.innerText : input)
     }
     transpose(input){
         //validate as array

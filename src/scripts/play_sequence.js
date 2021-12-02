@@ -2,7 +2,9 @@ import * as Tone from 'tone'
 
 import User from './user'
 
-const Speed = () => User.get('bpm', 'tempo')
+import Tempo from './tempo'
+
+const Speed = () => Tempo()
 
 let synth = new Tone.PolySynth(Tone.Synth).toDestination()
 

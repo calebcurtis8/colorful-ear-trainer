@@ -1,5 +1,6 @@
 import StopWatch from "@slime/stopwatch"
 import User from './user'
+import { setInterval, clearInterval } from 'requestanimationframe-timer'
 
 function getMinSec(seconds){
     const date = new Date(0)

@@ -53,22 +53,24 @@
         </div>
     </local-storage>
     <div
-        class="text-xl -ml-4 -mr-4 mb-2 p-4 grid grid-cols-3 col-span-3 gap-2 bg-gradient-to-r from-blue-400 to-blue-500">
-        <div class="level-attribute">
-            <div class="text-sm font-bold">Key:</div>
-            <div data-name="keycenter" data-format="transpose"></div>
-            <div data-name="randomkey" data-format="checkmark"></div>
-        </div>
-        <div class="level-attribute">
-            <div class="text-sm font-bold">Time:</div>
+        class="text-lg -ml-4 -mr-4 mb-2 p-4 grid grid-cols-2 col-span-3 gap-2 bg-gradient-to-r from-blue-400 to-blue-500">
+        <div class="level-attribute flex items-center">
+            <div class="text-sm font-bold mr-1">Time:</div>
             <div data-name>
                 <span data-name="countdown-minutes" data-format="string"></span>:<span data-name="countdown-seconds"
                     data-format="string"></span>
             </div>
         </div>
-        <div class="level-attribute">
-            <div class="text-sm font-bold">Streak to win:</div>
+        <div class="level-attribute flex items-center">
+            <div class="text-sm font-bold mr-1">Streak to win:</div>
             <div data-name="to_beat" data-format="integer"></div>
+        </div>
+        <div class="level-attribute flex items-center col-span-2">
+            <div class="text-sm font-bold mr-1">Key:</div>
+            <div data-name="keycenter" data-format="transpose"></div>
+            <div data-name="randomkey" data-format="checkmark"></div>
+            &nbsp;-&nbsp;
+            <span data-name="set" data-format="noteset"></span>
         </div>
     </div>
     <ul class="list-disc ml-4 leading-loose">
@@ -76,9 +78,6 @@
                 <div>Cadence:</div>
                 <div data-name="tonality" data-format="optiontext"></div>
              </li> -->
-        <li class="level-attribute">
-            <span data-name="set" data-format="transpose"></span>
-        </li>
         <li class="level-attribute">
             <span data-name="note_count" data-format="integer" data-append=" note(s) after cadence"></span>
         </li>
@@ -88,9 +87,6 @@
         <li class="level-attribute">
             <span>Cadence every</span>
             <span data-name="cadenceevery" data-format="integer" data-append=" note(s)"></span>
-        </li>
-        <li class="level-attribute">
-            <span data-name="bpm" data-format="integer" data-append=" bpm"></span>
         </li>
         <li class="level-attribute">
             <span data-name="range" data-format="difference" data-append=" octave(s)"></span>
