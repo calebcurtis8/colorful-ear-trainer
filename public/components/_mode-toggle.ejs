@@ -1,12 +1,12 @@
 <local-storage data-key="EarTrainerUser" class="flex items-center w-full min-w-[14rem] select-none">
-    <div id="Mode" class="mode-toggle relative rounded-lg overflow-hidden grid grid-cols-2 w-full h-12 font-bold">
+    <div id="Mode" class="mode-toggle relative rounded-lg overflow-hidden grid grid-cols-2 w-full h-12 font-bold mr-4">
         <div class="z-10">
             <input name="mode" type="radio" value="practice" id="TogglePractice" class="hidden" checked>
-            <label for="TogglePractice" class="cursor-pointer flex items-center justify-center h-full text-sm md:text-lg whitespace-nowrap">Practice Mode</label>
+            <label for="TogglePractice" class="cursor-pointer flex items-center justify-center h-full text-sm md:text-lg whitespace-nowrap">Practice<span class="hidden md:inline-block md:ml-1">Mode</span></label>
         </div>
         <div class="z-10">
             <input name="mode" type="radio" value="play" id="TogglePlay" class="hidden">
-            <label for="TogglePlay" class="cursor-pointer flex items-center justify-center h-full text-sm   md:text-lg whitespace-nowrap">Play Levels</label>
+            <label for="TogglePlay" class="cursor-pointer flex items-center justify-center h-full text-sm   md:text-lg whitespace-nowrap">Play<span class="hidden md:inline-block md:ml-1">Levels</span></label>
         </div>
         <div data-animated-label class="animated-toggle absolute w-1/2 h-full top-0 bottom-0 left-0 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
     </div>
