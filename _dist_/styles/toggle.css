@@ -127,3 +127,15 @@
 .dark-button input[type="checkbox"]:checked + label:after {
         transform: translateX(75px) scale(1);
       }
+
+.mode-toggle{
+  background: var(--disabled-bg);
+}
+
+.mode-toggle label {
+    color: var(--bkg-color);
+}
+
+.mode-toggle input:checked + label {
+    color: var(--bkg-color);
+}

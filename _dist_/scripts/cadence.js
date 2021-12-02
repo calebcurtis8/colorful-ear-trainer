@@ -2,6 +2,8 @@ import { play_sequence } from './play_sequence.js'
 
 import User from './user.js'
 
+import Tempo from './tempo.js'
+
 import Transposer from './transpose.js'
 
 function formatChord(chord) {
@@ -70,7 +72,7 @@ const Cadence = () => {
 
 function duration(seq) {
     let total = 0
-    seq.forEach(notes => total += (notes.duration * User.get('bpm', 'tempo')))
+    seq.forEach(notes => total += (notes.duration * Tempo()))
     return total
 }
 

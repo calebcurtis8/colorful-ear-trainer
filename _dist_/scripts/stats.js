@@ -47,6 +47,7 @@ export const Question = {
     },
     total(q){
         const data = Stats.get(this.normalize(q))
+        if(!data) return 0
         return data.r + data.w + data.l
     },
     ratio(q){
@@ -55,8 +56,10 @@ export const Question = {
     },
     strength(q){
         //no answers is 0 strength
-        if(!Stats.get(this.normalize(q)) || this.total(q) == 0) return 0
-        return ((this.total(q) * this.ratio(q)) / 10)
+        const total = this.total(q)
+        if(!Stats.get(this.normalize(q)) || total == 0) return 0
+        const denominator = ( total > 10 ? total : 10);
+        return ((total * this.ratio(q)) / denominator)
     }
 }
 

@@ -4,6 +4,7 @@
     "js-confetti": "./js-confetti.js",
     "nouislider": "./nouislider.js",
     "nouislider/dist/nouislider.css": "./nouislider/dist/nouislider.css",
+    "requestanimationframe-timer": "./requestanimationframe-timer.js",
     "tone": "./tone.js"
   }
 }

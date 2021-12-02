@@ -1,5 +1,4 @@
 import Transposer from './transpose.js'
-
 import noUiSlider from '../../_snowpack/pkg/nouislider.js'
 import '../../_snowpack/pkg/nouislider/dist/nouislider.css.proxy.js'
 
@@ -12,11 +11,13 @@ class DefineUser extends HTMLElement {
         
         this.inputs = this.querySelectorAll('input,select')
 
-        this.rangeElm = this.querySelector('#NoteRange')
+        this.noteSetElm = document.getElementById('NoteSet')
+        this.rangeElm = document.getElementById('NoteRange')
         this.levelElm = document.getElementById('Level')
+        this.modeElm = document.getElementById('Mode')
         this.levels = this.getJson('Levels')
 
-        this.range = noUiSlider.create(this.rangeElm, {
+        this.rangeElm.range = noUiSlider.create(this.rangeElm, {
             start: [4,5],
             margin: 1,
             snap: true,
@@ -41,15 +42,16 @@ class DefineUser extends HTMLElement {
                 }
             }
         })
-
+        this.rangeElm.dispatchEvent(new CustomEvent('range:ready'))
         
-        this.range.on('change', this.saveOctaveRange.bind(this))
+        this.rangeElm.range.on('change', this.saveOctaveRange.bind(this))
 
         this.handleLevelChange = this.loadLevel.bind(this)
 
         this.loadUser()
 
-        this.loadLevel({ target: this.levelElm })
+        this.modeElm?.addEventListener('change', this.loadMode.bind(this))
+        this.loadMode()
     }
     set(attr, value){
         if(!attr) return
@@ -70,24 +72,16 @@ class DefineUser extends HTMLElement {
         return JSON.parse(elm.innerText)
     }
     getOctaveRange(){
-        return this.range.get()
+        return this.rangeElm.range.get()
     }
     getStorage(){
         return JSON.parse(localStorage.getItem(STORAGE)) || {}
     }
     loadUser(){
-        this.loadOctaveRange()
         this.levelElm?.addEventListener('change', this.handleLevelChange)
     }
-    loadLevel(e){
-        const value = e?.target?.value || 0;
-        if(value == 0){
-            document.getElementById('UserCard')?.classList.remove('hidden')
-            document.getElementById('LevelInfo')?.classList.add('hidden')
-            return
-        }
-        document.getElementById('UserCard')?.classList.add('hidden')
-        document.getElementById('LevelInfo')?.classList.remove('hidden')
+    loadLevel(){
+        const value = this.levelElm.querySelector('input:checked').value || 1;
         this.levelElm.removeEventListener('change', this.handleLevelChange)
         const level = this.levels.filter( lvl => lvl.level == value )[0]
         if(!level) return
@@ -99,7 +93,14 @@ class DefineUser extends HTMLElement {
             const elm = displayElm.querySelector(`[data-name="${ entry[0] }"]`)
             if(!elm) return
             const parser = elm.getAttribute('data-format')
-            this[parser] ? elm.innerHTML = this[parser]( entry[1] ) : elm.innerHTML = entry[1];
+            let append = elm.getAttribute('data-append')
+            let content;
+            this[parser] ? content = this[parser]( entry[1] ) : content = entry[1];
+            if(append){
+                parseInt(content) > 1 ? append = append.replace('(s)', 's') : append = append.replace('(s)','');
+                content = content + append;
+            }
+            elm.innerHTML = content
 
             const input = document.querySelector(`[name=${entry[0]}]`)
             if(!input) return
@@ -110,18 +111,38 @@ class DefineUser extends HTMLElement {
         displayElm.classList.remove('h-0')
         displayElm.classList.add('h-auto')
 
+        document.dispatchEvent(new CustomEvent('user:levelchange'))
+
         this.loadUser()
+    }
+    loadMode(){
+        const selected = this.modeElm.querySelector('input:checked')
+        const UserCard = document.getElementById('UserCard')
+        const LevelInfo = document.getElementById('LevelInfo')
+        const AnimatedLabel = this.modeElm.querySelector('[data-animated-label]')
+        if(selected.value === 'practice'){
+            UserCard?.classList.remove('hidden')
+            LevelInfo?.classList.add('hidden')
+            AnimatedLabel.classList.remove('translate-x-full')
+            document.dispatchEvent(new CustomEvent('user:levelchange'))
+            return
+        }
+        // else 'play'
+        UserCard?.classList.add('hidden')
+        LevelInfo?.classList.remove('hidden')
+        
+        AnimatedLabel.classList.add('translate-x-full')
+        setTimeout( () => {
+            AnimatedLabel.classList.add('transition-all','duration-200')
+        }, 200)
+        this.loadLevel()
     }
     loadOctaveRange(){
         const value = this.getStorage().range
-        if(value) this.range.set(value)
+        if(value) this.rangeElm.range.set(value)
     }
     saveOctaveRange(){
         this.set('range', this.getOctaveRange())
-    }
-    tempo(input){
-        const value = input.value ? input.value : input;
-        return (60 / parseInt(value))
     }
     number(input){
         const value = input.value ? input.value : input;
@@ -135,6 +156,9 @@ class DefineUser extends HTMLElement {
         const value = input.value ? input.value : input;
         return JSON.parse(value)
     }
+    difference(input){
+        return input[1] - input[0]
+    }
     checkbox(input){
         return input.checked
     }
@@ -144,6 +168,10 @@ class DefineUser extends HTMLElement {
     optiontext(input){
         const elm = this.querySelector(`[value="${ input }"]`)
         return ( elm ? elm.innerText : null) 
+    }
+    noteset(input){
+        const option = this.noteSetElm.querySelector(`option[value="${input}"]`)
+        return (option ? option.innerText : input)
     }
     transpose(input){
         //validate as array

@@ -9,6 +9,7 @@ import './scripts/piano.js'
 import './scripts/background.js'
 import './scripts/stopwatch.js'
 import './scripts/countdown.js'
+import './scripts/level-status.js'
 
 import { Game } from './scripts/game.js'
 new Game()

@@ -1,13 +1,39 @@
-.level-attribute {
-    position: relative;
+#Level label {
+        cursor: pointer
 }
-    .level-attribute div {
-    text-decoration: underline;
+    #Level label {
+        padding: 0.5rem
 }
-    .level-attribute [data-name] {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    #Level label {
+        text-align: center
 }
-    .level-attribute [data-name] {
-    text-decoration: none;
+    #Level label {
+        font-size: 1.125rem;
+        line-height: 1.75rem
 }
+    #Level label {
+        font-weight: 700
+}
+    #Level input:checked + label {
+        background-image: linear-gradient(to right, var(--tw-gradient-stops))
+}
+    #Level input:checked + label {
+        --tw-gradient-from: #7c3aed;
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(124, 58, 237, 0))
+}
+    #Level input:checked + label {
+        --tw-gradient-to: #a78bfa
+}
+    #Level input:checked + label {
+        color: var(--bkg-color)
+}
+    #Level star-status {
+        position: absolute
+}
+    #Level star-status {
+        margin-left: 0.25rem
+}
+    #Level .complete{
+        /* background: url("data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22><foreignObject width=%22100px%22 height=%22100px%22><div xmlns=%22http://www.w3.org/1999/xhtml%22>⭐</div></foreignObject></svg>"), transparent;  */
+        /* background-size: 15px 15px;  */
+    }

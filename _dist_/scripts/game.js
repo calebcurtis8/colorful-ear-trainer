@@ -25,13 +25,14 @@ export class Game {
         this.gameStarted = false
 
         document.addEventListener('countdown:expired', this.stop.bind(this))
+        document.addEventListener('user:levelchange', this.stop.bind(this))
     }
     start(){
         this.playBtn?.removeEventListener('click', this.handleStart)
         document.dispatchEvent(new CustomEvent('game:start'))
         this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
     }
-    stop(){
+    stop(e){
         this.pause()
         this.playBtn?.addEventListener('click', this.handleStart)
         this.setButtonState('PLAY', 'bg-green-gradient', 'stopped')
@@ -45,6 +46,7 @@ export class Game {
         this.playCount = 0
         this.gameStarted = false
         document.removeEventListener('answer', this.handleAnswer)
+        document.dispatchEvent(new CustomEvent('game:stop'))
     }
     playClick(){
         if(this.playBtn.state == 'playing'){ 
@@ -144,7 +146,6 @@ export class Game {
             Gameify.correct++
             e.detail.msg = 'rightNote'
             e.detail.status = 1
-            // Gameify.reward(e.detail)
         }
         if(Stopwatch.status == 'fail'){
             Gameify.streak = 0

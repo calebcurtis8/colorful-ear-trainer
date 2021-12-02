@@ -1,5 +1,6 @@
 import StopWatch from "../../_snowpack/pkg/@slime/stopwatch.js"
 import User from './user.js'
+import { setInterval, clearInterval } from '../../_snowpack/pkg/requestanimationframe-timer.js'
 
 function getMinSec(seconds){
     const date = new Date(0)
@@ -19,6 +20,7 @@ class CountdownTimer extends HTMLElement{
         document.addEventListener('game:start', this.start.bind(this))
         document.addEventListener('game:pause', this.pause.bind(this))
         document.addEventListener('game:continue', this.continue.bind(this))
+        document.addEventListener('game:stop', this.stop.bind(this))
 
         document.addEventListener('user:update', this.updateDisplay.bind(this))
 

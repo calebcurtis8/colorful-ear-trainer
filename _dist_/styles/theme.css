@@ -2,9 +2,11 @@
   --theme-light-text: #121212;
   --theme-light-secondary: #888;
   --theme-light-bg: #efefef;
+  --theme-light-disabled-bg: linear-gradient(90deg, rgba(152,152,152,1) 0%, rgba(190,190,190,1) 100%);
   --theme-dark-text: #fff;
   --theme-dark-bg: #121212;
   --theme-dark-secondary: #999;
+  --theme-dark-disabled-bg: linear-gradient(90deg, rgba(102,102,102,1) 0%, rgba(170,170,170,1) 100%);
 
 }
 body,
@@ -16,18 +18,21 @@ body, body.light-theme {
   --text-color: var(--theme-light-text);
   --bkg-color: var(--theme-light-bg);
   --text-secondary: var(--theme-light-secondary);
+  --disabled-bg: var(--theme-light-disabled-bg);
 }
 /* Dark theme colors */
 body.dark-theme {
   --text-color: var(--theme-dark-text);
   --bkg-color: var(--theme-dark-bg);
   --text-secondary: var(--theme-dark-secondary);
+  --disabled-bg: var(--theme-dark-disabled-bg);
 }
 @media (prefers-color-scheme: dark) {
   body {
     --text-color: var(--theme-dark-text);
     --bkg-color: var(--theme-dark-bg);
     --text-secondary: var(--theme-dark-secondary);
+    --disabled-bg: var(--theme-dark-disabled-bg);
   }
 
   /* Override dark mode with light mode styles if the user decides to swap */
@@ -35,5 +40,6 @@ body.dark-theme {
     --text-color: var(--theme-light-text);
     --bkg-color: var(--theme-light-bg);
     --text-secondary: var(--theme-light-secondary);
+    --disabled-bg: var(--theme-light-disabled-bg);
   }
 }
