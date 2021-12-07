@@ -2,7 +2,7 @@ class MinutesSeconds extends HTMLElement {
     constructor() {
         super()
 
-        this.inputs = this.querySelectorAll('input[type="text"]')
+        this.inputs = this.querySelectorAll('input[data-countdown]')
         this.valueElm = this.querySelector('input[name="countdown"]')
         this.minutes = this.querySelector('#CountdownMinutes')
         this.seconds = this.querySelector('#CountdownSeconds')
@@ -12,14 +12,14 @@ class MinutesSeconds extends HTMLElement {
             input.addEventListener('change', this.validate.bind(this))
             input.addEventListener('blur', this.validate.bind(this))
             input.addEventListener('keyup', this.arrowKeys.bind(this))
+            this.validate({ target: input })
         })
 
-        const _this = this
         this.btnIncrement.addEventListener('click', (e) => {
-            _this.increment(_this.seconds, e.shiftKey)
+            this.increment(this.seconds, e.shiftKey)
         })
         this.btnDecrement.addEventListener('click', (e) => {
-            _this.decrement(_this.seconds, e.shiftKey)
+            this.decrement(this.seconds, e.shiftKey)
         })
 
         this.setValue()
