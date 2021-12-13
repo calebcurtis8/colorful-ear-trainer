@@ -4,7 +4,7 @@ import User from './user.js'
 
 import { NOTE_NAMES } from './note_names.js'
 
-let synth = new Tone.Synth().toDestination()
+let synth = new Tone.PolySynth().toDestination()
 
 const piano = document.getElementById("Piano");
 
