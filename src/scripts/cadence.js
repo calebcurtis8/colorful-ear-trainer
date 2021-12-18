@@ -6,42 +6,42 @@ import Tempo from './tempo'
 
 import Transposer from './transpose'
 
-function formatChord(chord) {
-    return Transposer.transpose(chord).map(note => `${note}${User.get('cadenceoctave','number')}`)
+function formatChord(set) {
+    return Transposer.transpose({ set, octave: User.get('cadenceoctave','number'), flatten: false, with_octave: true })
 }
 
 const Major = {
     1451: [
-        [0, 4, 7],
-        [0, 5, 9],
-        [2, 7, 11],
-        [0, 4, 7]
+        [-12, 0, 4, 7],
+        [-7, 0, 5, 9],
+        [-5, 2, 7, 11],
+        [-12, 0, 4, 7]
     ],
     1251: [
-        [0, 4, 7],
-        [2, 5, 9, 0],
-        [2, 7, 11, 0],
-        [0, 4, 7]
+        [-12, 0, 4, 7],
+        [-10, 2, 5, 9, 12],
+        [-5, 2, 7, 11, 12],
+        [-12, 0, 4, 7, 11]
     ],
     1441: [
-        [0, 4, 7],
-        [0, 5, 9],
-        [0, 5, 8],
-        [0, 4, 7]
+        [-12, 0, 4, 7],
+        [-7, 0, 5, 9],
+        [-7, 0, 5, 8],
+        [-12, 0, 4, 7]
     ]
 }
 const Minor = {
     1451: [
-        [0, 3, 7],
-        [0, 5, 8],
-        [2, 7, 10],
-        [0, 3, 7]
+        [-12, 0, 3, 7],
+        [-7, 0, 5, 8],
+        [-5, 2, 7, 10],
+        [-12, 0, 3, 7]
     ],
     14571: [
-        [0, 3, 7],
-        [0, 5, 8],
-        [2, 7, 11, 0],
-        [0, 3, 7]
+        [0, 3, 7, 12],
+        [-7, 0, 8, 12],
+        [-5, 2, 7, 11],
+        [-12, 0, 3, 7]
     ]
 }
 
@@ -50,13 +50,10 @@ const Tonality = function () {
     switch (progression[0]) {
         case 'major':
             return Major[progression[1]]
-            break;
         case 'minor':
             return Minor[progression[1]]
-            break;
         default:
             return Major
-            break;
     }
 }
 
@@ -78,7 +75,8 @@ function duration(seq) {
 
 export default function cadence() {
     {
-        play_sequence(Cadence())
-        return duration(Cadence())
+        const seq = Cadence()
+        play_sequence(seq, 0, -6)
+        return duration(seq)
     }
 }

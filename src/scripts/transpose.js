@@ -1,6 +1,7 @@
 import { NOTE_NAMES } from './note_names'
 
 const keyCenterElm = document.getElementById('KeyCenter')
+
 document.addEventListener('user:update', function(){
     document.dispatchEvent(new CustomEvent('transpose'))
 })
@@ -8,6 +9,8 @@ document.addEventListener('user:update', function(){
 // const AllNotes = NOTE_NAMES.all
 const Flats = NOTE_NAMES.flats
 const Sharps = NOTE_NAMES.sharps
+
+
 const Transposer = {
     notes : [
         Flats,
@@ -23,12 +26,19 @@ const Transposer = {
         Flats,
         Sharps
     ],
-    transpose(set, keyCenter = keyCenterElm.value){
+    transpose({ set = [], keyCenter = keyCenterElm.value, octave = 4, flatten = true, with_octave = false } = {}){
         //make sure set is an array
         Array.isArray(set) ? set = set : set = [set]
         //make sure keyCenter is an int
         keyCenter = parseInt(keyCenter)
-        set = set.map( note => this.notes[keyCenter][this.normalizeIndex(parseInt(note) + keyCenter)])
+        set = set.map( note => {
+            const noteValue = parseInt(note) + keyCenter
+            let oct = noteValue > 11 && !flatten ? octave + 1 : octave;
+            oct = noteValue < 0 && !flatten ? octave - 1 : octave;
+            let n = this.notes[keyCenter][this.normalizeIndex(noteValue)]
+            if(with_octave) n = `${ n }${ oct }`
+            return n
+        })
         return set
     },
     notesAsNumber(set, keyCenter = keyCenterElm.value){
@@ -41,7 +51,9 @@ const Transposer = {
     },
 
     normalizeIndex(i) {
-        return i > 11 ? i - 12 : i;
+        i = i < 0 ? i + 12 : i;
+        i = i > 11 ? i - 12 : i;
+        return i;
     }
 }
 
@@ -69,7 +81,7 @@ class KeySelector extends HTMLElement {
                 if (m.index === regex.lastIndex) {
                     regex.lastIndex++;
                 }
-                str = str.replaceAll(m[0], Transposer.transpose([m[1]], keyCenterElm.value))
+                str = str.replaceAll(m[0], Transposer.transpose({ set: [m[1]], keyCenter: keyCenterElm.value}))
             }
             set.innerText = str
             //apply major / minor filter
