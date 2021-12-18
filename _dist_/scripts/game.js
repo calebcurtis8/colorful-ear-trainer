@@ -75,7 +75,8 @@ export class Game {
         //reset attempt count
         this.attempts = 0
         //notes which the user must answer
-        const noteSet = Transposer.transpose(User.get('set', 'array'))
+        const set = User.get('set', 'array')
+        const noteSet = Transposer.transpose({ set })
         User.notes = random(User.get('note_count','number'), noteSet)
         //duplicate to remember which were selected
         User.selected_notes_without_octave = JSON.parse(JSON.stringify(User.notes))

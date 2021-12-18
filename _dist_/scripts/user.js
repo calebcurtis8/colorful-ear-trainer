@@ -177,7 +177,7 @@ class DefineUser extends HTMLElement {
         //validate as array
         input = JSON.parse(input)
         if(!Array.isArray(input)) input = [input]
-        input = Transposer.transpose(input)  
+        input = Transposer.transpose({ set: input })  
         return input.join(', ')
     }
     normal(input){

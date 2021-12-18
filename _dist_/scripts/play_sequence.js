@@ -13,9 +13,10 @@ document.addEventListener('game:stop', () => {
     synth = new Tone.PolySynth(Tone.Synth).toDestination()
 })
 
-export async function play_sequence(seq, offset) {
+export async function play_sequence(seq, offset, volume = -2) {
     await Tone.start()
     synth.toDestination()
+    synth.volume.value = volume
     const now = offset ? offset + Tone.now() : Tone.now();
 
     let time = 0
