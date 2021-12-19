@@ -1,6 +1,6 @@
 import { Question }  from './stats.js'
 
-export default function random( count = 1, set = ["C","D","E","F","G","A","B"], weighted = true){
+export default function random( count = 1, set = ["C","D","E","F","G","A","B"], weighted = true ){
     
     function run(ignore_set = []){
         const selected_notes = []
@@ -14,19 +14,19 @@ export default function random( count = 1, set = ["C","D","E","F","G","A","B"], 
     }
     let selected = run()
 
-    const strength = Question.strength(selected)
-
-    if(strength > 0 && weighted){
-        const chance = 1 / strength
-        const rerun = Math.floor(Math.random() * chance)
-        //ie if strength = .2, then there is a 1 in 5 chance of rerunning
-        if(rerun === 1){
-            //get new notes, the weaker the strength the less likely we are to find a new note
-            selected = run(selected)
+    return Question.strength(selected)
+      .then( strength => {
+        if(strength > 0 && weighted){
+            const chance = 1 / strength
+            const rerun = Math.floor(Math.random() * chance)
+            //ie if strength = .2, then there is a 1 in 5 chance of rerunning
+            if(rerun === 1){
+                //get new notes, the weaker the strength the less likely we are to find a new note
+                selected = run(selected)
+            }
         }
-    }
-    
-    return selected
+        return selected
+      })   
 }
 
 /** assumes array elements are primitive types

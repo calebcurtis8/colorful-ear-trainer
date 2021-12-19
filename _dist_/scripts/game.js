@@ -77,18 +77,20 @@ export class Game {
         //notes which the user must answer
         const set = User.get('set', 'array')
         const noteSet = Transposer.transpose({ set })
-        User.notes = random(User.get('note_count','number'), noteSet)
-        //duplicate to remember which were selected
-        User.selected_notes_without_octave = JSON.parse(JSON.stringify(User.notes))
-        User.selected_notes = this.setOctaves(User.selected_notes_without_octave)
-
-        User.notes = this.setOctave(User.notes)
-
-        if(playCadence){
-            this.playCadence().then( this.askNotes.bind(this) )
-        } else {
-            setTimeout(this.askNotes.bind(this), 250)
-        }
+        random(User.get('note_count','number'), noteSet)
+        .then( notes => {
+            User.notes = notes
+            //duplicate to remember which were selected
+            User.selected_notes_without_octave = JSON.parse(JSON.stringify(User.notes))
+            User.selected_notes = this.setOctaves(User.selected_notes_without_octave)
+            User.notes = this.setOctave(User.notes)
+    
+            if(playCadence){
+                this.playCadence().then( this.askNotes.bind(this) )
+            } else {
+                setTimeout(this.askNotes.bind(this), 250)
+            }
+        })
     }
     playCadence(){
         return new Promise( (res, rej) => {
