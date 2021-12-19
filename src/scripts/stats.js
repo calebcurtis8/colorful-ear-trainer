@@ -1,6 +1,6 @@
 import Transposer from './transpose'
 
-const SESSION = 'EarTrainerStats'
+const worker = new Worker('./_dist_/scripts/worker.js')
 
 function ascending(a, b) {
     return a - b;
@@ -20,46 +20,55 @@ export const Question = {
     hit(q, status){
         //get existing reference or use our new question
         q = this.normalize(q)
-        const data = Stats.get(q) || {...questionAttrs}
-        //register stat...
-        switch (status) {
-            case -1:
-                //late
-                data.l++
-                break;
-            case 0:
-                //wrong
-                data.w++
-                break;
-            case 1:
-                //right
-                data.r++
-                break;
-            default:
-                break;
-        }
-        //save
-        Stats.set(q, data)
+        Stats.get(q).then( data => {
+            if(!data) data = {...questionAttrs}
+            //register stat...
+            switch (status) {
+                case -1:
+                    //late
+                    data.l++
+                    break;
+                case 0:
+                    //wrong
+                    data.w++
+                    break;
+                case 1:
+                    //right
+                    data.r++
+                    break;
+                default:
+                    break;
+            }
+            //save
+            Stats.set(q, data)
+        })
     },
     normalize(q){
         const nums = Transposer.notesAsNumber(q)
         return nums.sort(ascending).join(',')
     },
     total(q){
-        const data = Stats.get(this.normalize(q))
-        if(!data) return 0
-        return data.r + data.w + data.l
+        return Stats.get(this.normalize(q))
+        .then( data => {
+            if(!data) return 0
+            return data.r + data.w + data.l
+        })
     },
     ratio(q){
-        const data = Stats.get(this.normalize(q))
-        return data.r / (data.r + data.w + data.l)
+        return Stats.get(this.normalize(q))
+        .then( data => {
+           return (data.r / (data.r + data.w + data.l))
+        })
     },
     strength(q){
         //no answers is 0 strength
-        const total = this.total(q)
-        if(!Stats.get(this.normalize(q)) || total == 0) return 0
-        const denominator = ( total > 10 ? total : 10);
-        return ((total * this.ratio(q)) / denominator)
+        return Stats.get(this.normalize(q))
+        .then( data => {
+            const total = this.total(q)
+            if( !data || total == 0 ) return 0
+            const denominator = ( total > 10 ? total : 10);
+            return (data.r / denominator)
+        })
     }
 }
 
@@ -68,14 +77,22 @@ export const Stats = {
         document.addEventListener('gameify:update', this.register.bind(this))
     },
     get(key){
-        const data = JSON.parse(sessionStorage.getItem(SESSION)) || {}
-        const value = key ? data[key] : data;
-        return value
+        return new Promise( (resolve, reject) => {
+            worker.postMessage({ action: 'getStat', key: key })
+            worker.onmessage = (e) => {
+                if(e.data.action != 'getStat') return
+                resolve(e.data.result)
+            }
+        })
     },
     set(key, value){
-        const s = this.get()
-        s[key] = value
-        return sessionStorage.setItem(SESSION, JSON.stringify(s))
+        return new Promise( (resolve, reject) => {
+            worker.postMessage({ action: 'saveStat', key: key, value: value })
+            worker.onmessage = (e) => {
+                if(e.data.action != 'saveStat') return
+                resolve(e.data.result)
+            }
+        })
     },
     register(e){
         //listens for question answers
