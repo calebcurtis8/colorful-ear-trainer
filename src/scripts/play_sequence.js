@@ -1,19 +1,19 @@
 import * as Tone from 'tone'
-
-import User from './user'
+import { PianoSamples } from './piano_samples'
 
 import Tempo from './tempo'
 
 const Speed = () => Tempo()
 
-let synth = new Tone.PolySynth(Tone.Synth).toDestination()
+let synth = PianoSamples()
 
 document.addEventListener('game:stop', () => {
     synth.disconnect()
-    synth = new Tone.PolySynth(Tone.Synth).toDestination()
+    synth.dispose()
+    synth = PianoSamples()
 })
 
-export async function play_sequence(seq, offset, volume = -2) {
+export async function play_sequence(seq, offset, volume = 0) {
     await Tone.start()
     synth.toDestination()
     synth.volume.value = volume

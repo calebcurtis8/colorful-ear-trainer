@@ -76,7 +76,7 @@ function duration(seq) {
 export default function cadence() {
     {
         const seq = Cadence()
-        play_sequence(seq, 0, -6)
+        play_sequence(seq, 0, 0)
         return duration(seq)
     }
 }

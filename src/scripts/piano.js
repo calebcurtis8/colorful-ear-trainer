@@ -4,7 +4,9 @@ import User from './user'
 
 import { NOTE_NAMES } from './note_names'
 
-let synth = new Tone.PolySynth().toDestination()
+import { PianoSamples } from './piano_samples'
+
+let synth = PianoSamples()
 
 const piano = document.getElementById("Piano");
 
@@ -47,7 +49,7 @@ class PianoPlayer {
         //play the note for the duration of an 8th note
         const note = this.formatNote(key)
     
-        synth.triggerAttackRelease(note, "8n");        
+        synth.triggerAttackRelease(note, "2n");        
     }
     playClick(e){
         if(!e.target.hasAttribute('data-note')) return
@@ -132,7 +134,8 @@ class PianoPlayer {
     }
     stop(){
         synth.disconnect()
-        synth = new Tone.Synth().toDestination()
+        synth.dispose()
+        synth = PianoSamples()
     }
 }
 

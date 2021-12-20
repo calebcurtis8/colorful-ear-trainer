@@ -104,7 +104,7 @@ export class Game {
         })
     }
     playNotes(){
-        User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 1 }], 0) : null;
+        User.selected_notes ? play_sequence([{ sequence: User.selected_notes.map( note => note.join('')), duration: 2.5 }], 0) : null;
     }
     askNotes(){
         Piano.clear()
