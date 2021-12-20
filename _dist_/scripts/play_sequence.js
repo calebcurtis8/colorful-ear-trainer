@@ -5,12 +5,10 @@ import Tempo from './tempo.js'
 
 const Speed = () => Tempo()
 
-let synth = PianoSamples()
+let synth = PianoSamples.create()
 
 document.addEventListener('game:stop', () => {
-    synth.disconnect()
-    synth.dispose()
-    synth = PianoSamples()
+    PianoSamples.stop()
 })
 
 export async function play_sequence(seq, offset, volume = 0) {

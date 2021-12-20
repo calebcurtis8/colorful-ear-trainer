@@ -6,7 +6,7 @@ import { NOTE_NAMES } from './note_names.js'
 
 import { PianoSamples } from './piano_samples.js'
 
-let synth = PianoSamples()
+let synth = PianoSamples.create()
 
 const piano = document.getElementById("Piano");
 
@@ -48,8 +48,9 @@ class PianoPlayer {
 
         //play the note for the duration of an 8th note
         const note = this.formatNote(key)
-    
-        synth.triggerAttackRelease(note, "2n");        
+        
+        synth.volume.value = 0
+        synth.triggerAttackRelease(note, "2n")      
     }
     playClick(e){
         if(!e.target.hasAttribute('data-note')) return
@@ -133,9 +134,7 @@ class PianoPlayer {
         return `${ note }${ User.get('cadenceoctave','number') }`
     }
     stop(){
-        synth.disconnect()
-        synth.dispose()
-        synth = PianoSamples()
+        PianoSamples.stop()
     }
 }
 
