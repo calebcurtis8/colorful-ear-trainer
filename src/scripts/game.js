@@ -62,15 +62,15 @@ export class Game {
     play(){
         this.playCount += 1
 
+        const playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
+
         //check if we are randomizing keys or not
-        if(User.get('randomkey','checkbox')){
+        if(User.get('randomkey','checkbox') && playCadence){
             const newKey = Math.floor(Math.random() * 12)
             const elm = User.getElm('keycenter')
             elm.value = newKey
             elm.dispatchEvent(new CustomEvent('change'))
         }
-
-        const playCadence = this.playCount === 1 || Number.isInteger((this.playCount - 1) / User.get('cadenceevery', 'number'))
 
         //reset attempt count
         this.attempts = 0
