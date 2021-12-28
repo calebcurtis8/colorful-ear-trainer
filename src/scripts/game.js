@@ -14,8 +14,6 @@ export class Game {
     this.handleAnswer = this.registerAnswer.bind(this)
     this.playBtn = document.querySelector('#Play')
     this.playBtn?.addEventListener('click', this.playClick.bind(this))
-    this.handleStart = this.start.bind(this)
-    this.playBtn?.addEventListener('click', this.handleStart)
     this.cadenceBtn = document.querySelector('#PlayCadence')
     this.cadenceBtn?.addEventListener('click', this.playCadence.bind(this))
     this.notesBtn = document.querySelector('#PlayNotes')
@@ -30,14 +28,13 @@ export class Game {
   }
 
   start () {
-    this.playBtn?.removeEventListener('click', this.handleStart)
     document.dispatchEvent(new CustomEvent('game:start'))
     this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
+    this.gameStarted = true
   }
 
   stop (e) {
     this.pause()
-    this.playBtn?.addEventListener('click', this.handleStart)
     this.setButtonState('PLAY', 'bg-green-gradient', 'stopped')
     Gameify.streak = 0
     Gameify.correct = 0
@@ -81,6 +78,7 @@ export class Game {
       this.setButtonState('PAUSE', 'bg-yellow-gradient', 'playing')
       document.dispatchEvent(new CustomEvent('game:continue'))
     }
+    if (!this.gameStarted) this.start()
     this.play()
   }
 
