@@ -14,6 +14,11 @@
   },
   "devDependencies": {
     "@snowpack/plugin-postcss": "^1.4.3",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
     "husky": "7",
     "postcss": "^8.4.1",
     "postcss-import": "^14.0.2",

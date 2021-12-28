@@ -1,36 +1,37 @@
 import { removeClassStartsWith } from './remove-class-starts-with'
 
-const Colors = ['green','pink','blue','purple','yellow']
-const Stop = ['from','via','to']
+const Colors = ['green', 'pink', 'blue', 'purple', 'yellow']
+const Stop = ['from', 'via', 'to']
 
 class FancyBackground extends HTMLElement {
-    constructor() {
-        super()
-        document.addEventListener('gameify:punish', this.reset.bind(this))
-        this.reset()
+  constructor () {
+    super()
+    document.addEventListener('gameify:punish', this.reset.bind(this))
+    this.reset()
+  }
+
+  reset () {
+    removeClassStartsWith(this, 'duration-')
+    this.style.opacity = 0
+    setTimeout(() => {
+      // re-add duration class
+      this.classList.add('duration-1000')
+    }, 1000)
+
+    removeClassStartsWith(this, 'from-')
+    removeClassStartsWith(this, 'via-')
+    removeClassStartsWith(this, 'to-')
+
+    let selectedColors = []
+
+    while (selectedColors.length < 3) {
+      const rand = Math.floor(Math.random() * Colors.length)
+      const color = Colors[rand]
+      if (selectedColors.indexOf(color) === -1) selectedColors.push(color)
     }
-    reset() {
-        removeClassStartsWith(this, 'duration-')
-        this.style.opacity = 0
-        setTimeout( () => {
-            //re-add duration class
-            this.classList.add('duration-1000')
-        }, 1000)
-
-        removeClassStartsWith(this, 'from-')
-        removeClassStartsWith(this, 'via-')
-        removeClassStartsWith(this, 'to-')
-
-        let selected_colors = []
-
-        while(selected_colors.length < 3){
-            var rand = Math.floor(Math.random() * Colors.length)
-            var color = Colors[rand]
-            if(selected_colors.indexOf(color) === -1) selected_colors.push(color)
-        }
-        selected_colors = selected_colors.map( (color, i) => `${ Stop[i]}-${color}-500`)
-        this.classList.add(...selected_colors)
-    }
+    selectedColors = selectedColors.map((color, i) => `${Stop[i]}-${color}-500`)
+    this.classList.add(...selectedColors)
+  }
 }
 
 customElements.define('fancy-background', FancyBackground)
