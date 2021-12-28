@@ -20,6 +20,7 @@ export class Game {
     this.cadenceBtn?.addEventListener('click', this.playCadence.bind(this))
     this.notesBtn = document.querySelector('#PlayNotes')
     this.notesBtn?.addEventListener('click', this.playNotes.bind(this))
+    window.addEventListener('keydown', this.keyDown.bind(this))
 
     this.playCount = 0
     this.gameStarted = false
@@ -49,6 +50,26 @@ export class Game {
     this.gameStarted = false
     document.removeEventListener('answer', this.handleAnswer)
     document.dispatchEvent(new CustomEvent('game:stop'))
+  }
+
+  keyDown (e) {
+    switch (e.code.toLowerCase()) {
+      case 'space':
+        // play button
+        this.playClick()
+        break
+      case 'enter':
+      case 'keyn':
+        // play notes
+        this.playNotes()
+        break
+      case 'keyr':
+        // play cadence
+        this.playCadence()
+        break
+      default:
+        break
+    }
   }
 
   playClick () {
