@@ -43,18 +43,21 @@
     <option value='[]' data-template="Custom" data-tonality="minor">Custom</option>
 </select>
 <div id="CustomNoteSet">
-    <div class="grid items-center justify-center grid-cols-7 gap-2 mt-2">
-    <%- include('_note-select.ejs', { index: 0 }) %>
-    <%- include('_note-select.ejs', { index: 2 }) %>
-    <%- include('_note-select.ejs', { index: 4 }) %>
-    <%- include('_note-select.ejs', { index: 5 }) %>
-    <%- include('_note-select.ejs', { index: 7 }) %>
-    <%- include('_note-select.ejs', { index: 9 }) %>
-    <%- include('_note-select.ejs', { index: 11 }) %>
-    <%- include('_note-select.ejs', { index: 10 }) %>
-    <%- include('_note-select.ejs', { index: 3 }) %>
-    <%- include('_note-select.ejs', { index: 8 }) %>
-    <%- include('_note-select.ejs', { index: 1 }) %>
-    <%- include('_note-select.ejs', { index: 6 }) %>
+    <div class="grid items-center justify-center gap-2 mt-2 grid-cols-14">
+        <%- include('_note-select.ejs', { index: 0 }) %>
+        <%- include('_note-select.ejs', { index: 2 }) %>
+        <%- include('_note-select.ejs', { index: 4 }) %>
+        <%- include('_note-select.ejs', { index: 5 }) %>
+        <%- include('_note-select.ejs', { index: 7 }) %>
+        <%- include('_note-select.ejs', { index: 9 }) %>
+        <%- include('_note-select.ejs', { index: 11 }) %>
+        <div></div>
+        <%- include('_note-select.ejs', { index: 1 }) %>
+        <%- include('_note-select.ejs', { index: 3 }) %>
+        <div class="col-span-2"></div>
+        <%- include('_note-select.ejs', { index: 6 }) %>
+        <%- include('_note-select.ejs', { index: 8 }) %>
+        <%- include('_note-select.ejs', { index: 10 }) %>
+        <div></div>
     </div>
 </div>

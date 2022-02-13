@@ -11,15 +11,18 @@ module.exports = {
       colors: {
         'theme-text': 'var(--text-color)',
         'theme-secondary': 'var(--text-secondary)',
-        'theme-bg': 'var(--bkg-color)',
+        'theme-bg': 'var(--bkg-color)'
       },
-      maxWidth:{
-        '32': '8rem'
+      gridTemplateColumns: {
+        14: 'repeat(14, minmax(0, 1fr))'
+      },
+      maxWidth: {
+        32: '8rem'
       },
       transitionDuration: {
-        '0': '0ms',
-      },
+        0: '0ms'
+      }
     }
   }
   // specify other options here
-};
+}
