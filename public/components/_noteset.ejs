@@ -1,11 +1,11 @@
 <label for="NoteSet">Note Set:</label>
 <div class="select-wrap">
     <select name="set-select" id="NoteSet" class="w-full input note-sets">
-        <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
-        <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
-        <option value='[0,2,4,5,7]' data-template="{0} | {2} | {4} | {5} | {7}" data-tonality="major">C | D | E | F | G</option>
-        <option value='[0,2,4,5,7,9]' data-template="{0} | {2} | {4} | {5} | {7} | {9}" data-tonality="major">C | D | E | F | G | A</option>
-        <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic" data-tonality="major">Diatonic
+        <option value='[0,7]' data-template="Perfect 5th" data-tonality="major">Perfect 5th</option>
+        <option value='[0,4,7]' data-template="Triad" data-tonality="major">Triad</option>
+        <option value='[0,2,4,5,7]' data-template="1 2 3 4 5" data-tonality="major">1 2 3 4 5</option>
+        <option value='[0,2,4,5,7,9]' data-template="1 2 3 4 5 6" data-tonality="major">1 2 3 4 5 6</option>
+        <option value='[0,2,4,5,7,9,11]' selected data-template="Diatonic Scale (Ionian)" data-tonality="major">Diatonic Scale (Ionian)
         </option>
         <option value='[0,2,4,5,7,9,10,11]' data-template="Diatonic + {10}" data-tonality="major">Diatonic +
             Bb
@@ -23,12 +23,12 @@
     </select>
 </div>
 <select class="hidden note-sets" id="InactiveSet">
-    <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
-    <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
-    <option value='[0,2,3,5,7]' data-template="{0} | {2} | {3} | {5} | {7}" data-tonality="minor">C | D | Eb | F | G</option>
-    <option value='[0,2,3,5,7,8]' data-template="{0} | {2} | {3} | {5} | {7} | {8}" data-tonality="minor">C | D | Eb | F | G | Ab</option>
-    <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic (Aeolian)" data-tonality="minor">
-        Diatonic (Aeolian)</option>
+    <option value='[0,7]' data-template="Perfect 5th" data-tonality="minor">Perfect 5th</option>
+    <option value='[0,3,7]' data-template="Triad" data-tonality="minor">Triad</option>
+    <option value='[0,2,3,5,7]' data-template="1 2 3 4 5" data-tonality="minor">1 2 3 4 5</option>
+    <option value='[0,2,3,5,7,8]' data-template="1 2 3 4 5 6" data-tonality="minor">1 2 3 4 5 6</option>
+    <option value='[0,2,3,5,7,8,10]' selected data-template="Diatonic Scale (Aeolian)" data-tonality="minor">
+        Diatonic Scale (Aeolian)</option>
     <option value='[0,2,3,5,7,8,10,11]' selected data-template="Diatonic + {11}" data-tonality="minor">
         Diatonic + B</option>
     <option value='[0,2,3,4,5,7,8,10,11]' data-template="Diatonic + {11} + {4}" data-tonality="minor">
@@ -43,9 +43,18 @@
     <option value='[]' data-template="Custom" data-tonality="minor">Custom</option>
 </select>
 <div id="CustomNoteSet">
-    <div class="grid items-center justify-center grid-cols-6 gap-2 mt-2">
-    <% for(var i=0; i<12; i++) {%>
-        <%- include('_note-select.ejs', { index: i }) %>
-    <% } %>
+    <div class="grid items-center justify-center grid-cols-7 gap-2 mt-2">
+    <%- include('_note-select.ejs', { index: 0 }) %>
+    <%- include('_note-select.ejs', { index: 2 }) %>
+    <%- include('_note-select.ejs', { index: 4 }) %>
+    <%- include('_note-select.ejs', { index: 5 }) %>
+    <%- include('_note-select.ejs', { index: 7 }) %>
+    <%- include('_note-select.ejs', { index: 9 }) %>
+    <%- include('_note-select.ejs', { index: 11 }) %>
+    <%- include('_note-select.ejs', { index: 10 }) %>
+    <%- include('_note-select.ejs', { index: 3 }) %>
+    <%- include('_note-select.ejs', { index: 8 }) %>
+    <%- include('_note-select.ejs', { index: 1 }) %>
+    <%- include('_note-select.ejs', { index: 6 }) %>
     </div>
 </div>
