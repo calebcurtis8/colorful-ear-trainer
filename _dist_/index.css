@@ -1240,6 +1240,10 @@ select {
   margin-bottom: 0.5rem;
 
 }
+.mt-2 {
+  margin-top: 0.5rem;
+
+}
 .block {
   display: block;
 
@@ -1302,6 +1306,10 @@ select {
 }
 .w-1\/2 {
   width: 50%;
+
+}
+.w-8 {
+  width: 2rem;
 
 }
 .w-auto {
@@ -1927,6 +1935,15 @@ svg rect[data-note] {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
   transition-duration: 200ms;
+
+}
+.peer:checked ~ .peer-checked\:bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+
+}
+.peer:checked ~ .peer-checked\:font-semibold {
+  font-weight: 600;
 
 }
 @media (min-width: 640px) {

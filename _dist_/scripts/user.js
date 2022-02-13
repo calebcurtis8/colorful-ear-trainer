@@ -12,6 +12,7 @@ class DefineUser extends HTMLElement {
     this.inputs = this.querySelectorAll('input,select')
 
     this.noteSetElm = document.getElementById('NoteSet')
+    this.customNoteSet = document.getElementById('CustomNoteSet')
     this.rangeElm = document.getElementById('NoteRange')
     this.levelElm = document.getElementById('Level')
     this.modeElm = document.getElementById('Mode')
@@ -48,6 +49,12 @@ class DefineUser extends HTMLElement {
 
     this.handleLevelChange = this.loadLevel.bind(this)
 
+    this.handleNoteSetChange = this.setChange.bind(this)
+
+    this.noteSetElm.addEventListener('change', this.handleNoteSetChange)
+    this.customNoteSet.addEventListener('change', this.customSet.bind(this))
+    this.handleNoteSetChange({ target: this.noteSetElm })
+
     this.loadUser()
 
     this.modeElm?.addEventListener('change', this.loadMode.bind(this))
@@ -78,6 +85,31 @@ class DefineUser extends HTMLElement {
 
   getOctaveRange () {
     return this.rangeElm.range.get()
+  }
+
+  getSet () {
+    return Array.from(this.customNoteSet.querySelectorAll('input:checked')).map(input => parseInt(input.value))
+  }
+
+  customSet (e) {
+    const set = this.getSet()
+    const selectable = this.noteSetElm.querySelector(`[value='${JSON.stringify(set)}']`)
+    if (selectable) {
+      this.noteSetElm.value = selectable.value
+    } else {
+      this.noteSetElm.value = '[]'
+    }
+    this.noteSetElm.dispatchEvent(new CustomEvent('change', { bubbles: true }))
+  }
+
+  setChange (e) {
+    const selectedSet = JSON.parse(e.target.value)
+    if (selectedSet.length === 0) return
+    // apply the selected notes display
+    this.customNoteSet.querySelectorAll('input').forEach(input => {
+      input.checked = selectedSet.includes(parseInt(input.value))
+      // input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
+    })
   }
 
   getStorage () {
