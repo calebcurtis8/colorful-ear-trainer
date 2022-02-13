@@ -1,6 +1,6 @@
 <span class="flex items-center justify-center col-span-2">
   <input class="hidden peer" id="note-select-<%= index %>" type="checkbox" name="custom-note-<%= index %>" value="<%= index %>" data-template="{<%= index %>}">
-  <label class="relative flex items-center justify-center w-8 h-8 rounded-full cursor-pointer select-none peer-checked:bg-blue-500 peer-checked:font-semibold bg-theme-bg text-theme-text" for="note-select-<%= index %>">
+  <label class="relative flex items-center justify-center w-8 h-8 border border-white rounded-full cursor-pointer select-none peer-checked:bg-gradient-to-r <%= gradient %> peer-checked:font-semibold text-theme-text" for="note-select-<%= index %>">
     <span class="absolute" data-template="{<%= index %>}"><%= index %></span>
   </label>
 </span>

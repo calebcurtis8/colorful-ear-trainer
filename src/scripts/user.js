@@ -107,8 +107,8 @@ class DefineUser extends HTMLElement {
     if (selectedSet.length === 0) return
     // apply the selected notes display
     this.customNoteSet.querySelectorAll('input').forEach(input => {
+      this.set(input.name, input.checked)
       input.checked = selectedSet.includes(parseInt(input.value))
-      // input.dispatchEvent(new CustomEvent('change', { bubbles: true }))
     })
   }
 
@@ -250,7 +250,8 @@ class DefineUser extends HTMLElement {
     } else {
       this.set(e.target.getAttribute('name'), e.target.value)
     }
-    document.dispatchEvent(new CustomEvent('user:update'))
+    if (e.detail === 'transpose') return
+    e.target.dispatchEvent(new CustomEvent('user:update', { bubbles: true }))
   }
 }
 
