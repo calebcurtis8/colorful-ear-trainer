@@ -61,7 +61,7 @@ class KeySelector extends HTMLElement {
     super()
     this.set = this.querySelector('#NoteSet')
     this.inactiveSet = this.querySelector('#InactiveSet')
-    this.setSelector = this.querySelectorAll('.note-sets option')
+    this.setSelector = this.querySelectorAll('[data-template]')
 
     document.dispatchEvent(new CustomEvent('transpose'))
     document.addEventListener('transpose', this.transposeSetSelector.bind(this))
@@ -72,6 +72,7 @@ class KeySelector extends HTMLElement {
     const tonalityElm = document.getElementById('Tonality')
     const tonality = tonalityElm.value.split(',')[0]
     const selectedIndex = this.set.selectedIndex
+    // transpose set select element
     this.setSelector.forEach((set, i) => {
       const regex = /\{(.*?)}/gm
       let str = set.getAttribute('data-template')
@@ -85,12 +86,14 @@ class KeySelector extends HTMLElement {
       }
       set.innerText = str
       // apply major / minor filter
+      if (!set.hasAttribute('data-tonality')) return
       if (set.getAttribute('data-tonality').indexOf(tonality) === -1) {
         this.inactiveSet.appendChild(set)
       } else {
         this.set.appendChild(set)
       }
     })
+
     if (this.set[selectedIndex]) this.set.value = this.set[selectedIndex].value
   }
 }

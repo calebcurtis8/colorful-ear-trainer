@@ -1,6 +1,6 @@
 <label for="NoteSet">Note Set:</label>
 <div class="select-wrap">
-    <select name="set" id="NoteSet" class="input w-full note-sets">
+    <select name="set-select" id="NoteSet" class="w-full input note-sets">
         <option value='[0,7]' data-template="{0} | {7}" data-tonality="major">C | G</option>
         <option value='[0,4,7]' data-template="{0} | {4} | {7}" data-tonality="major">C | E | G</option>
         <option value='[0,2,4,5,7]' data-template="{0} | {2} | {4} | {5} | {7}" data-tonality="major">C | D | E | F | G</option>
@@ -19,9 +19,10 @@
         <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="major">
             Chromatic
         </option>
+        <option value='[]' data-template="Custom" data-tonality="major">Custom</option>
     </select>
 </div>
-<select class="note-sets hidden" id="InactiveSet">
+<select class="hidden note-sets" id="InactiveSet">
     <option value='[0,7]' data-template="{0} | {7}" data-tonality="minor">C | G</option>
     <option value='[0,3,7]' data-template="{0} | {3} | {7}" data-tonality="minor">C | Eb | G</option>
     <option value='[0,2,3,5,7]' data-template="{0} | {2} | {3} | {5} | {7}" data-tonality="minor">C | D | Eb | F | G</option>
@@ -39,4 +40,12 @@
     <option value='[0,1,2,3,4,5,6,7,8,9,10,11]' data-template="Chromatic" data-tonality="minor">
         Chromatic
     </option>
+    <option value='[]' data-template="Custom" data-tonality="minor">Custom</option>
 </select>
+<div id="CustomNoteSet">
+    <div class="grid items-center justify-center grid-cols-6 gap-2 mt-2">
+    <% for(var i=0; i<12; i++) {%>
+        <%- include('_note-select.ejs', { index: i }) %>
+    <% } %>
+    </div>
+</div>

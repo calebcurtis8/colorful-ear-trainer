@@ -70,7 +70,7 @@ export class Game {
   }
 
   playClick () {
-    if (this.playBtn.state === 'playing') {
+    if (this.playBtn.state === 'playing' || User.getSet().length <= 1) {
       this.pause()
       return
     }
@@ -98,7 +98,7 @@ export class Game {
     // reset attempt count
     this.attempts = 0
     // notes which the user must answer
-    const set = User.get('set', 'array')
+    const set = User.getSet()
     const noteSet = Transposer.transpose({ set })
     random(User.get('note_count', 'number'), noteSet)
       .then(notes => {
