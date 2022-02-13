@@ -1585,6 +1585,11 @@ select {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(96, 165, 250, 0));
 
 }
+.from-blue-600 {
+  --tw-gradient-from: #2563eb;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(37, 99, 235, 0));
+
+}
 .from-blue-300 {
   --tw-gradient-from: #93c5fd;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(147, 197, 253, 0));
@@ -1647,6 +1652,14 @@ select {
 }
 .to-yellow-400 {
   --tw-gradient-to: #fbbf24;
+
+}
+.to-blue-700 {
+  --tw-gradient-to: #1d4ed8;
+
+}
+.to-yellow-600 {
+  --tw-gradient-to: #d97706;
 
 }
 .to-blue-200 {
@@ -1941,9 +1954,8 @@ svg rect[data-note] {
   transition-duration: 200ms;
 
 }
-.peer:checked ~ .peer-checked\:bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
+.peer:checked ~ .peer-checked\:bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
 
 }
 .peer:checked ~ .peer-checked\:font-semibold {

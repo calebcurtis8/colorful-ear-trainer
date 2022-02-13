@@ -2,10 +2,6 @@ import { NOTE_NAMES } from './note_names.js'
 
 const keyCenterElm = document.getElementById('KeyCenter')
 
-document.addEventListener('user:update', function () {
-  document.dispatchEvent(new CustomEvent('transpose'))
-})
-
 // const AllNotes = NOTE_NAMES.all
 const Flats = NOTE_NAMES.flats
 const Sharps = NOTE_NAMES.sharps
@@ -64,11 +60,12 @@ class KeySelector extends HTMLElement {
     this.setSelector = this.querySelectorAll('[data-template]')
 
     document.dispatchEvent(new CustomEvent('transpose'))
+    document.addEventListener('user:update', this.transposeSetSelector.bind(this))
     document.addEventListener('transpose', this.transposeSetSelector.bind(this))
     this.transposeSetSelector()
   }
 
-  transposeSetSelector () {
+  transposeSetSelector (e) {
     const tonalityElm = document.getElementById('Tonality')
     const tonality = tonalityElm.value.split(',')[0]
     const selectedIndex = this.set.selectedIndex
@@ -96,7 +93,7 @@ class KeySelector extends HTMLElement {
 
     if (this.set[selectedIndex]) {
       this.set.value = this.set[selectedIndex].value
-      this.set.dispatchEvent(new CustomEvent('change', { bubbles: true }))
+      this.set.dispatchEvent(new CustomEvent('change', { bubbles: true, detail: 'transpose' }))
     }
   }
 }
