@@ -70,9 +70,8 @@ class PianoPlayer {
   handleMIDIKeyPress (note) {
     const noteInOctave = note % 12
     const noteName = NOTE_NAMES.flats[noteInOctave]
-    // Find the corresponding value in NOTE_NAMES.all for noteInOctave
     let fullNoteName = NOTE_NAMES.all[noteInOctave]
-    // Then, if the value is an array of size 2, join them with a comma so its in the format this.listen seems to expect (e.g., 'C#, Db')
+    // For the black notes in fullNoteName, join them with a comma so its in the format this.listen seems to expect (e.g., 'C#, Db')
     if (Array.isArray(fullNoteName) && fullNoteName.length === 2) {
       fullNoteName = fullNoteName.join(',')
     }
