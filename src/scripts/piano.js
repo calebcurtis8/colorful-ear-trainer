@@ -11,6 +11,7 @@ const synth = PianoSamples.create()
 const piano = document.getElementById('Piano')
 
 const POSSIBLE_KEY_VALUES = NOTE_NAMES.all
+const MIDI_NOTE_ON = 144
 
 piano.fillKey = function (note, color) {
   const key = this.getNote(note)
@@ -41,6 +42,43 @@ class PianoPlayer {
     document.addEventListener('keydown', this.handleListenShifts)
     document.addEventListener('keyup', this.handleListenShifts)
     document.addEventListener('game:stop', this.stop.bind(this))
+    this.initMIDI()
+  }
+
+  initMIDI () {
+    if (navigator.requestMIDIAccess) {
+      navigator.requestMIDIAccess().then(midiAccess => {
+        for (const input of midiAccess.inputs.values()) {
+          input.onmidimessage = this.handleMIDIMessage.bind(this)
+        }
+      }).catch(err => console.error('MIDI access failed', err))
+    } else {
+      console.error('Web MIDI API not supported in this browser.')
+    }
+  }
+
+  handleMIDIMessage (message) {
+    const command = message.data[0]
+    const note = message.data[1]
+    const velocity = message.data.length > 2 ? message.data[2] : 0
+
+    if (command === MIDI_NOTE_ON && velocity > 0) {
+      this.handleMIDIKeyPress(note)
+    }
+  }
+
+  handleMIDIKeyPress (note) {
+    const noteInOctave = note % 12
+    const noteName = NOTE_NAMES.flats[noteInOctave]
+    // Find the corresponding value in NOTE_NAMES.all for noteInOctave
+    let fullNoteName = NOTE_NAMES.all[noteInOctave]
+    // Then, if the value is an array of size 2, join them with a comma so its in the format this.listen seems to expect (e.g., 'C#, Db')
+    if (Array.isArray(fullNoteName) && fullNoteName.length === 2) {
+      fullNoteName = fullNoteName.join(',')
+    }
+    // Note that until the user has clicked on a screen or pressed a key on the keyboard, Tone will not play the note.
+    this.listen(fullNoteName)
+    this.play(noteName)
   }
 
   async play (key) {
