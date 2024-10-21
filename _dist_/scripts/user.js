@@ -141,7 +141,14 @@ class DefineUser extends HTMLElement {
         content = content + append
       }
       elm.innerHTML = content
-
+    })
+    // set input values
+    Object.entries(level).forEach(entry => {
+      if(entry[0] === 'set') {
+        // catch note set updates
+        this.setChange({ target: { value: entry[1] }})
+        return
+      }
       const input = document.querySelector(`[name=${entry[0]}]`)
       if (!input) return
       // window scoped function...

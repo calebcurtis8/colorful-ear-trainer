@@ -93,7 +93,6 @@ class KeySelector extends HTMLElement {
 
     if (this.set[selectedIndex]) {
       this.set.value = this.set[selectedIndex].value
-      this.set.dispatchEvent(new CustomEvent('change', { bubbles: true, detail: 'transpose' }))
     }
   }
 }
